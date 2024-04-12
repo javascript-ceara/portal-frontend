@@ -1,4 +1,3 @@
-import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { Logo } from "@/components/logo";
@@ -6,12 +5,12 @@ import { InstagramIcon } from "@/components/icons/instagram";
 
 export function Header() {
   return (
-    <header className="border-b">
-      <div className="lg:container items-center lg:mx-auto px-8 h-24  flex justify-between">
+    <header className="sticky top-0 z-10 border-b bg-white">
+      <div className="flex h-24 items-center justify-between px-8 lg:container lg:mx-auto">
         <div>
           <h1 className="flex items-center space-x-2">
-            <Logo className="h-12 w-12 text-sky-800" />
-            <span className="font-medium text-lg text-nowrap text-gray-600">
+            <Logo className="h-12 w-12 text-sky-600" />
+            <span className="text-nowrap text-lg font-bold text-gray-600">
               React Ceará
             </span>
           </h1>

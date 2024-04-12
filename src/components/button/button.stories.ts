@@ -11,30 +11,34 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {},
-  args: {},
+  args: {
+    variant: "primary",
+    size: "md",
+    children: "Button",
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-  args: {
-    children: "Button",
-  },
+  args: {},
 };
 
 export const Outlined: Story = {
   args: {
     variant: "outlined",
-    className: "bla",
-    children: "Button",
+  },
+};
+
+export const Medium: Story = {
+  args: {
+    size: "md",
   },
 };
 
 export const Large: Story = {
   args: {
     size: "lg",
-    className: "bla",
-    children: "Button",
   },
 };
