@@ -1,6 +1,5 @@
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import { useTheme } from "next-themes";
-import { MoonIcon } from "@heroicons/react/24/outline";
-import { SunIcon } from "@heroicons/react/24/outline";
 
 export function ThemeToggleButton() {
   const { theme, setTheme } = useTheme();
@@ -13,6 +12,7 @@ export function ThemeToggleButton() {
         }}
       >
         <MoonIcon className="h-6 w-6" />
+        <span className="sr-only">change to light mode</span>
       </button>
     );
   }
@@ -23,6 +23,7 @@ export function ThemeToggleButton() {
       }}
     >
       <SunIcon className="h-7 w-7" />
+      <span className="sr-only">change to dark mode</span>
     </button>
   );
 }
