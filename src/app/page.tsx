@@ -26,9 +26,12 @@ export default function Home() {
             <div className="space-y-8">
               <Typography.TypographyH4>Agenda</Typography.TypographyH4>
               <ul className="divide-y">
-                {Array.from(Array(5).keys()).map(() => {
+                {Array.from(Array(5).keys()).map((e) => {
                   return (
-                    <li className="space-y-3 [&:not(:first-child)]:pt-4 [&:not(:last-child)]:pb-4">
+                    <li
+                      key={e}
+                      className="space-y-3 [&:not(:first-child)]:pt-4 [&:not(:last-child)]:pb-4"
+                    >
                       <p className="flex items-center font-medium">
                         <User2Icon className="h-8 w-8 rounded-full bg-gray-100 p-1" />
                         <span>Cicero Viana</span>
@@ -61,9 +64,12 @@ export default function Home() {
             <Section.Title>Eventos anteriores</Section.Title>
           </Section.Header>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {Array.from(Array(10).keys()).map(() => {
+            {Array.from(Array(10).keys()).map((e) => {
               return (
-                <div className="flex min-h-[400px] items-center justify-center rounded-2xl border border-gray-500 text-lg">
+                <div
+                  key={e}
+                  className="flex min-h-[400px] items-center justify-center rounded-2xl border border-gray-500 text-lg"
+                >
                   Event card
                 </div>
               );
@@ -78,9 +84,12 @@ export default function Home() {
           </Section.Header>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {Array.from(Array(4).keys()).map(() => {
+            {Array.from(Array(4).keys()).map((e) => {
               return (
-                <div className="flex min-h-[200px] items-center justify-center rounded-2xl border border-gray-500 text-lg">
+                <div
+                  key={e}
+                  className="flex min-h-[200px] items-center justify-center rounded-2xl border border-gray-500 text-lg"
+                >
                   Logo here
                 </div>
               );
