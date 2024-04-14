@@ -1,14 +1,15 @@
 import { Slot } from "@radix-ui/react-slot";
-import { twMerge } from "tailwind-merge";
 import { cva, type VariantProps } from "class-variance-authority";
+import { twMerge } from "tailwind-merge";
 
 const buttonVariants = cva(
   "inline-flex items-center border border-transparent justify-center whitespace-nowrap rounded-md  font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        primary: "bg-sky-600 text-white hover:bg-sky-700",
-        outlined: "border-sky-600 text-sky-600 font-bold hover:bg-sky-50",
+        primary: "bg-primary text-primary-foreground hover:bg-primary-hover",
+        outlined:
+          "border-primary text-primary font-bold hover:bg-sky-50 dark:text-foreground dark:hover:text-primary",
       },
       size: {
         md: "h-11 px-5 py-6",
