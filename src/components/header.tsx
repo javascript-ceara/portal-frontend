@@ -1,7 +1,8 @@
-import Link from "next/link";
-import { Menu } from "lucide-react";
-import { Logo } from "@/components/logo";
 import { InstagramIcon } from "@/components/icons/instagram";
+import { Logo } from "@/components/logo";
+import { Menu } from "lucide-react";
+import Link from "next/link";
+import { Sidebar } from "./sidebar";
 
 export function Header() {
   return (
@@ -36,9 +37,11 @@ export function Header() {
             </li>
           </ul>
         </nav>
-        <button className="lg:hidden">
-          <Menu className="h-6 w-6" />
-        </button>
+        <Sidebar>
+          <button type="button" className="lg:hidden">
+            <Menu className="h-6 w-6" />
+          </button>
+        </Sidebar>
       </div>
     </header>
   );
