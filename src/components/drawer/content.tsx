@@ -1,15 +1,15 @@
 "use client";
 
-import { twMerge } from "tailwind-merge";
-import { useContext } from "react";
-import { Drawer } from "vaul";
 import { cva } from "class-variance-authority";
+import { useContext } from "react";
+import { twMerge } from "tailwind-merge";
+import { Drawer } from "vaul";
 import { DrawerContext, DrawerContextType } from "./root";
 
 type DrawerContentProps = React.ComponentProps<typeof Drawer.Content>;
 
 const contentVariants = cva(
-  "fixed z-50 flex h-auto w-full flex-col border bg-white",
+  "fixed z-50 flex h-auto w-full flex-col border text-foreground bg-background border-primary",
   {
     variants: {
       direction: {
@@ -33,11 +33,11 @@ export function Content({ className, children, ...props }: DrawerContentProps) {
       {...props}
     >
       {direction === "bottom" && (
-        <div className="mx-auto mt-4 h-2 w-[50px] rounded-full bg-zinc-200" />
+        <div className="mx-auto mt-4 h-2 w-[50px] rounded-full" />
       )}
       {children}
       {direction === "top" && (
-        <div className="m-4 mx-auto h-2 w-[50px] rounded-full bg-zinc-200" />
+        <div className="m-4 mx-auto h-2 w-[50px] rounded-full" />
       )}
     </Drawer.Content>
   );

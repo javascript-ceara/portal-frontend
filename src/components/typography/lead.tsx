@@ -6,6 +6,13 @@ type Props = {
 
 export function TypographyLead({ children, className }: Props) {
   return (
-    <p className={twMerge("text-xl text-gray-500", className)}>{children}</p>
+    <p
+      className={twMerge(
+        "dark:text-foreground text-content-foreground text-xl",
+        className,
+      )}
+    >
+      {children}
+    </p>
   );
 }
