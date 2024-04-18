@@ -10,12 +10,14 @@ import { ThemeToggleButton } from "./theme-toggle-button";
 export function Header() {
   const { setOpen } = useSidebar();
   return (
-    <header className="bg-background border-primary sticky top-0 z-10 border-b">
+    <header className="bg-background border-background-darker dark:border-background-lighter sticky top-0 z-10 border-b">
       <div className="flex h-24 w-full items-center justify-between px-8 lg:container lg:mx-auto">
         <div>
           <h1 className="flex items-center space-x-2">
             <Logo className="text-primary h-12 w-12" />
-            <span className="text-nowrap text-lg font-bold">React Ceará</span>
+            <span className="text-nowrap text-lg font-semibold">
+              React Ceará
+            </span>
           </h1>
         </div>
 
@@ -23,18 +25,24 @@ export function Header() {
           <nav className="hidden lg:flex">
             <ul className="flex items-center space-x-4">
               <li>
-                <Link href="/events" className="font-medium">
+                <Link
+                  href="/events"
+                  className="hover:text-primary font-semibold"
+                >
                   Eventos
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="font-medium">
+                <Link
+                  href="/about"
+                  className="hover:text-primary font-semibold"
+                >
                   Sobre
                 </Link>
               </li>
 
               <li>
-                <Link href="/" className="font-medium">
+                <Link href="/" className="hover:text-primary font-semibold">
                   <InstagramIcon className="h-6 w-6" />
                 </Link>
               </li>

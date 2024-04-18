@@ -4,22 +4,23 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 215 28% 17%;
+    --background: 195 0% 98%;
+    --background-darker: 195 0% 85%;
+    --background-hover: 195 0% 95%;
 
-    --content: 0 0% 100%;
-    --content-foreground: 215 14% 34%;
+    --foreground: 195 0% 10%;
 
-    --primary: 201 96% 32%;
-    --primary-hover: 200 98% 39%;
+    --primary: 195 82% 44%;
     --primary-foreground: 0 0% 98%;
+    --primary-hover: 195 82% 54%;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 0 0% 98%;
+    --background: 195 82% 4%;
+    --background-darker: 195 82% 3%;
+    --background-lighter: 195 82% 10%;
+    --background-hover: 195 82% 7%;
 
-    --content: 221 39% 11%;
-    --content-foreground: 0 0% 100%;
+    --foreground: 195 0% 98%;
   }
 }

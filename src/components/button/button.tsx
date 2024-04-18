@@ -3,13 +3,13 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { twMerge } from "tailwind-merge";
 
 const buttonVariants = cva(
-  "inline-flex items-center border border-transparent justify-center whitespace-nowrap rounded-md  font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center border border-transparent justify-center whitespace-nowrap rounded-md text-lg font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        primary: "bg-primary text-primary-foreground hover:bg-primary-hover",
+        primary: "bg-primary text-white hover:bg-primary-hover",
         outlined:
-          "border-primary text-primary font-bold hover:bg-sky-50 dark:text-foreground dark:hover:text-primary",
+          "text-secondary border-background-darker hover:bg-background-hover dark:border-background-lighter dark:hover:bg-background-hover",
       },
       size: {
         md: "h-11 px-5 py-6",

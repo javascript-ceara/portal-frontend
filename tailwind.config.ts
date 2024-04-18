@@ -6,16 +6,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "hsl(var(--background))",
-        content: {
-          DEFAULT: "hsl(var(--content))",
-          foreground: "hsl(var(--content-foreground))",
+        background: {
+          DEFAULT: "hsl(var(--background))",
+          darker: "hsl(var(--background-darker))",
+          lighter: "hsl(var(--background-lighter))",
+          hover: "hsl(var(--background-hover))",
         },
-        foreground: "hsl(var(--foreground))",
+        foreground: {
+          DEFAULT: "hsl(var(--foreground))",
+          light: "hsl(var(--foreground-light))",
+        },
+
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
           hover: "hsl(var(--primary-hover))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+          hover: "hsl(var(--secondary-hover))",
         },
       },
     },

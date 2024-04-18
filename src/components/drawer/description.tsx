@@ -8,10 +8,7 @@ export type DrawerDescriptionProps = React.ComponentProps<
 export function Description({ className, ...rest }: DrawerDescriptionProps) {
   return (
     <Drawer.Description
-      className={twMerge(
-        "text-content-foreground text-lg leading-none tracking-tight",
-        className,
-      )}
+      className={twMerge("text-lg leading-none tracking-tight", className)}
       {...rest}
     />
   );

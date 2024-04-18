@@ -9,7 +9,7 @@ import { DrawerContext, DrawerContextType } from "./root";
 type DrawerContentProps = React.ComponentProps<typeof Drawer.Content>;
 
 const contentVariants = cva(
-  "fixed z-50 flex h-auto w-full flex-col border text-foreground bg-background border-primary",
+  "fixed z-50 flex h-auto bg-background w-full flex-col border border-background-lighter text-foreground",
   {
     variants: {
       direction: {
