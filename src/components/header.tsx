@@ -2,19 +2,18 @@
 
 import { InstagramIcon } from "@/components/icons/instagram";
 import { Logo } from "@/components/logo";
-import { useSidebar } from "@/contexts/sidebar";
+import * as Drawer from "@/components/drawer";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggleButton } from "./theme-toggle-button";
 
 export function Header() {
-  const { setOpen } = useSidebar();
   return (
-    <header className="bg-background border-background-darker dark:border-background-lighter sticky top-0 z-10 border-b">
+    <header className="sticky top-0  border-b border-background-darker bg-background dark:border-background-lighter">
       <div className="flex h-24 w-full items-center justify-between px-8 lg:container lg:mx-auto">
         <div>
           <h1 className="flex items-center space-x-2">
-            <Logo className="text-primary h-12 w-12" />
+            <Logo className="h-12 w-12 text-primary" />
             <span className="text-nowrap text-lg font-semibold">
               React Ceará
             </span>
@@ -27,7 +26,7 @@ export function Header() {
               <li>
                 <Link
                   href="/events"
-                  className="hover:text-primary font-semibold"
+                  className="font-semibold hover:text-primary"
                 >
                   Eventos
                 </Link>
@@ -35,28 +34,36 @@ export function Header() {
               <li>
                 <Link
                   href="/about"
-                  className="hover:text-primary font-semibold"
+                  className="font-semibold hover:text-primary"
                 >
                   Sobre
                 </Link>
               </li>
 
               <li>
-                <Link href="/" className="hover:text-primary font-semibold">
+                <Link href="/" className="font-semibold hover:text-primary">
                   <InstagramIcon className="h-6 w-6" />
                 </Link>
               </li>
             </ul>
           </nav>
           <ThemeToggleButton />
-          <button
-            onClick={() => setOpen(true)}
-            type="button"
-            className="lg:hidden"
-          >
-            <Menu className="h-6 w-6" />
-            <span className="sr-only">menu mobile</span>
-          </button>
+          <Drawer.Root direction="right">
+            <Drawer.Trigger type="button" className="lg:hidden">
+              <Menu className="h-6 w-6" />
+              <span className="sr-only">menu mobile</span>
+            </Drawer.Trigger>
+            <Drawer.Overlay />
+            <Drawer.Portal>
+              <Drawer.Content className="w-72">
+                <Drawer.Header>
+                  <Drawer.Title>Title</Drawer.Title>
+                  <Drawer.Description>Description</Drawer.Description>
+                </Drawer.Header>
+                <Drawer.Body className="h-[400px]">dsds</Drawer.Body>
+              </Drawer.Content>
+            </Drawer.Portal>
+          </Drawer.Root>
         </div>
       </div>
     </header>

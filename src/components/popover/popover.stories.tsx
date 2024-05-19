@@ -30,7 +30,7 @@ const meta = {
       </Popover.Root>
     );
   },
-} satisfies Meta<Popover.PopoverProps>;
+} satisfies Meta<Popover.PopoverRootProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

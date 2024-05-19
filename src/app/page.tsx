@@ -1,14 +1,18 @@
+"use client";
+
+import { User2Icon } from "lucide-react";
 import { Button } from "@/components/button";
 import { Hero } from "@/components/hero";
 import * as Section from "@/components/section";
 import * as Typography from "@/components/typography";
-import { User2Icon } from "lucide-react";
+import * as Avatar from "@/components/avatar";
+import * as Popover from "@/components/popover";
 
 export default function Home() {
   return (
     <main>
       <Hero />
-      <Section.Root className="border-background-darker dark:border-background-lighter border-b pb-12">
+      <Section.Root className="border-b border-background-darker pb-12 dark:border-background-lighter">
         <Section.Container>
           <Section.Header>
             <Section.Title>Próximo evento</Section.Title>
@@ -25,17 +29,41 @@ export default function Home() {
             </div>
             <div className="space-y-8">
               <Typography.TypographyH4>Agenda</Typography.TypographyH4>
-              <ul className="divide-background-darker dark:divide-background-lighter divide-y">
+              <ul className="divide-y divide-background-darker dark:divide-background-lighter">
                 {Array.from(Array(5).keys()).map((e) => {
                   return (
                     <li
                       key={e}
                       className="space-y-3 [&:not(:first-child)]:pt-4 [&:not(:last-child)]:pb-4"
                     >
-                      <p className="flex items-center space-x-2 font-medium">
-                        <User2Icon className="h-8 w-8 rounded-full p-1" />
-                        <span>Cicero Viana</span>
-                      </p>
+                      <Popover.Root>
+                        <p className="flex items-center space-x-2 font-medium">
+                          <Popover.Trigger>
+                            <Avatar.Root className="flex h-8 w-8">
+                              <Avatar.Image src="https://avatars.githubusercontent.com/u/124599?v=4" />
+                              <Avatar.Fallback>
+                                <User2Icon className="h-8 w-8 rounded-full p-1 dark:text-foreground" />
+                              </Avatar.Fallback>
+                            </Avatar.Root>
+                          </Popover.Trigger>
+                          <span>Cicero Viana</span>
+                        </p>
+                        <Popover.Content className="flex flex-col items-center">
+                          <Avatar.Root className="mb-4 flex h-24 w-24">
+                            <Avatar.Image src="https://avatars.githubusercontent.com/u/124599?v=4" />
+                            <Avatar.Fallback>
+                              <User2Icon className="h-8 w-8 rounded-full p-1 dark:text-foreground" />
+                            </Avatar.Fallback>
+                          </Avatar.Root>
+                          <Typography.TypographyH4>
+                            Cicero Viana
+                          </Typography.TypographyH4>
+                          <Typography.TypographySmall>
+                            Front-end developer
+                          </Typography.TypographySmall>
+                        </Popover.Content>
+                      </Popover.Root>
+
                       <Typography.TypographyH3>
                         Aplicando para vagas Internacionais
                       </Typography.TypographyH3>
@@ -68,7 +96,7 @@ export default function Home() {
               return (
                 <div
                   key={e}
-                  className="border-background-darker dark:border-background-lighter flex min-h-[400px] items-center justify-center rounded-2xl border text-lg"
+                  className="flex min-h-[400px] items-center justify-center rounded-2xl border border-background-darker text-lg dark:border-background-lighter"
                 >
                   Event card
                 </div>
@@ -88,7 +116,7 @@ export default function Home() {
               return (
                 <div
                   key={e}
-                  className="border-background-darker dark:border-background-lighter flex min-h-[200px] items-center justify-center rounded-2xl border text-lg"
+                  className="flex min-h-[200px] items-center justify-center rounded-2xl border border-background-darker text-lg dark:border-background-lighter"
                 >
                   Logo here
                 </div>

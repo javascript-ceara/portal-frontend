@@ -4,9 +4,7 @@ import { twMerge } from "tailwind-merge";
 
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { Sidebar } from "@/components/sidebar";
 import { ThemeProvider } from "next-themes";
-import { SidebarProvider } from "@/contexts/sidebar";
 
 import "./globals.css";
 
@@ -23,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt">
+    <html lang="pt" suppressHydrationWarning>
       <body
         className={twMerge(
           inter.className,
@@ -31,12 +29,9 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SidebarProvider>
-            <Sidebar />
-            <Header />
-            {children}
-            <Footer />
-          </SidebarProvider>
+          <Header />
+          {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

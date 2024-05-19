@@ -5,7 +5,7 @@ import { WhatsAppIcon } from "@/components/icons/whatsapp";
 
 export function Hero() {
   return (
-    <section className="group relative h-[250px] sm:h-[350px] md:h-[450px] lg:h-[450px] xl:h-[550px]">
+    <section className="group relative -z-10 h-[250px] sm:h-[350px] md:h-[450px] lg:h-[450px] xl:h-[550px]">
       <div className="relative h-full w-full overflow-hidden">
         <Image
           fill

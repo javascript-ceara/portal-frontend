@@ -1,14 +1,22 @@
-import { twMerge } from "tailwind-merge";
+"use client";
 
+import { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 import { MoonIcon, SunIcon, Monitor } from "lucide-react";
 import * as Popover from "@/components/popover";
 import { useTheme } from "next-themes";
 
 export function ThemeToggleButton() {
+  const [isClient, setIsClient] = useState(false);
   const { theme, resolvedTheme, setTheme } = useTheme();
 
-  console.log(resolvedTheme);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
+  if (!isClient) {
+    return null;
+  }
   return (
     <Popover.Root>
       <Popover.Trigger className="text-sky-700 dark:text-sky-400">
@@ -22,7 +30,7 @@ export function ThemeToggleButton() {
             <button
               onClick={() => setTheme("light")}
               className={twMerge(
-                "text-foreground hover:bg-background-hover flex flex-1 items-center px-4 py-1 font-medium",
+                "flex flex-1 items-center px-4 py-1 font-medium text-foreground hover:bg-background-hover",
                 theme === "light" && "text-primary",
               )}
             >
@@ -34,7 +42,7 @@ export function ThemeToggleButton() {
             <button
               onClick={() => setTheme("dark")}
               className={twMerge(
-                "text-foreground hover:bg-background-hover flex flex-1 items-center px-4 py-1 font-medium",
+                "flex flex-1 items-center px-4 py-1 font-medium text-foreground hover:bg-background-hover",
                 theme === "dark" && "text-primary",
               )}
             >
@@ -46,7 +54,7 @@ export function ThemeToggleButton() {
             <button
               onClick={() => setTheme("system")}
               className={twMerge(
-                "text-foreground hover:bg-background-hover flex flex-1 items-center px-4 py-1 font-medium",
+                "flex flex-1 items-center px-4 py-1 font-medium text-foreground hover:bg-background-hover",
                 theme === "system" && "text-primary",
               )}
             >
