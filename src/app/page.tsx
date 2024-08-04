@@ -7,6 +7,7 @@ import * as Section from "@/components/section";
 import * as Typography from "@/components/typography";
 import * as Avatar from "@/components/avatar";
 import * as Popover from "@/components/popover";
+import EventCard from "@/components/event-card";
 
 export default function Home() {
   return (
@@ -94,12 +95,13 @@ export default function Home() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {Array.from(Array(10).keys()).map((e) => {
               return (
-                <div
+                <EventCard 
                   key={e}
-                  className="flex min-h-[400px] items-center justify-center rounded-2xl border border-background-darker text-lg dark:border-background-lighter"
-                >
-                  Event card
-                </div>
+                  title="Décimo meetup React Ceará"
+                  date="2024-09-20"
+                  locale="Digital College (Aldeota)"
+                  description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ipsa illum temporibus libero culpa ipsam. Recusandae ab incidunt odio! Sunt cupiditate corrupti magnam accusantium ratione!"
+                />
               );
             })}
           </div>
