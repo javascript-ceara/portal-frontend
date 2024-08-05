@@ -1,13 +1,13 @@
 "use client";
 
-import { User2Icon } from "lucide-react";
+import { CalendarIcon, MapPinIcon, User2Icon } from "lucide-react";
 import { Button } from "@/components/button";
 import { Hero } from "@/components/hero";
 import * as Section from "@/components/section";
 import * as Typography from "@/components/typography";
 import * as Avatar from "@/components/avatar";
 import * as Popover from "@/components/popover";
-import EventCard from "@/components/event-card";
+import * as EventCard from "@/components/event-card";
 
 export default function Home() {
   return (
@@ -95,13 +95,18 @@ export default function Home() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {Array.from(Array(10).keys()).map((e) => {
               return (
-                <EventCard 
-                  key={e}
-                  title="Décimo meetup React Ceará"
-                  date="2024-09-20"
-                  locale="Digital College (Aldeota)"
-                  description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ipsa illum temporibus libero culpa ipsam. Recusandae ab incidunt odio! Sunt cupiditate corrupti magnam accusantium ratione!"
-                />
+                <EventCard.Root key={e}>
+                  <EventCard.Title>Décimo meetup React Ceará</EventCard.Title>
+                  <div className="space-y-4">
+                    <EventCard.EventCardDate icon={<CalendarIcon />} date="2024-09-20"/>
+                    <EventCard.EventCardPlace icon={<MapPinIcon />}>
+                      Digital College (Aldeota)
+                    </EventCard.EventCardPlace>
+                  </div>
+                  <EventCard.Description>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ipsa illum temporibus libero culpa ipsam. Recusandae ab incidunt odio! Sunt cupiditate corrupti magnam accusantium ratione!
+                  </EventCard.Description>
+                </EventCard.Root>
               );
             })}
           </div>
