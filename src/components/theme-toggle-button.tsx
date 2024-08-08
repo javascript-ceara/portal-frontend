@@ -19,7 +19,7 @@ export function ThemeToggleButton() {
   }
   return (
     <Popover.Root>
-      <Popover.Trigger className="text-sky-700 dark:text-sky-400">
+      <Popover.Trigger className="text-primary">
         {resolvedTheme === "light" && <SunIcon className="h-6 w-6" />}
         {resolvedTheme === "dark" && <MoonIcon className="h-6 w-6" />}
         {resolvedTheme === "system" && <Monitor className="h-6 w-6" />}
@@ -54,7 +54,7 @@ export function ThemeToggleButton() {
             <button
               onClick={() => setTheme("system")}
               className={twMerge(
-                "flex flex-1 items-center px-4 py-1 font-medium text-foreground hover:bg-background-hover",
+                "flex flex-1 items-center px-4 py-1 font-medium text-foreground hover:bg-background-hover ",
                 theme === "system" && "text-primary",
               )}
             >

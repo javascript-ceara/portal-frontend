@@ -16,7 +16,12 @@ const config: Config = {
           DEFAULT: "hsl(var(--foreground))",
           light: "hsl(var(--foreground-light))",
         },
-
+        border: {
+          DEFAULT: "hsl(var(--border))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

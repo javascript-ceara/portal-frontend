@@ -5,7 +5,7 @@ import { Logo } from "@/components/logo";
 
 export function Footer() {
   return (
-    <footer className="bg-foreground text-background dark:border-t-background-lighter dark:text-foreground dark:bg-background-darker mt-8 dark:border-t">
+    <footer className="border-border mt-8 bg-foreground text-background dark:border-t dark:bg-background-darker dark:text-foreground">
       <div className="space-y-4 px-8 py-12 lg:container lg:mx-auto">
         <div className="flex justify-between">
           <h6 className="flex items-center space-x-1 font-bold">

@@ -17,7 +17,7 @@ export function Content({ className, ...rest }: PopoverContentProps) {
     <Portal>
       <PopoverContent
         className={twMerge(
-          "mt-4 rounded-md border border-background-darker bg-background p-4 shadow-md outline-none dark:border-background-lighter",
+          "border-border mt-4 rounded-md border bg-background p-4 shadow-md outline-none",
           className,
         )}
         {...rest}
