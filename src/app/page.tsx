@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <Section.Root className="border-b border-background-darker pb-12 dark:border-background-lighter">
+      <Section.Root className="border-border border-b pb-12">
         <Section.Container>
           <Section.Header>
             <Section.Title>Próximo evento</Section.Title>
@@ -30,7 +30,7 @@ export default function Home() {
             </div>
             <div className="space-y-8">
               <Typography.TypographyH4>Agenda</Typography.TypographyH4>
-              <ul className="divide-y divide-background-darker dark:divide-background-lighter">
+              <ul className="divide-border divide-y">
                 {Array.from(Array(5).keys()).map((e) => {
                   return (
                     <li
@@ -98,13 +98,14 @@ export default function Home() {
                 <EventCard.Root key={e}>
                   <EventCard.Title>Décimo meetup React Ceará</EventCard.Title>
                   <div className="space-y-4">
-                    <EventCard.EventCardDate icon={<CalendarIcon />} date="2024-09-20"/>
-                    <EventCard.EventCardPlace icon={<MapPinIcon />}>
-                      Digital College (Aldeota)
-                    </EventCard.EventCardPlace>
+                    <EventCard.StartDate date="2024-09-20" />
+                    <EventCard.Place>Digital College (Aldeota)</EventCard.Place>
                   </div>
                   <EventCard.Description>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt ipsa illum temporibus libero culpa ipsam. Recusandae ab incidunt odio! Sunt cupiditate corrupti magnam accusantium ratione!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Incidunt ipsa illum temporibus libero culpa ipsam.
+                    Recusandae ab incidunt odio! Sunt cupiditate corrupti magnam
+                    accusantium ratione!
                   </EventCard.Description>
                 </EventCard.Root>
               );
@@ -123,7 +124,7 @@ export default function Home() {
               return (
                 <div
                   key={e}
-                  className="flex min-h-[200px] items-center justify-center rounded-2xl border border-background-darker text-lg dark:border-background-lighter"
+                  className="border-border flex min-h-[200px] items-center justify-center rounded-2xl border text-lg"
                 >
                   Logo here
                 </div>

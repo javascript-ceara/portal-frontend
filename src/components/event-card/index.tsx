@@ -1,75 +1,53 @@
-import React from "react";
+import { twMerge } from "tailwind-merge";
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { CalendarIcon, MapPinIcon } from "lucide-react";
+import { TypographyH3 } from "@/components/typography";
 
-type EventCardRootProps = {
-  children: React.ReactNode;
-  className?: string;
-};
+export const Title = TypographyH3;
 
-export function Root({ children, className }: EventCardRootProps) {
+export function Root({
+  children,
+  className,
+}: React.PropsWithChildren<{ className?: string }>) {
   return (
     <div
-      className={`flex flex-col p-10 space-y-4 min-h-[400px] items-center justify-center rounded-2xl border border-background-darker text-lg dark:border-background-lighter ${className}`}
+      className={twMerge(
+        "border-border min-h-[400px]  space-y-4 rounded-3xl border p-8 text-lg",
+        className,
+      )}
     >
       {children}
-    </div>
-  )
-}
-
-type EventCardTitleProps = {
-  children: React.ReactNode;
-};
-
-export function Title({ children }: EventCardTitleProps) {
-  return (
-    <h4
-      className="text-2xl font-bold"
-    >
-      {children}
-    </h4>
-  )
-}
-
-type EventCardDateProps = {
-  icon: React.ReactNode;
-  date: string;
-};
-
-export function EventCardDate({ icon, date }: EventCardDateProps) {
-
-  const parsedDate = parseISO(date)
-
-  const formattedDate = format(parsedDate, "EEEE, d 'de' MMMM yyyy", { locale: ptBR });
-
-  return (
-    <div className="flex items-center space-x-4">
-      <div className="p-2 rounded-md bg-gray-200 dark:bg-gray-700">{icon}</div>
-      <p>{formattedDate}</p>
     </div>
   );
 }
 
-type EventCardPlaceProps = {
-  icon: React.ReactNode;
-  children: React.ReactNode;
-};
-
-export function EventCardPlace({ icon, children }: EventCardPlaceProps) {
+export function StartDate({ date }: { date: string }) {
   return (
     <div className="flex items-center space-x-4">
-      <div className="p-2 rounded-md bg-gray-200 dark:bg-gray-700">{icon}</div>
-      <p>{children}</p>
+      <div className="rounded-md bg-background-lighter p-3">
+        <CalendarIcon className="h-6 w-6 " />
+      </div>
+      <p className="text-base">
+        {format(parseISO(date), "EEEE, d 'de' MMMM yyyy", {
+          locale: ptBR,
+        })}
+      </p>
     </div>
   );
 }
 
-type EventCardDescriptionProps = {
-  children: React.ReactNode;
-};
-
-export function Description({ children }: EventCardDescriptionProps) {
+export function Place({ children }: React.PropsWithChildren) {
   return (
-    <p>{children}</p>
-  )
+    <div className="flex items-center space-x-4">
+      <div className="rounded-md bg-background-lighter p-3">
+        <MapPinIcon className="h-6 w-6" />
+      </div>
+      <p className="text-base">{children}</p>
+    </div>
+  );
+}
+
+export function Description({ children }: React.PropsWithChildren) {
+  return <p className=" text-base">{children}</p>;
 }

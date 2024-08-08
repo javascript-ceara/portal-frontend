@@ -9,7 +9,7 @@ import { ThemeToggleButton } from "./theme-toggle-button";
 
 export function Header() {
   return (
-    <header className="sticky top-0  border-b border-background-darker bg-background dark:border-background-lighter">
+    <header className="border-border sticky top-0 border-b bg-background">
       <div className="flex h-24 w-full items-center justify-between px-8 lg:container lg:mx-auto">
         <div>
           <h1 className="flex items-center space-x-2">
