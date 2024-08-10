@@ -5,8 +5,7 @@
 @layer base {
   :root {
     --background: 195 0% 98%;
-    --background-lighter: 195 0% 95%;
-    --background-darker: 195 0% 90%;
+    --background-darker: 195 0% 95%;
     --background-hover: 195 0% 95%;
 
     --foreground: 195 0% 10%;
@@ -20,8 +19,8 @@
 
   .dark {
     --background: 195 82% 4%;
-    --background-darker: 195 82% 3%;
-    --background-lighter: 195 82% 10%;
+    --background-lighter: 195 82% 15%;
+    --background-darker: 195 82% 0%;
     --background-hover: 195 82% 10%;
 
     --foreground: 195 0% 98%;

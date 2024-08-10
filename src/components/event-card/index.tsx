@@ -13,7 +13,7 @@ export function Root({
   return (
     <div
       className={twMerge(
-        "border-border min-h-[400px]  space-y-4 rounded-3xl border p-8 text-lg",
+        "min-h-[400px] space-y-4  rounded-3xl border border-border p-8 text-lg",
         className,
       )}
     >
@@ -25,7 +25,7 @@ export function Root({
 export function StartDate({ date }: { date: string }) {
   return (
     <div className="flex items-center space-x-4">
-      <div className="rounded-md bg-background-lighter p-3">
+      <div className="rounded-md bg-background-darker p-3 dark:bg-background-lighter">
         <CalendarIcon className="h-6 w-6 " />
       </div>
       <p className="text-base">
@@ -40,7 +40,7 @@ export function StartDate({ date }: { date: string }) {
 export function Place({ children }: React.PropsWithChildren) {
   return (
     <div className="flex items-center space-x-4">
-      <div className="rounded-md bg-background-lighter p-3">
+      <div className="rounded-md bg-background-darker p-3 dark:bg-background-lighter">
         <MapPinIcon className="h-6 w-6" />
       </div>
       <p className="text-base">{children}</p>

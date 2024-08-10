@@ -1,6 +1,6 @@
 "use client";
 
-import { CalendarIcon, MapPinIcon, User2Icon } from "lucide-react";
+import { User2Icon } from "lucide-react";
 import { Button } from "@/components/button";
 import { Hero } from "@/components/hero";
 import * as Section from "@/components/section";
@@ -8,12 +8,12 @@ import * as Typography from "@/components/typography";
 import * as Avatar from "@/components/avatar";
 import * as Popover from "@/components/popover";
 import * as EventCard from "@/components/event-card";
-
+import * as Dialog from "@/components/dialog";
 export default function Home() {
   return (
     <main>
       <Hero />
-      <Section.Root className="border-border border-b pb-12">
+      <Section.Root className="border-b border-border pb-12">
         <Section.Container>
           <Section.Header>
             <Section.Title>Próximo evento</Section.Title>
@@ -30,7 +30,7 @@ export default function Home() {
             </div>
             <div className="space-y-8">
               <Typography.TypographyH4>Agenda</Typography.TypographyH4>
-              <ul className="divide-border divide-y">
+              <ul className="divide-y divide-border">
                 {Array.from(Array(5).keys()).map((e) => {
                   return (
                     <li
@@ -124,7 +124,7 @@ export default function Home() {
               return (
                 <div
                   key={e}
-                  className="border-border flex min-h-[200px] items-center justify-center rounded-2xl border text-lg"
+                  className="flex min-h-[200px] items-center justify-center rounded-2xl border border-border text-lg"
                 >
                   Logo here
                 </div>

@@ -56,7 +56,7 @@ export function Header({ className, children }: DrawerHeaderProps) {
 type DrawerContentProps = React.ComponentProps<typeof VaulDrawer.Content>;
 
 const contentVariants = cva(
-  "fixed z-50 flex h-auto bg-background w-full flex-col border border-background-lighter text-foreground",
+  "fixed z-50 flex h-auto bg-background w-full flex-col border border border-border text-foreground",
   {
     variants: {
       direction: {
