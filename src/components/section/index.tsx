@@ -3,21 +3,24 @@ import { LinkProps } from "next/link";
 import { TypographyH3 } from "@/components/typography";
 import { TypographyLead } from "@/components/typography";
 
-type SectionRootProps = {
-  children: React.ReactNode;
-  className?: string;
-};
+export const Title = TypographyH3;
+export const Subtitle = TypographyLead;
 
-export function Root({ children, className }: SectionRootProps) {
+export function Root({
+  children,
+  className,
+}: React.PropsWithChildren<{
+  className?: string;
+}>) {
   return <section className={className}>{children}</section>;
 }
 
-type SectionContainerProps = {
-  children?: React.ReactNode;
+export function Container({
+  children,
+  className,
+}: React.PropsWithChildren<{
   className?: string;
-};
-
-export function Container({ children, className }: SectionContainerProps) {
+}>) {
   return (
     <div className={twMerge("px-8 lg:container lg:mx-auto", className)}>
       {children}
@@ -25,49 +28,24 @@ export function Container({ children, className }: SectionContainerProps) {
   );
 }
 
-type SectionHeaderProps = {
-  children?: React.ReactNode;
-};
-
-export function Header({ children }: SectionHeaderProps) {
+export function Header({ children }: React.PropsWithChildren) {
   return <div className="space-y-1 py-12">{children}</div>;
 }
 
-type SectionFooterProps = {
-  children?: React.ReactNode;
-};
-
-export function Footer({ children }: SectionFooterProps) {
+export function Footer({ children }: React.PropsWithChildren) {
   return <div className="mt-12">{children}</div>;
 }
-
-type SectionTitleProps = {
-  children: React.ReactNode;
-  className?: string;
-};
-
-export function Title(props: SectionTitleProps) {
-  return <TypographyH3 {...props} />;
-}
-
-type SectionSubtitleProps = {
-  children: React.ReactNode;
-};
-
-export function Subtitle({ children }: SectionSubtitleProps) {
-  return <TypographyLead>{children}</TypographyLead>;
-}
-
-type SectionButtonProps = Partial<LinkProps> & {
-  children: React.ReactNode;
-  component?: React.ElementType | React.FC<LinkProps>;
-};
 
 export function Button({
   component: Component = "button",
   children,
   ...rest
-}: SectionButtonProps) {
+}: React.PropsWithChildren<
+  Partial<LinkProps> & {
+    children: React.ReactNode;
+    component?: React.ElementType | React.FC<LinkProps>;
+  }
+>) {
   return (
     <Component
       {...rest}

@@ -1,9 +1,8 @@
 import { twMerge } from "tailwind-merge";
 
-type Props = {
-  children: React.ReactNode;
+type Props = React.PropsWithChildren<{
   className?: string;
-};
+}>;
 
 export function TypographyH1({ children, className }: Props) {
   return (
