@@ -1,9 +1,8 @@
-import { Footer } from "@/components/footer";
-import { Header } from "@/components/header";
+import * as View from "@/components/view";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "React Ceará - Login",
+  title: "React Ceará - Meu perfil",
 };
 
 export default function Layout({
@@ -13,9 +12,9 @@ export default function Layout({
 }>) {
   return (
     <>
-      <Header />
+      <View.Header />
       <main className="min-h-screen">{children}</main>
-      <Footer />
+      <View.Footer />
     </>
   );
 }

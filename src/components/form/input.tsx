@@ -1,16 +1,22 @@
-import { LegacyRef, MutableRefObject, forwardRef } from "react";
+import { LegacyRef, forwardRef } from "react";
+import { twMerge } from "tailwind-merge";
 
-type Props = React.InputHTMLAttributes<HTMLInputElement>;
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+  className?: string;
+};
 
 export const Input = forwardRef(function Input(
-  props: Props,
+  { className, ...props }: Props,
   ref: LegacyRef<HTMLInputElement> | null,
 ) {
   return (
     <input
       ref={ref}
       {...props}
-      className="h-14 w-full rounded-md border border-border bg-transparent px-4"
+      className={twMerge(
+        "h-14 w-full rounded-md border border-border bg-transparent px-4",
+        className,
+      )}
     />
   );
 });
