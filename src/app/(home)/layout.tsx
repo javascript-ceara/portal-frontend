@@ -1,5 +1,4 @@
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import * as View from "@/components/view";
 
 export default function Layout({
   children,
@@ -7,10 +6,10 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <Header />
-      <main className="">{children}</main>
-      <Footer />
-    </>
+    <View.Root>
+      <View.Header />
+      <View.Body>{children}</View.Body>
+      <View.Footer />
+    </View.Root>
   );
 }

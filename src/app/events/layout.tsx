@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import * as View from "@/components/view";
 
 export const metadata: Metadata = {
-  title: "React Ceará - Login",
+  title: "React Ceará - Eventos",
 };
 
 export default function Layout({

@@ -78,10 +78,7 @@ export function Submit() {
   const formState = useFormState();
   return (
     <Button asChild>
-      <button
-        type="submit"
-        disabled={formState.isSubmitting || !formState.isValid}
-      >
+      <button type="submit" disabled={formState.isSubmitting}>
         {formState.isSubmitting && (
           <Loader className="ml-2 h-5 w-5 animate-spin" />
         )}
