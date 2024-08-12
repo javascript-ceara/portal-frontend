@@ -6,6 +6,7 @@ import * as Drawer from "@/components/drawer";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 import { ThemeToggleButton } from "./theme-toggle-button";
+import { UserInformation } from "./user-information";
 
 export function Header() {
   return (
@@ -48,6 +49,7 @@ export function Header() {
             </ul>
           </nav>
           <ThemeToggleButton />
+          <UserInformation />
           <Drawer.Root direction="right">
             <Drawer.Trigger type="button" className="lg:hidden">
               <Menu className="h-6 w-6" />
