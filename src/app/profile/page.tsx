@@ -1,13 +1,13 @@
 import * as Section from "@/components/section";
 import { createClient } from "@/services/supabase/server";
 import { redirect } from "next/navigation";
-import { Profile } from "./profile";
+import { ProfileForm } from "./profile-form";
 
 export default async function Page() {
   const client = createClient();
   const { data } = await client.auth.getUser();
 
-  if (data.user?.id) {
+  if (!data.user?.id) {
     redirect("/");
   }
 
@@ -17,10 +17,7 @@ export default async function Page() {
         <Section.Header>
           <Section.Title className="text-start">Perfil</Section.Title>
         </Section.Header>
-        <Section.Header>
-          <Section.Title className="text-start">Dados pessoais</Section.Title>
-        </Section.Header>
-        <Profile />
+        <ProfileForm />
       </Section.Container>
     </Section.Root>
   );

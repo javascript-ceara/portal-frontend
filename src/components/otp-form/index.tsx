@@ -1,7 +1,3 @@
-"use client";
-
-import { Loader } from "lucide-react";
-import { useState } from "react";
 import {
   FormProvider,
   useForm,
@@ -9,33 +5,38 @@ import {
   SubmitHandler,
   useFormState,
 } from "react-hook-form";
+import { Loader } from "lucide-react";
+import { twMerge } from "tailwind-merge";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import * as z from "zod";
+
 import { Button } from "@/components/button";
-import { InputPassword, Input, Controller } from "@/components/form";
+import { Controller, Input } from "@/components/form";
 
 const FormSchema = z.object({
   email: z.string().min(1, "Campo obrigatório").email("Email inválido"),
-  password: z.string().min(1, "Campo precisa"),
 });
 
 export type FormValues = z.infer<typeof FormSchema>;
+
+type OtpFormRootProps = UseFormReturn<FormValues> & {
+  children?: React.ReactNode;
+  onSubmit: SubmitHandler<FormValues>;
+  className?: string;
+};
 
 export function Root({
   children,
   handleSubmit,
   onSubmit,
+  className,
   ...rest
-}: UseFormReturn<FormValues> & {
-  children?: React.ReactNode;
-  onSubmit: SubmitHandler<FormValues>;
-}) {
+}: OtpFormRootProps) {
   return (
     <FormProvider {...rest} handleSubmit={handleSubmit}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 space-y-4"
+        className={twMerge("space-y-4", className)}
       >
         {children}
       </form>
@@ -47,26 +48,12 @@ export function Email() {
   return (
     <Controller
       name="email"
-      label="Email"
-      render={({ field }) => {
-        return <Input {...field} />;
-      }}
-    />
-  );
-}
-
-export function Password() {
-  const [show, setShow] = useState(false);
-  return (
-    <Controller
-      name="password"
-      label="Senha"
+      label="Receber código de autenticação por email"
       render={({ field }) => {
         return (
-          <InputPassword
-            show={show}
+          <Input
             {...field}
-            onToggle={() => setShow((prev) => !prev)}
+            placeholder="Insira o email associado à sua conta"
           />
         );
       }}
@@ -80,23 +67,22 @@ export function Submit() {
     <Button asChild>
       <button type="submit" disabled={formState.isSubmitting}>
         {formState.isSubmitting && (
-          <Loader className="mr-2 h-5 w-5 animate-spin" />
+          <Loader className="ml-2 h-5 w-5 animate-spin" />
         )}
-        <span>Entrar</span>
+        <span>Enviar código</span>
       </button>
     </Button>
   );
 }
 
-export function useSignInForm() {
+export function useOtpForm() {
   return useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
     mode: "onChange",
-    reValidateMode: "onChange",
+    reValidateMode: "onBlur",
     shouldFocusError: false,
   });
 }

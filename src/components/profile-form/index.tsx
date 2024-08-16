@@ -1,4 +1,3 @@
-import { Button } from "@/components/button";
 import { Controller, Input } from "@/components/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from "lucide-react";
@@ -6,29 +5,40 @@ import {
   FormProvider,
   SubmitHandler,
   useForm,
-  useFormContext,
   UseFormReturn,
   useFormState,
 } from "react-hook-form";
-import { useIMask } from "react-imask";
-import * as z from "zod";
 
-const phoneRegex = new RegExp(
-  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/,
-);
+import { Button } from "@/components/button";
+import { TypographyH4 } from "@/components/typography";
+
+import * as z from "zod";
 
 const FormSchema = z.object({
   name: z.string().min(1, "Campo obrigatório"),
   email: z.string().email().optional(),
-  phone: z.string().regex(phoneRegex, "Telefone inválido").nullable(),
+  phone: z.string().nullable(),
   bio: z.string().optional(),
   company: z.string().optional(),
   location: z.string().optional(),
-  social_links: z.object({
-    github_url: z.string().url("Insira um link válido").optional(),
-    site_url: z.string().url("Insira um link válido").optional(),
-    linkedin_url: z.string().url("Insira um link válido").optional(),
-  }),
+  github_url: z
+    .string()
+    .optional()
+    .refine((value) => !value || z.string().url().safeParse(value).success, {
+      message: "Insira um link válido",
+    }),
+  site_url: z
+    .string()
+    .optional()
+    .refine((value) => !value || z.string().url().safeParse(value).success, {
+      message: "Insira um link válido",
+    }),
+  linkedin_url: z
+    .string()
+    .optional()
+    .refine((value) => !value || z.string().url().safeParse(value).success, {
+      message: "Insira um link válido",
+    }),
 });
 
 export type FormValues = z.infer<typeof FormSchema>;
@@ -44,13 +54,22 @@ export function Root({
 }) {
   return (
     <FormProvider {...rest} handleSubmit={handleSubmit}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="grid grid-cols-1 space-y-4"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {children}
       </form>
     </FormProvider>
+  );
+}
+
+export function Section({
+  title,
+  children,
+}: React.PropsWithChildren<{ title: string }>) {
+  return (
+    <div className="space-y-4">
+      <TypographyH4>{title}</TypographyH4>
+      {children}
+    </div>
   );
 }
 
@@ -73,7 +92,11 @@ export function Email() {
       label="Email"
       render={({ field }) => {
         return (
-          <Input className="disabled:text-opacity-55" disabled {...field} />
+          <Input
+            className="disabled:bg-background-darker"
+            disabled
+            {...field}
+          />
         );
       }}
     />
@@ -81,45 +104,12 @@ export function Email() {
 }
 
 export function Phone() {
-  const { setValue } = useFormContext();
-
-  const { ref, maskRef } = useIMask(
-    { mask: "(00) 00000-0000" },
-    {
-      onAccept: (value) => {
-        setValue("phone", value, {
-          shouldValidate: true,
-          shouldDirty: true,
-        });
-      },
-    },
-  );
-
   return (
     <Controller
       name="phone"
       label="Telefone"
       render={({ field }) => {
-        return (
-          <Input
-            ref={(el) => {
-              ref.current = el;
-            }}
-            name={field.name}
-            disabled
-            className="disabled:text-opacity-45"
-            defaultValue={field.value}
-            onBlur={() => {
-              if (!maskRef.current?.masked.isComplete) {
-                setValue(field.name, "", {
-                  shouldValidate: true,
-                  shouldDirty: true,
-                });
-              }
-            }}
-            placeholder="(00) 00000-0000"
-          />
-        );
+        return <Input {...field} disabled />;
       }}
     />
   );
@@ -161,10 +151,10 @@ export function Location() {
   );
 }
 
-export function SocialLinkSite() {
+export function Site() {
   return (
     <Controller
-      name="social_links.site_url"
+      name="site_url"
       label="Site"
       render={({ field }) => {
         return <Input type="text" {...field} />;
@@ -172,10 +162,11 @@ export function SocialLinkSite() {
     />
   );
 }
-export function SocialLinkGithub() {
+
+export function Github() {
   return (
     <Controller
-      name="social_links.github_url"
+      name="github_url"
       label="Github"
       render={({ field }) => {
         return <Input type="text" {...field} />;
@@ -184,10 +175,10 @@ export function SocialLinkGithub() {
   );
 }
 
-export function SocialLinkLinkedin() {
+export function Linkedin() {
   return (
     <Controller
-      name="social_links.linkedin_url"
+      name="linkedin_url"
       label="Linkedin"
       render={({ field }) => {
         return <Input type="text" {...field} />;
@@ -200,12 +191,9 @@ export function Submit() {
   const formState = useFormState();
   return (
     <Button asChild>
-      <button
-        type="submit"
-        disabled={formState.isSubmitting || !formState.isValid}
-      >
+      <button type="submit" disabled={formState.isSubmitting}>
         {formState.isSubmitting && (
-          <Loader className="ml-2 h-5 w-5 animate-spin" />
+          <Loader className="mr-2 h-5 w-5 animate-spin" />
         )}
         <span>Salvar</span>
       </button>
@@ -217,17 +205,15 @@ export function useProfileForm() {
   return useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: "Cícero Viana",
-      email: "cicecoviana@example.com",
+      name: "",
+      email: "",
       phone: "",
-      bio: "Front-end engineer and contributor on @reactjs-ceara",
-      company: "@reactjs-ceara",
-      location: "Fortaleza, CE, Brazil",
-      social_links: {
-        github_url: "",
-        linkedin_url: "",
-        site_url: "",
-      },
+      bio: "",
+      company: "",
+      location: "",
+      github_url: "",
+      linkedin_url: "",
+      site_url: "",
     },
     mode: "onChange",
     reValidateMode: "onChange",

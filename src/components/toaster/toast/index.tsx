@@ -18,12 +18,12 @@ import {
 } from "@radix-ui/react-toast";
 
 const toastVariants = cva(
-  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all",
+  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md  p-6 pr-8 shadow-lg transition-all",
   {
     variants: {
       variant: {
-        default: "border bg-white",
-        destructive: "bg-red-600 group text-gray-100",
+        default: "border border-border bg-background",
+        destructive: "bg-red-600 group border text-gray-100",
       },
     },
     defaultVariants: {

@@ -15,7 +15,7 @@ export function UserHeadline({ className }: UserHeadlineProps) {
       <UserAvatar />
       <div>
         <p className="font-medium">{profile?.full_name}</p>
-        <p className="text-sm text-gray-600">{profile?.email}</p>
+        <p className="text-sm">{profile?.email}</p>
       </div>
     </div>
   );

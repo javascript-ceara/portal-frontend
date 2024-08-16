@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
-import { Button } from "@/components/button";
 import * as Section from "@/components/section";
+import { Button } from "@/components/button";
 import { SignInWithPassword } from "./signin-with-password";
 
 import { createClient } from "@/services/supabase/server";

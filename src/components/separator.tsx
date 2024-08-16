@@ -13,12 +13,12 @@ export function Root({
     >
       {children ? (
         <>
-          <div className=" h-[1px] flex-1 bg-gray-200" />
+          <div className=" h-[1px] flex-1 bg-border" />
           {children}
-          <div className="h-[1px] flex-1 bg-gray-200" />
+          <div className="h-[1px] flex-1 bg-border" />
         </>
       ) : (
-        <div className="h-[1px] flex-1 bg-gray-200" />
+        <div className="h-[1px] flex-1 bg-border" />
       )}
     </div>
   );

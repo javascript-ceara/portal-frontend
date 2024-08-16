@@ -105,7 +105,7 @@ export function Phone() {
             }}
             name={field.name}
             disabled={field.disabled}
-            defaultValue={field.value}
+            value={field.value}
             onBlur={() => {
               if (!maskRef.current?.masked.isComplete) {
                 setValue(field.name, "", {
@@ -145,14 +145,11 @@ export function Submit() {
   const formState = useFormState();
   return (
     <Button asChild>
-      <button
-        type="submit"
-        disabled={!formState.isDirty || formState.isSubmitting}
-      >
-        <span>Entrar</span>
+      <button type="submit" disabled={formState.isSubmitting}>
         {formState.isSubmitting && (
-          <Loader className="ml-2 h-5 w-5 animate-spin" />
+          <Loader className="mr-2 h-5 w-5 animate-spin" />
         )}
+        <span>Entrar</span>
       </button>
     </Button>
   );

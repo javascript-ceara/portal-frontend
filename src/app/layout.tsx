@@ -5,6 +5,7 @@ import { createClient } from "@/services/supabase/server";
 import { ThemeProvider } from "next-themes";
 
 import { ProfileProvider } from "@/contexts/profile";
+import { Toaster } from "@/components/toaster";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -37,7 +38,10 @@ export default async function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ProfileProvider profile={profiles}>{children}</ProfileProvider>
+          <ProfileProvider profile={profiles}>
+            {children}
+            <Toaster />
+          </ProfileProvider>
         </ThemeProvider>
       </body>
     </html>
