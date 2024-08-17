@@ -1,5 +1,3 @@
-"use client";
-
 import { User2Icon } from "lucide-react";
 import { Button } from "@/components/button";
 import { Hero } from "@/components/hero";
@@ -9,7 +7,24 @@ import * as Avatar from "@/components/avatar";
 import * as Popover from "@/components/popover";
 import * as EventCard from "@/components/event-card";
 import * as Dialog from "@/components/dialog";
-export default function Home() {
+import { createClient } from "@/services/supabase/server";
+import { convertEventToText } from "@/helps/events";
+import { CalendarDays } from "lucide-react";
+
+export default async function Home() {
+  const client = createClient();
+
+  const { data } = await client
+    .from("events")
+    .select("*")
+    .order("start_date", { ascending: true })
+    .limit(1)
+    .single();
+  console.log("====================================");
+  console.log(data);
+  console.log("====================================");
+  const text = convertEventToText(data);
+
   return (
     <main>
       <Hero />
@@ -18,15 +33,27 @@ export default function Home() {
           <Section.Header>
             <Section.Title>Próximo evento</Section.Title>
           </Section.Header>
+          {/* TODO:: Add component */}
           <div className="space-y-16">
+            <div className="mb-8 flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
+              {/* <EventPlace
+            palette="white"
+            placeName={event.placeName}
+            placeAddress={event.placeAddress}
+            isAnOnlineEvent={event.isAnOnlineEvent}
+          /> */}
+              <h1>teste</h1>
+              <p className="inline-flex items-center space-x-1 text-sm  text-white">
+                <CalendarDays className="h-5 w-5" />
+                {/* <EventStartDate startDate={event.startDate} showTime /> */}
+              </p>
+            </div>
             <div>
               <Typography.TypographyH1 className="mb-4 font-extrabold sm:text-5xl xl:text-7xl">
-                9 Meetup React Ceará
+                {/*TODO::  ADD o id do evento   */} {data.title}
               </Typography.TypographyH1>
-              <Typography.TypographyLead>
-                Dia 11 de maio, às 13h , estaremos na Digital College sede
-                Aldeota com nosso segundo meetup de 2024.
-              </Typography.TypographyLead>
+              {/*TODO::  refazer o texto puro */}
+              <Typography.TypographyLead>{text}</Typography.TypographyLead>
             </div>
             <div className="space-y-8">
               <Typography.TypographyH4>Agenda</Typography.TypographyH4>
