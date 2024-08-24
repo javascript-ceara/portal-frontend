@@ -1,6 +1,7 @@
 import { User2Icon } from "lucide-react";
 import { Button } from "@/components/button";
 import { Hero } from "@/components/hero";
+import { EventPlace } from "@/components/EventPlace";
 import * as Section from "@/components/section";
 import * as Typography from "@/components/typography";
 import * as Avatar from "@/components/avatar";
@@ -23,6 +24,7 @@ export default async function Home() {
   console.log("====================================");
   console.log(data);
   console.log("====================================");
+  //TODO:: slatejs do site atual
   const text = convertEventToText(data);
 
   return (
@@ -36,13 +38,12 @@ export default async function Home() {
           {/* TODO:: Add component */}
           <div className="space-y-16">
             <div className="mb-8 flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
-              {/* <EventPlace
-            palette="white"
-            placeName={event.placeName}
-            placeAddress={event.placeAddress}
-            isAnOnlineEvent={event.isAnOnlineEvent}
-          /> */}
-              <h1>teste</h1>
+              <EventPlace
+                placeName={data.place}
+                placeAddress={data.address}
+                isAnOnlineEvent={data.is_online}
+              />
+
               <p className="inline-flex items-center space-x-1 text-sm  text-white">
                 <CalendarDays className="h-5 w-5" />
                 {/* <EventStartDate startDate={event.startDate} showTime /> */}
