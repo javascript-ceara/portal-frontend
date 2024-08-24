@@ -1,19 +1,31 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Popover, Transition } from "@headlessui/react";
-
-import MapPinIcon from "@heroicons/react/24/outline/MapPinIcon";
-
+import { MapPinIcon } from "@heroicons/react/24/outline";
+import { format, parseISO, isSameYear } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { Event } from "@/types/event";
 
+// Definindo os tipos de Props para os componentes
+type EventPlaceProps = {
+  placeName: string;
+  placeAddress: string;
+  isAnOnlineEvent: boolean;
+};
+
+type EventStartDateProps = {
+  startDate: Event["startDate"];
+  showTime?: boolean;
+};
+
+// Componente EventPlace
 export const EventPlace = ({
   placeName,
   placeAddress,
   isAnOnlineEvent,
-}: Props) => {
-  // Definindo a função de render fora para evitar o erro de função não serializável
+}: EventPlaceProps) => {
   const renderPopoverContent = () => (
     <>
       <Popover.Button className={twMerge("flex items-center space-x-1")}>
@@ -38,17 +50,16 @@ export const EventPlace = ({
             <address className="relative">
               <p className="text-sm text-gray-600">{placeAddress}</p>
             </address>
-            {isAnOnlineEvent && (
+            {isAnOnlineEvent ? (
               <a
-                href={"https://www.youtube.com/@reactjsceara"}
+                href="https://www.youtube.com/@reactjsceara"
                 target="_blank"
                 className="inline-block text-sm font-semibold underline"
                 rel="noopener noreferrer"
               >
                 Acessar canal no YouTube
               </a>
-            )}
-            {!isAnOnlineEvent && (
+            ) : (
               <a
                 href={`https://www.google.com/maps/search/${placeName}`}
                 target="_blank"
@@ -65,4 +76,31 @@ export const EventPlace = ({
   );
 
   return <Popover className="relative">{renderPopoverContent()}</Popover>;
+};
+
+// Componente EventStartDate
+export const EventStartDate = ({
+  startDate,
+  showTime,
+}: EventStartDateProps) => {
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+    try {
+      const parsed = parseISO(startDate as string);
+      const isNotSame = !isSameYear(parsed, new Date());
+
+      setDate(
+        format(
+          parsed,
+          `dd LLLL ${isNotSame ? "yyyy" : ""}${showTime ? " - k:mm'h'" : ""}`,
+          {
+            locale: ptBR,
+          },
+        ),
+      );
+    } catch (_) {}
+  }, [startDate, showTime]);
+
+  return <span>{date}</span>;
 };

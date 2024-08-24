@@ -37,7 +37,7 @@ export type Database = {
             foreignKeyName: "event_presentations_presentation_id_fkey"
             columns: ["presentation_id"]
             isOneToOne: false
-            referencedRelation: "presentation"
+            referencedRelation: "presentations"
             referencedColumns: ["id"]
           },
         ]
@@ -81,56 +81,31 @@ export type Database = {
         }
         Relationships: []
       }
-      presentation: {
+      presentations: {
         Row: {
           created_at: string
           description: string
           id: number
+          profile_id: string | null
           title: string
         }
         Insert: {
           created_at?: string
           description: string
           id?: number
+          profile_id?: string | null
           title: string
         }
         Update: {
           created_at?: string
           description?: string
           id?: number
+          profile_id?: string | null
           title?: string
-        }
-        Relationships: []
-      }
-      presentation_authors: {
-        Row: {
-          created_at: string
-          id: number
-          presentation_id: number
-          profile_id: string
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          presentation_id: number
-          profile_id: string
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          presentation_id?: number
-          profile_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "presentation_authors_presentation_id_fkey"
-            columns: ["presentation_id"]
-            isOneToOne: false
-            referencedRelation: "presentation"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "presentation_authors_profile_id_fkey"
+            foreignKeyName: "presentations_profile_id_fkey"
             columns: ["profile_id"]
             isOneToOne: false
             referencedRelation: "profiles"
@@ -199,7 +174,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_event_presentations: {
+        Args: {
+          input_event_id: number
+        }
+        Returns: {
+          id: number
+          title: string
+          description: string
+          profile_full_name: string
+          profile_avatar_url: string
+          profile_github_url: string
+          profile_linkedin_url: string
+          profile_site_url: string
+          profile_bio: string
+          profile_company: string
+          profile_email: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
