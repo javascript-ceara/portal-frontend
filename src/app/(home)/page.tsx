@@ -9,21 +9,10 @@ import { createClient } from "@/services/supabase/server";
 import { User2Icon } from "lucide-react";
 
 export default async function Home() {
-  const client = await createClient();
-  const { data } = await client.from("presentations").select(`
-    id,
-    title,
-    description,
-    presentation_authors (
-      profile_id (
-        id,
-        full_name,
-        avatar_url,
-        name,
-        role
-      )
-    )
-  `);
+  const client = createClient();
+  const { data: presentations } = await client.rpc("get_event_presentations", {
+    input_event_id: 1,
+  });
   return (
     <main>
       <Hero />
@@ -45,48 +34,46 @@ export default async function Home() {
             <div className="space-y-8">
               <Typography.TypographyH4>Agenda</Typography.TypographyH4>
               <ul className="divide-y divide-border">
-                {data?.map((presentation) => (
+                {presentations?.map((presentation) => (
                   <li
                     key={presentation.id}
                     className="space-y-3 [&:not(:first-child)]:pt-4 [&:not(:last-child)]:pb-4"
                   >
                     <Popover.Root>
-                      {presentation.presentation_authors.map((author, index) => (
-                        <div key={index}>
-                          <p className="flex items-center space-x-2 font-medium">
-                            <Popover.Trigger>
-                              <Avatar.Root className="flex h-8 w-8">
-                                <Avatar.Image
-                                  src={author.profile_id.avatar_url || "https://avatars.githubusercontent.com/u/124599?v=4"}
-                                />  
-                                <Avatar.Fallback>
-                                  <User2Icon className="h-8 w-8 rounded-full p-1 dark:text-foreground" />
-                                </Avatar.Fallback>
-                              </Avatar.Root>
-                            </Popover.Trigger>
-                            <span>{author.profile_id.full_name}</span>
-                          </p>
-                          <Popover.Content className="flex flex-col items-center">
-                            <Avatar.Root className="mb-4 flex h-24 w-24">
+                      <div>
+                        <p className="flex items-center space-x-2 font-medium">
+                          <Popover.Trigger>
+                            <Avatar.Root className="flex h-8 w-8">
                               <Avatar.Image
                                 src={
-                                  author.profile_id.avatar_url ||
-                                  "default-avatar-url"
+                                  presentation.profile_avatar_url ||
+                                  "https://avatars.githubusercontent.com/u/124599?v=4"
                                 }
                               />
                               <Avatar.Fallback>
                                 <User2Icon className="h-8 w-8 rounded-full p-1 dark:text-foreground" />
                               </Avatar.Fallback>
                             </Avatar.Root>
-                            <Typography.TypographyH4>
-                              {author.profile_id.name}
-                            </Typography.TypographyH4>
-                            <Typography.TypographySmall>
-                              {author.profile_id.role}
-                            </Typography.TypographySmall>
-                          </Popover.Content>
-                        </div>
-                      ))}
+                          </Popover.Trigger>
+                          <span>{presentation.profile_full_name}</span>
+                        </p>
+                        <Popover.Content className="flex flex-col items-center">
+                          <Avatar.Root className="mb-4 flex h-24 w-24">
+                            <Avatar.Image
+                              src={
+                                presentation.profile_avatar_url ||
+                                "default-avatar-url"
+                              }
+                            />
+                            <Avatar.Fallback>
+                              <User2Icon className="h-8 w-8 rounded-full p-1 dark:text-foreground" />
+                            </Avatar.Fallback>
+                          </Avatar.Root>
+                          <Typography.TypographyH4>
+                            {presentation.profile_full_name}
+                          </Typography.TypographyH4>
+                        </Popover.Content>
+                      </div>
                     </Popover.Root>
                     <Typography.TypographyH3>
                       {presentation.title}
