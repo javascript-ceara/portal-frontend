@@ -24,9 +24,6 @@ export default async function Home() {
   const { data: presentations } = await client.rpc("get_event_presentations", {
     input_event_id: data.id,
   });
-  console.log("====================================");
-  console.log(data, presentations);
-  console.log("====================================");
   //TODO:: slatejs do site atual
   const text = convertEventToText(presentations);
 
