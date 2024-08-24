@@ -37,7 +37,7 @@ export type Database = {
             foreignKeyName: "event_presentations_presentation_id_fkey"
             columns: ["presentation_id"]
             isOneToOne: false
-            referencedRelation: "presentation"
+            referencedRelation: "presentations"
             referencedColumns: ["id"]
           },
         ]
@@ -81,27 +81,6 @@ export type Database = {
         }
         Relationships: []
       }
-      presentation: {
-        Row: {
-          created_at: string
-          description: string
-          id: number
-          title: string
-        }
-        Insert: {
-          created_at?: string
-          description: string
-          id?: number
-          title: string
-        }
-        Update: {
-          created_at?: string
-          description?: string
-          id?: number
-          title?: string
-        }
-        Relationships: []
-      }
       presentation_authors: {
         Row: {
           created_at: string
@@ -126,7 +105,7 @@ export type Database = {
             foreignKeyName: "presentation_authors_presentation_id_fkey"
             columns: ["presentation_id"]
             isOneToOne: false
-            referencedRelation: "presentation"
+            referencedRelation: "presentations"
             referencedColumns: ["id"]
           },
           {
@@ -137,6 +116,27 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      presentations: {
+        Row: {
+          created_at: string
+          description: string
+          id: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: number
+          title?: string
+        }
+        Relationships: []
       }
       profiles: {
         Row: {

@@ -56,4 +56,19 @@
                 drop policy if exists events_are_viewable_by_everyone on public.events;
                 create policy events_are_viewable_by_everyone on public.events
                 for select using(true);
-    
+    -- public.presentations
+
+        -- policies
+            -- presentations_are_viewable_by_everyone
+                alter table public.presentations enable row level security;
+                drop policy if exists presentations_are_viewable_by_everyone on public.presentations;
+                create policy presentations_are_viewable_by_everyone on public.presentations
+                for select using(true);
+    -- public.presentation_authors
+
+        -- policies
+            -- presentation_authors_are_viewable_by_everyone
+                alter table public.presentation_authors enable row level security;
+                drop policy if exists presentation_authors_are_viewable_by_everyone on public.presentation_authors;
+                create policy presentation_authors_are_viewable_by_everyone on public.presentation_authors
+                for select using(true);
