@@ -1,18 +1,32 @@
+import { User2Icon } from "lucide-react";
 import * as Avatar from "@/components/avatar";
 import { Button } from "@/components/button";
 import * as EventCard from "@/components/event-card";
 import { Hero } from "@/components/hero";
+import * as NextEvent from "@/components/next-event";
+import { convertEventToText } from "@/helps/events";
 import * as Popover from "@/components/popover";
 import * as Section from "@/components/section";
 import * as Typography from "@/components/typography";
 import { createClient } from "@/services/supabase/server";
-import { User2Icon } from "lucide-react";
+import { CalendarDays } from "lucide-react";
 
 export default async function Home() {
   const client = createClient();
+
+  const { data } = await client
+    .from("events")
+    .select("*")
+    .order("start_date", { ascending: true })
+    .limit(1)
+    .single();
+
   const { data: presentations } = await client.rpc("get_event_presentations", {
-    input_event_id: 1,
+    input_event_id: data.id,
   });
+  //TODO:: slatejs do site atual
+  const text = convertEventToText(presentations);
+
   return (
     <main>
       <Hero />
@@ -21,15 +35,31 @@ export default async function Home() {
           <Section.Header>
             <Section.Title>Próximo evento</Section.Title>
           </Section.Header>
+          {/* TODO:: Add component */}
           <div className="space-y-16">
+            <div className="mb-4 flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
+              {/* TODO:: add  */}
+              <NextEvent.EventPlace
+                placeName={data.place}
+                placeAddress={data.address}
+                isAnOnlineEvent={data.is_online}
+              />
+
+              <p className="inline-flex items-center space-x-1 text-sm  text-white">
+                <CalendarDays className="h-5 w-5" />
+                {/* TODO:: add  */}
+                <NextEvent.EventStartDate
+                  startDate={data.start_date}
+                  showTime
+                />
+              </p>
+            </div>
             <div>
-              <Typography.TypographyH1 className="mb-4 font-extrabold sm:text-5xl xl:text-7xl">
-                9 Meetup React Ceará
+              <Typography.TypographyH1 className="mb-4 text-center font-extrabold sm:text-5xl xl:text-7xl">
+                {data.title}
               </Typography.TypographyH1>
-              <Typography.TypographyLead>
-                Dia 11 de maio, às 13h , estaremos na Digital College sede
-                Aldeota com nosso segundo meetup de 2024.
-              </Typography.TypographyLead>
+
+              <Typography.TypographyLead>{text}</Typography.TypographyLead>
             </div>
             <div className="space-y-8">
               <Typography.TypographyH4>Agenda</Typography.TypographyH4>
