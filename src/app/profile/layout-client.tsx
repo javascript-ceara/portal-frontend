@@ -10,7 +10,7 @@ export default function Layout({
   return (
     <View>
       <View.Header />
-      <View.Body>{children}</View.Body>
+      <main className="min-h-screen">{children}</main>
       <View.Footer />
     </View>
   );

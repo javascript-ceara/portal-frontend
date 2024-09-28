@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { MoonIcon, SunIcon, Monitor } from "lucide-react";
-import * as Popover from "@/components/popover";
+import { Popover } from "@/components/popover";
 import { useTheme } from "next-themes";
 
 export function ThemeToggleButton() {
@@ -18,7 +18,7 @@ export function ThemeToggleButton() {
     return null;
   }
   return (
-    <Popover.Root>
+    <Popover>
       <Popover.Trigger className="text-primary">
         {resolvedTheme === "light" && <SunIcon className="h-6 w-6" />}
         {resolvedTheme === "dark" && <MoonIcon className="h-6 w-6" />}
@@ -64,7 +64,7 @@ export function ThemeToggleButton() {
           </li>
         </ul>
       </Popover.Content>
-    </Popover.Root>
+    </Popover>
   );
 
   // if (theme === "light") {

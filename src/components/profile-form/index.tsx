@@ -14,7 +14,7 @@ import { TypographyH4 } from "@/components/typography";
 
 import * as z from "zod";
 
-const FormSchema = z.object({
+const ProfileFormSchema = z.object({
   name: z.string().min(1, "Campo obrigatório"),
   email: z.string().email().optional(),
   phone: z.string().nullable(),
@@ -41,17 +41,19 @@ const FormSchema = z.object({
     }),
 });
 
-export type FormValues = z.infer<typeof FormSchema>;
+export type ProfileFormValues = z.infer<typeof ProfileFormSchema>;
 
-export function Root({
+export type ProfileFomProps = UseFormReturn<ProfileFormValues> & {
+  children?: React.ReactNode;
+  onSubmit: SubmitHandler<ProfileFormValues>;
+};
+
+export function ProfileFom({
   children,
   handleSubmit,
   onSubmit,
   ...rest
-}: UseFormReturn<FormValues> & {
-  children?: React.ReactNode;
-  onSubmit: SubmitHandler<FormValues>;
-}) {
+}: ProfileFomProps) {
   return (
     <FormProvider {...rest} handleSubmit={handleSubmit}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -61,10 +63,22 @@ export function Root({
   );
 }
 
-export function Section({
-  title,
-  children,
-}: React.PropsWithChildren<{ title: string }>) {
+ProfileFom.Section = Section;
+ProfileFom.Name = Name;
+ProfileFom.Email = Email;
+ProfileFom.Phone = Phone;
+ProfileFom.Bio = Bio;
+ProfileFom.Company = Company;
+ProfileFom.Location = Location;
+ProfileFom.Site = Site;
+ProfileFom.Github = Github;
+ProfileFom.Linkedin = Linkedin;
+ProfileFom.Submit = Submit;
+
+export type ProfileFormSectionProps = React.PropsWithChildren<{
+  title: string;
+}>;
+function Section({ title, children }: ProfileFormSectionProps) {
   return (
     <div className="space-y-4">
       <TypographyH4>{title}</TypographyH4>
@@ -73,7 +87,7 @@ export function Section({
   );
 }
 
-export function Name() {
+function Name() {
   return (
     <Controller
       name="name"
@@ -85,7 +99,7 @@ export function Name() {
   );
 }
 
-export function Email() {
+function Email() {
   return (
     <Controller
       name="email"
@@ -103,7 +117,7 @@ export function Email() {
   );
 }
 
-export function Phone() {
+function Phone() {
   return (
     <Controller
       name="phone"
@@ -115,7 +129,7 @@ export function Phone() {
   );
 }
 
-export function Bio() {
+function Bio() {
   return (
     <Controller
       name="bio"
@@ -127,7 +141,7 @@ export function Bio() {
   );
 }
 
-export function Company() {
+function Company() {
   return (
     <Controller
       name="company"
@@ -139,7 +153,7 @@ export function Company() {
   );
 }
 
-export function Location() {
+function Location() {
   return (
     <Controller
       name="location"
@@ -151,7 +165,7 @@ export function Location() {
   );
 }
 
-export function Site() {
+function Site() {
   return (
     <Controller
       name="site_url"
@@ -163,7 +177,7 @@ export function Site() {
   );
 }
 
-export function Github() {
+function Github() {
   return (
     <Controller
       name="github_url"
@@ -175,7 +189,7 @@ export function Github() {
   );
 }
 
-export function Linkedin() {
+function Linkedin() {
   return (
     <Controller
       name="linkedin_url"
@@ -187,7 +201,7 @@ export function Linkedin() {
   );
 }
 
-export function Submit() {
+function Submit() {
   const formState = useFormState();
   return (
     <Button asChild>
@@ -202,8 +216,8 @@ export function Submit() {
 }
 
 export function useProfileForm() {
-  return useForm<FormValues>({
-    resolver: zodResolver(FormSchema),
+  return useForm<ProfileFormValues>({
+    resolver: zodResolver(ProfileFormSchema),
     defaultValues: {
       name: "",
       email: "",

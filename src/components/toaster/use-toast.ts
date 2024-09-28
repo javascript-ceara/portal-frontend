@@ -1,9 +1,9 @@
 "use client";
+import { useState, useEffect } from "react";
 
-import * as React from "react";
-import type { ToastActionElement, RootProps } from "./toast";
+import type { ToastActionElement, ToastProps } from "./toast";
 
-export type Toast = RootProps & {
+export type Toast = ToastProps & {
   id: string;
   title?: React.ReactNode;
   description?: React.ReactNode;
@@ -161,9 +161,9 @@ function toast({ ...props }: Omit<Toast, "id">) {
 }
 
 function useToast() {
-  const [state, setState] = React.useState<State>(memoryState);
+  const [state, setState] = useState<State>(memoryState);
 
-  React.useEffect(() => {
+  useEffect(() => {
     listeners.push(setState);
     return () => {
       const index = listeners.indexOf(setState);

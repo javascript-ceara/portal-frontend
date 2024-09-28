@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createClient } from "@/services/supabase/client";
-import * as Dialog from "@/components/alert-dialog";
+import { AlertDialog } from "@/components/alert-dialog";
 import { useToast } from "@/components/toaster";
 
 export default function Page() {
@@ -41,22 +41,24 @@ export default function Page() {
   }, []);
 
   return (
-    <Dialog.Root open={open}>
-      <Dialog.Portal>
-        <Dialog.Overlay />
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Encerrar a sessão?</Dialog.Title>
-            <Dialog.Description>
+    <AlertDialog open={open}>
+      <AlertDialog.Portal>
+        <AlertDialog.Overlay />
+        <AlertDialog.Content>
+          <AlertDialog.Header>
+            <AlertDialog.Title>Encerrar a sessão?</AlertDialog.Title>
+            <AlertDialog.Description>
               Você será automaticamente desconectado
-            </Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Dialog.Cancel onClick={onCancel}>Cancelar</Dialog.Cancel>
-            <Dialog.Action onClick={onConfirm}>Confirmar</Dialog.Action>
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+            </AlertDialog.Description>
+          </AlertDialog.Header>
+          <AlertDialog.Footer>
+            <AlertDialog.Cancel onClick={onCancel}>Cancelar</AlertDialog.Cancel>
+            <AlertDialog.Action onClick={onConfirm}>
+              Confirmar
+            </AlertDialog.Action>
+          </AlertDialog.Footer>
+        </AlertDialog.Content>
+      </AlertDialog.Portal>
+    </AlertDialog>
   );
 }

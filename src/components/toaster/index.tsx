@@ -1,9 +1,8 @@
 "use client";
 
-import * as Toast from "./toast";
+import { Toast } from "./toast";
 import { useToast } from "./use-toast";
 export { useToast } from "./use-toast";
-export { Action } from "./toast";
 
 export function Toaster() {
   const { toasts } = useToast();
@@ -12,7 +11,7 @@ export function Toaster() {
     <Toast.Provider>
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
-          <Toast.Root key={id} {...props}>
+          <Toast key={id} {...props}>
             <Toast.Content>
               {title && <Toast.Title>{title}</Toast.Title>}
               {description && (
@@ -21,7 +20,7 @@ export function Toaster() {
             </Toast.Content>
             {action}
             <Toast.Close />
-          </Toast.Root>
+          </Toast>
         );
       })}
       <Toast.Viewport />

@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
-import * as Form from "@/components/profile-form";
+import {
+  ProfileFom as Form,
+  ProfileFormValues,
+  useProfileForm,
+} from "@/components/profile-form";
 import { useToast } from "@/components/toaster/use-toast";
 import { createClient } from "@/services/supabase/client";
 import { useRouter } from "next/navigation";
@@ -11,9 +15,9 @@ export function ProfileForm() {
   const { toast } = useToast();
   const { profile } = useProfile();
   const router = useRouter();
-  const form = Form.useProfileForm();
+  const form = useProfileForm();
 
-  const onSubmit = async (values: Form.FormValues) => {
+  const onSubmit = async (values: ProfileFormValues) => {
     const client = createClient({});
     const { data } = await client.auth.getUser();
 
@@ -64,7 +68,7 @@ export function ProfileForm() {
   }, [profile, form]);
 
   return (
-    <Form.Root {...form} onSubmit={onSubmit}>
+    <Form {...form} onSubmit={onSubmit}>
       <Form.Section title="Dados pessoais">
         <Form.Name />
         <Form.Email />
@@ -79,6 +83,6 @@ export function ProfileForm() {
         <Form.Linkedin />
       </Form.Section>
       <Form.Submit />
-    </Form.Root>
+    </Form>
   );
 }

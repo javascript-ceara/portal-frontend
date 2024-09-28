@@ -1,72 +1,78 @@
-import * as Dialog from "@radix-ui/react-dialog";
+import * as Primitive from "@radix-ui/react-dialog";
 import { XIcon } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
-export const Root = Dialog.Dialog;
-export const Portal = Dialog.Portal;
+export type DialogProps = Primitive.DialogProps;
 
-export type { DialogProps as RootProps } from "@radix-ui/react-dialog";
+export function Dialog(props: DialogProps) {
+  return <Primitive.Dialog {...props} />;
+}
 
-export function Header({ children }: React.PropsWithChildren) {
+Dialog.Portal = Primitive.Portal;
+Dialog.Header = Header;
+Dialog.Title = Title;
+Dialog.Close = Close;
+Dialog.Body = Body;
+Dialog.Content = Content;
+Dialog.Footer = Footer;
+Dialog.Description = Description;
+
+export type DialogHeaderProps = React.PropsWithChildren;
+function Header({ children }: DialogHeaderProps) {
   return <div className="space-y-2">{children}</div>;
 }
 
-export function Title({
-  children,
-  className,
-}: React.PropsWithChildren<{ className?: string }>) {
+type DialogTitleProps = React.PropsWithChildren<{ className?: string }>;
+function Title({ children, className }: DialogTitleProps) {
   return (
-    <Dialog.Title
+    <Primitive.Title
       className={twMerge(
         "text-xl font-semibold leading-none tracking-tight",
         className,
       )}
     >
       {children}
-    </Dialog.Title>
+    </Primitive.Title>
   );
 }
 
-export function Close() {
+export type DialogCloseProps = React.PropsWithChildren;
+function Close({ children }: DialogCloseProps) {
   return (
-    <Dialog.Trigger className="absolute right-2 top-2 text-sm">
+    <Primitive.Trigger className="absolute right-2 top-2 text-sm">
       <XIcon className="h-4 w-4" />
-    </Dialog.Trigger>
+    </Primitive.Trigger>
   );
 }
 
-export function Body({ children }: React.PropsWithChildren) {
+export type DialogBodyProps = React.PropsWithChildren;
+function Body({ children }: DialogBodyProps) {
   return <div>{children}</div>;
 }
 
-export function Content({ children, className }: Dialog.DialogContentProps) {
+export type DialogContentProps = Primitive.DialogContentProps;
+function Content({ children, className }: DialogContentProps) {
   return (
-    <Dialog.Portal>
-      <Dialog.Overlay className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0  data-[state=open]:fade-in-0 fixed inset-0 -z-0 z-10  grid  items-center justify-center overflow-y-auto bg-black/80" />
-      <Dialog.Content
+    <Primitive.Portal>
+      <Primitive.Overlay className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0  data-[state=open]:fade-in-0 fixed inset-0 -z-0 z-10  grid  items-center justify-center overflow-y-auto bg-black/80" />
+      <Primitive.Content
         className={twMerge(
           "fixed left-2/4 top-2/4 z-10 flex h-auto max-w-lg -translate-x-2/4 -translate-y-2/4 flex-col gap-4 rounded-md border border-border bg-background p-6",
           className,
         )}
       >
         {children}
-      </Dialog.Content>
-    </Dialog.Portal>
+      </Primitive.Content>
+    </Primitive.Portal>
   );
 }
 
-export function Footer({
-  children,
-  className,
-}: React.PropsWithChildren<{
-  className?: string;
-}>) {
+export type DialogFooterProps = React.PropsWithChildren<{ className?: string }>;
+function Footer({ children, className }: DialogFooterProps) {
   return <div className={className}>{children}</div>;
 }
 
-export function Description({
-  className,
-  ...rest
-}: Dialog.DialogDescriptionProps) {
-  return <Dialog.Description className={className} {...rest} />;
+type DialogDescriptionProps = Primitive.DialogDescriptionProps;
+function Description({ className, ...rest }: DialogDescriptionProps) {
+  return <Primitive.Description className={className} {...rest} />;
 }

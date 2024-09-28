@@ -15,22 +15,24 @@ import * as z from "zod";
 import { Button } from "@/components/button";
 import { InputPassword, Input, Controller } from "@/components/form";
 
-const FormSchema = z.object({
+const SignInFormSchema = z.object({
   email: z.string().min(1, "Campo obrigatório").email("Email inválido"),
   password: z.string().min(1, "Campo precisa"),
 });
 
-export type FormValues = z.infer<typeof FormSchema>;
+export type SignInFormValues = z.infer<typeof SignInFormSchema>;
 
-export function Root({
+export type SignInFormProps = UseFormReturn<SignInFormValues> & {
+  children?: React.ReactNode;
+  onSubmit: SubmitHandler<SignInFormValues>;
+};
+
+export function SignInForm({
   children,
   handleSubmit,
   onSubmit,
   ...rest
-}: UseFormReturn<FormValues> & {
-  children?: React.ReactNode;
-  onSubmit: SubmitHandler<FormValues>;
-}) {
+}: SignInFormProps) {
   return (
     <FormProvider {...rest} handleSubmit={handleSubmit}>
       <form
@@ -43,7 +45,11 @@ export function Root({
   );
 }
 
-export function Email() {
+SignInForm.Email = Email;
+SignInForm.Password = Password;
+SignInForm.Submit = Submit;
+
+function Email() {
   return (
     <Controller
       name="email"
@@ -55,7 +61,7 @@ export function Email() {
   );
 }
 
-export function Password() {
+function Password() {
   const [show, setShow] = useState(false);
   return (
     <Controller
@@ -74,7 +80,7 @@ export function Password() {
   );
 }
 
-export function Submit() {
+function Submit() {
   const formState = useFormState();
   return (
     <Button asChild>
@@ -89,8 +95,8 @@ export function Submit() {
 }
 
 export function useSignInForm() {
-  return useForm<FormValues>({
-    resolver: zodResolver(FormSchema),
+  return useForm<SignInFormValues>({
+    resolver: zodResolver(SignInFormSchema),
     defaultValues: {
       email: "",
       password: "",

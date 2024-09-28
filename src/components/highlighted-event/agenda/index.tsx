@@ -1,8 +1,12 @@
 import { TypographyH4 } from "@/components/typography";
-export function Root({ children }: React.PropsWithChildren) {
+
+type AgendaProps = React.PropsWithChildren;
+export function Agenda({ children }: AgendaProps) {
   return <div>{children}</div>;
 }
 
-export function Title() {
+Agenda.Title = Title;
+
+function Title() {
   return <TypographyH4 className="mb-4">Agenda</TypographyH4>;
 }

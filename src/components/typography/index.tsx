@@ -1,10 +1,12 @@
 import { twMerge } from "tailwind-merge";
+import { Slot } from "@radix-ui/react-slot";
 
 type Props = React.PropsWithChildren<{
   className?: string;
+  asChild?: boolean;
 }>;
 
-export function TypographyH1({ children, className }: Props) {
+function TypographyH1({ children, className }: Props) {
   return (
     <h1
       className={twMerge(
@@ -17,7 +19,7 @@ export function TypographyH1({ children, className }: Props) {
   );
 }
 
-export function TypographyH2({ children }: Props) {
+function TypographyH2({ children }: Props) {
   return (
     <h2 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0">
       {children}
@@ -25,7 +27,7 @@ export function TypographyH2({ children }: Props) {
   );
 }
 
-export function TypographyH3({ children, className }: Props) {
+function TypographyH3({ children, className }: Props) {
   return (
     <h3
       className={twMerge(
@@ -38,30 +40,31 @@ export function TypographyH3({ children, className }: Props) {
   );
 }
 
-export function TypographyH4({ children, className }: Props) {
+function TypographyH4({ children, className, asChild }: Props) {
+  const Comp = asChild ? Slot : "h4";
   return (
-    <h4
+    <Comp
       className={twMerge(
         "scroll-m-20 text-xl font-semibold tracking-tight",
         className,
       )}
     >
       {children}
-    </h4>
+    </Comp>
   );
 }
 
-export function TypographyLarge({ children, className }: Props) {
+function TypographyLarge({ children, className }: Props) {
   return (
     <p className={twMerge("text-lg font-semibold", className)}>{children}</p>
   );
 }
 
-export function TypographyLead({ children, className }: Props) {
+function TypographyLead({ children, className }: Props) {
   return <p className={twMerge("text-xl", className)}>{children}</p>;
 }
 
-export function TypographyP({ children, className }: Props) {
+function TypographyP({ children, className }: Props) {
   return (
     <p className={twMerge("leading-7 [&:not(:first-child)]:mt-6", className)}>
       {children}
@@ -69,6 +72,21 @@ export function TypographyP({ children, className }: Props) {
   );
 }
 
-export function TypographySmall({ children }: Props) {
-  return <p className="text-sm font-medium leading-none">{children}</p>;
+function TypographySmall({ children, className }: Props) {
+  return (
+    <p className={twMerge("text-sm font-medium leading-none", className)}>
+      {children}
+    </p>
+  );
 }
+
+export {
+  TypographyH1,
+  TypographyH2,
+  TypographyH3,
+  TypographyH4,
+  TypographyLarge,
+  TypographyLead,
+  TypographyP,
+  TypographySmall,
+};

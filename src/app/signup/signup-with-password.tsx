@@ -2,8 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import * as Dialog from "@/components/otp-dialog";
-import * as Form from "@/components/signup-form";
+import { OtpDialog, OTP_INPUT_MAX_LENGTH } from "@/components/otp-dialog";
+import {
+  SignUpForm,
+  useSignUpForm,
+  SignUpFormValues,
+} from "@/components/signup-form";
 import { useToast } from "@/components/toaster/use-toast";
 import { createClient } from "@/services/supabase/client";
 
@@ -13,7 +17,7 @@ export function SignUpWithPassword() {
   const [validatingOtp, startValidatingOtp] = useTransition();
   const { toast } = useToast();
   const router = useRouter();
-  const form = Form.useSignUpForm();
+  const form = useSignUpForm();
 
   const onCHangeOtp = (value: string) => {
     setOtpCode(value);
@@ -24,7 +28,7 @@ export function SignUpWithPassword() {
     setOtpCode("");
   };
 
-  const onSubmit = async (values: Form.FormValues) => {
+  const onSubmit = async (values: SignUpFormValues) => {
     const sbClient = createClient({});
     const { error } = await sbClient.auth.signUp({
       email: values.email,
@@ -89,31 +93,29 @@ export function SignUpWithPassword() {
 
   return (
     <>
-      <Form.Root {...form} onSubmit={onSubmit}>
-        <Form.Name />
-        <Form.Email />
-        <Form.Phone />
-        <Form.Password />
-        <Form.Submit />
-      </Form.Root>
-      <Dialog.Root open={dialogOpen} onOpenChange={onOpenChange}>
-        <Dialog.Header>
-          <Dialog.Title />
-          <Dialog.Description />
-        </Dialog.Header>
-        <Dialog.Body>
-          <Dialog.Input value={otpCode} onChange={onCHangeOtp} />
-        </Dialog.Body>
-        <Dialog.Footer>
-          <Dialog.ValidateBtn
+      <SignUpForm {...form} onSubmit={onSubmit}>
+        <SignUpForm.Name />
+        <SignUpForm.Email />
+        <SignUpForm.Phone />
+        <SignUpForm.Password />
+        <SignUpForm.Submit />
+      </SignUpForm>
+      <OtpDialog open={dialogOpen} onOpenChange={onOpenChange}>
+        <OtpDialog.Header>
+          <OtpDialog.Title />
+          <OtpDialog.Description />
+        </OtpDialog.Header>
+        <OtpDialog.Body>
+          <OtpDialog.Input value={otpCode} onChange={onCHangeOtp} />
+        </OtpDialog.Body>
+        <OtpDialog.Footer>
+          <OtpDialog.Validate
             onClick={onValidateOtp}
             loading={validatingOtp}
-            disabled={
-              validatingOtp || otpCode.length < Dialog.OTP_INPUT_MAX_LENGTH
-            }
+            disabled={validatingOtp || otpCode.length < OTP_INPUT_MAX_LENGTH}
           />
-        </Dialog.Footer>
-      </Dialog.Root>
+        </OtpDialog.Footer>
+      </OtpDialog>
     </>
   );
 }

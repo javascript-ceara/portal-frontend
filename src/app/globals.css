@@ -12,9 +12,9 @@
 
     --border: 195 0% 85%;
 
-    --primary: 195 82% 44%;
-    --primary-foreground: 0 0% 98%;
-    --primary-hover: 195 82% 54%;
+    --primary: 48 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --primary-hover: 48 100% 63%;
   }
 
   .dark {

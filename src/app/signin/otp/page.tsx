@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import * as Section from "@/components/section";
+import { Section } from "@/components/section";
 import { createClient } from "@/services/supabase/server";
 import { SignInWithOtp } from "./signin-with-otp";
 
@@ -14,7 +14,7 @@ export default async function Page() {
   }
 
   return (
-    <Section.Root>
+    <Section>
       <Section.Container className="sm:mx-auto sm:max-w-xl">
         <Section.Header>
           <div className="flex items-center justify-center">
@@ -27,6 +27,6 @@ export default async function Page() {
         </Section.Header>
         <SignInWithOtp />
       </Section.Container>
-    </Section.Root>
+    </Section>
   );
 }

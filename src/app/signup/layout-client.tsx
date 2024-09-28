@@ -1,5 +1,4 @@
 "use client";
-
 import { View } from "@/components/view";
 
 export default function Layout({

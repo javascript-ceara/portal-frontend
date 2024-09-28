@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useArgs } from "@storybook/preview-api";
 import { TypographyLead } from "@/components/typography";
-import * as Drawer from "@/components/drawer";
+import { Drawer, DrawerProps } from "@/components/drawer";
 
 const meta = {
   title: "Drawer",
@@ -30,7 +30,7 @@ const meta = {
   render: () => {
     const [args, update] = useArgs();
     return (
-      <Drawer.Root {...args} onOpenChange={(open) => update({ open })}>
+      <Drawer {...args} onOpenChange={(open) => update({ open })}>
         <Drawer.Overlay />
         <Drawer.Content>
           <Drawer.Header>
@@ -41,10 +41,10 @@ const meta = {
             <TypographyLead>Drawer content</TypographyLead>
           </Drawer.Body>
         </Drawer.Content>
-      </Drawer.Root>
+      </Drawer>
     );
   },
-} satisfies Meta<Drawer.DrawerRootProps>;
+} satisfies Meta<DrawerProps>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

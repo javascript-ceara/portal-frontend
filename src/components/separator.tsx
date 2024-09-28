@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
-export function Root({
+export function Separator({
   children,
   className,
 }: React.PropsWithChildren<{
@@ -24,6 +24,7 @@ export function Root({
   );
 }
 
-export function Label({ children }: React.PropsWithChildren) {
+export type SeparatorLabelProps = React.PropsWithChildren;
+Separator.Label = ({ children }: SeparatorLabelProps) => {
   return <div className="p-2">{children}</div>;
-}
+};

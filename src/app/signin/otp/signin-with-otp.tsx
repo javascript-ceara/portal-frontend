@@ -2,8 +2,8 @@
 
 import { useTransition, useState } from "react";
 import { useRouter } from "next/navigation";
-import * as Form from "@/components/otp-form";
-import * as Dialog from "@/components/otp-dialog";
+import { OtpForm, OtpFormValues, useOtpForm } from "@/components/otp-form";
+import { OtpDialog, OTP_INPUT_MAX_LENGTH } from "@/components/otp-dialog";
 import { useToast } from "@/components/toaster/use-toast";
 import { createClient } from "@/services/supabase/client";
 
@@ -12,10 +12,10 @@ export function SignInWithOtp() {
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [validatingOtp, startValidatingOtp] = useTransition();
   const { toast } = useToast();
-  const form = Form.useOtpForm();
+  const form = useOtpForm();
   const router = useRouter();
 
-  const onSubmit = async (values: Form.FormValues) => {
+  const onSubmit = async (values: OtpFormValues) => {
     const client = createClient({});
     const { error } = await client.auth.signInWithOtp({
       email: values.email,
@@ -72,29 +72,27 @@ export function SignInWithOtp() {
   };
   return (
     <>
-      <Form.Root {...form} onSubmit={onSubmit} className="grid">
-        <Form.Email />
-        <Form.Submit />
-      </Form.Root>
+      <OtpForm {...form} onSubmit={onSubmit} className="grid">
+        <OtpForm.Email />
+        <OtpForm.Submit />
+      </OtpForm>
 
-      <Dialog.Root open={dialogOpen} onOpenChange={onOpenChange}>
-        <Dialog.Header>
-          <Dialog.Title />
-          <Dialog.Description />
-        </Dialog.Header>
-        <Dialog.Body>
-          <Dialog.Input value={otpCode} onChange={onCHangeOtp} />
-        </Dialog.Body>
-        <Dialog.Footer>
-          <Dialog.ValidateBtn
+      <OtpDialog open={dialogOpen} onOpenChange={onOpenChange}>
+        <OtpDialog.Header>
+          <OtpDialog.Title />
+          <OtpDialog.Description />
+        </OtpDialog.Header>
+        <OtpDialog.Body>
+          <OtpDialog.Input value={otpCode} onChange={onCHangeOtp} />
+        </OtpDialog.Body>
+        <OtpDialog.Footer>
+          <OtpDialog.Validate
             onClick={onValidateOtp}
             loading={validatingOtp}
-            disabled={
-              validatingOtp || otpCode.length < Dialog.OTP_INPUT_MAX_LENGTH
-            }
+            disabled={validatingOtp || otpCode.length < OTP_INPUT_MAX_LENGTH}
           />
-        </Dialog.Footer>
-      </Dialog.Root>
+        </OtpDialog.Footer>
+      </OtpDialog>
     </>
   );
 }

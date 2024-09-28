@@ -1,19 +1,20 @@
 import { twMerge } from "tailwind-merge";
-import {
-  Popover,
-  PopoverPortal,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverContentProps,
-} from "@radix-ui/react-popover";
+import * as Primitive from "@radix-ui/react-popover";
 
-export const Root = Popover;
-export const Portal = PopoverPortal;
-export const Trigger = PopoverTrigger;
+export type PopoverProps = Primitive.PopoverProps;
 
-export function Content({ className, ...rest }: PopoverContentProps) {
+export function Popover(props: PopoverProps) {
+  return <Primitive.Popover {...props} />;
+}
+
+Popover.Portal = Primitive.Portal;
+Popover.Trigger = Primitive.Trigger;
+Popover.Content = PopoverContent;
+
+export type PopoverContentProps = Primitive.PopoverContentProps;
+function PopoverContent({ className, ...rest }: PopoverContentProps) {
   return (
-    <PopoverContent
+    <Primitive.PopoverContent
       {...rest}
       className={twMerge(
         "z-20 w-72 rounded-md border border-border bg-background p-4 shadow-md outline-none",

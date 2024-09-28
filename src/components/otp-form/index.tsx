@@ -13,25 +13,24 @@ import * as z from "zod";
 import { Button } from "@/components/button";
 import { Controller, Input } from "@/components/form";
 
-const FormSchema = z.object({
+const OtpFormSchema = z.object({
   email: z.string().min(1, "Campo obrigatório").email("Email inválido"),
 });
 
-export type FormValues = z.infer<typeof FormSchema>;
+export type OtpFormValues = z.infer<typeof OtpFormSchema>;
 
-type OtpFormRootProps = UseFormReturn<FormValues> & {
+type OtpFormProps = UseFormReturn<OtpFormValues> & {
   children?: React.ReactNode;
-  onSubmit: SubmitHandler<FormValues>;
+  onSubmit: SubmitHandler<OtpFormValues>;
   className?: string;
 };
-
-export function Root({
+export function OtpForm({
   children,
   handleSubmit,
   onSubmit,
   className,
   ...rest
-}: OtpFormRootProps) {
+}: OtpFormProps) {
   return (
     <FormProvider {...rest} handleSubmit={handleSubmit}>
       <form
@@ -44,7 +43,10 @@ export function Root({
   );
 }
 
-export function Email() {
+OtpForm.Email = OtpFormEmail;
+OtpForm.Submit = OtpFormSubmit;
+
+function OtpFormEmail() {
   return (
     <Controller
       name="email"
@@ -61,7 +63,7 @@ export function Email() {
   );
 }
 
-export function Submit() {
+function OtpFormSubmit() {
   const formState = useFormState();
   return (
     <Button asChild>
@@ -76,8 +78,8 @@ export function Submit() {
 }
 
 export function useOtpForm() {
-  return useForm<FormValues>({
-    resolver: zodResolver(FormSchema),
+  return useForm<OtpFormValues>({
+    resolver: zodResolver(OtpFormSchema),
     defaultValues: {
       email: "",
     },

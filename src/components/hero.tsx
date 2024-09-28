@@ -16,7 +16,7 @@ export function Hero() {
       </div>
       <div className="absolute inset-0 flex h-full  w-full flex-col items-center justify-center space-y-4 bg-gradient-to-b from-black/90 to-black/20 p-8">
         <h1 className="max-w-sm text-center text-2xl font-bold tracking-tight text-white sm:max-w-md md:max-w-xl md:text-4xl xl:max-w-3xl xl:text-5xl">
-          Junte-se a maior comunidade de React do Nordeste
+          Junte-se a maior comunidade de JavaScript do Nordeste
         </h1>
         <div className="flex items-center justify-center space-x-4">
           <a href="/">

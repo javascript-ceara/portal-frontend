@@ -1,4 +1,4 @@
-import * as Section from "@/components/section";
+import { Section } from "@/components/section";
 import { createClient } from "@/services/supabase/server";
 import { redirect } from "next/navigation";
 import { ProfileForm } from "./profile-form";
@@ -12,13 +12,13 @@ export default async function Page() {
   }
 
   return (
-    <Section.Root>
+    <Section>
       <Section.Container>
         <Section.Header>
           <Section.Title className="text-start">Perfil</Section.Title>
         </Section.Header>
         <ProfileForm />
       </Section.Container>
-    </Section.Root>
+    </Section>
   );
 }

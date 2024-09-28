@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import * as Section from "@/components/section";
+import { Section } from "@/components/section";
 import { Button } from "@/components/button";
 import { SignInWithPassword } from "./signin-with-password";
 
@@ -15,7 +15,7 @@ export default async function Page() {
   }
 
   return (
-    <Section.Root>
+    <Section>
       <Section.Container className="sm:mx-auto sm:max-w-xl">
         <Section.Header>
           <Section.Title className="text-center">Fazer login</Section.Title>
@@ -32,6 +32,6 @@ export default async function Page() {
           <Link href="/signin/otp">Login sem senha</Link>
         </Button>
       </Section.Container>
-    </Section.Root>
+    </Section>
   );
 }

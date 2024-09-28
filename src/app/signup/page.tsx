@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import * as Section from "@/components/section";
+import { Section } from "@/components/section";
 // import { TypographySmall } from "@/components/typography";
 // import { Separator } from "@/components/separator";
 
@@ -18,7 +18,7 @@ export default async function Page() {
   }
 
   return (
-    <Section.Root>
+    <Section>
       <Section.Container className="sm:mx-auto sm:max-w-xl">
         <Section.Header>
           <Section.Title className="text-center">
@@ -43,6 +43,6 @@ export default async function Page() {
 
         <SignUpWithPassword />
       </Section.Container>
-    </Section.Root>
+    </Section>
   );
 }

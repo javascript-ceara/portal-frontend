@@ -19,7 +19,7 @@ import * as z from "zod";
 import { Input, InputPassword, Controller } from "@/components/form";
 import { Button } from "@/components/button";
 
-const FormSchema = z.object({
+const SignUpFormSchema = z.object({
   name: z.string().min(3, "Campo deve conter ao menos 3 letras"),
   email: z.string().min(1, "Campo obrigatório").email("Email inválido"),
   phone: z.string().optional(),
@@ -31,16 +31,16 @@ const FormSchema = z.object({
     ),
 });
 
-export type FormValues = z.infer<typeof FormSchema>;
+export type SignUpFormValues = z.infer<typeof SignUpFormSchema>;
 
-export function Root({
+export function SignUpForm({
   handleSubmit,
   onSubmit,
   children,
   ...rest
-}: UseFormReturn<FormValues> & {
+}: UseFormReturn<SignUpFormValues> & {
   children?: React.ReactNode;
-  onSubmit: SubmitHandler<FormValues>;
+  onSubmit: SubmitHandler<SignUpFormValues>;
 }) {
   return (
     <FormProvider {...rest} handleSubmit={handleSubmit}>
@@ -54,7 +54,13 @@ export function Root({
   );
 }
 
-export function Name() {
+SignUpForm.Name = Name;
+SignUpForm.Email = Email;
+SignUpForm.Phone = Phone;
+SignUpForm.Password = Password;
+SignUpForm.Submit = Submit;
+
+function Name() {
   return (
     <Controller
       name="name"
@@ -66,7 +72,7 @@ export function Name() {
   );
 }
 
-export function Email() {
+function Email() {
   return (
     <Controller
       name="email"
@@ -78,7 +84,7 @@ export function Email() {
   );
 }
 
-export function Phone() {
+function Phone() {
   const { setValue } = useFormContext();
 
   const { ref, maskRef } = useIMask(
@@ -122,7 +128,7 @@ export function Phone() {
   );
 }
 
-export function Password() {
+function Password() {
   const [show, setShow] = useState(false);
   return (
     <Controller
@@ -141,7 +147,7 @@ export function Password() {
   );
 }
 
-export function Submit() {
+function Submit() {
   const formState = useFormState();
   return (
     <Button asChild>
@@ -156,8 +162,8 @@ export function Submit() {
 }
 
 export function useSignUpForm() {
-  return useForm<FormValues>({
-    resolver: zodResolver(FormSchema),
+  return useForm<SignUpFormValues>({
+    resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
       name: "",
       email: "",

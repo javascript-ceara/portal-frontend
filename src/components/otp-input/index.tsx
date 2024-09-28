@@ -2,17 +2,13 @@ import { useContext } from "react";
 import { twMerge } from "tailwind-merge";
 import { Minus } from "lucide-react";
 
-import {
-  OTPInput as Otp,
-  OTPInputContext,
-  OTPInputProps as OTPInputRootProps,
-} from "input-otp";
+import * as Primitive from "input-otp";
 
-export type { OTPInputProps as OTPInputRootProps } from "input-otp";
+export type OtpInputProps = Primitive.OTPInputProps;
 
-export function Root(props: OTPInputRootProps) {
+export function OtpInput(props: OtpInputProps) {
   return (
-    <Otp
+    <Primitive.OTPInput
       containerClassName={twMerge(
         "flex items-center justify-center gap-2 has-[:disabled]:opacity-50",
       )}
@@ -22,14 +18,12 @@ export function Root(props: OTPInputRootProps) {
   );
 }
 
-export function Slot({
-  index,
-  className,
-}: {
-  className?: string;
-  index: number;
-}) {
-  const { slots } = useContext(OTPInputContext);
+OtpInput.Slot = Slot;
+OtpInput.Separator = Separator;
+OtpInput.Group = Group;
+
+function Slot({ index, className }: { className?: string; index: number }) {
+  const { slots } = useContext(Primitive.OTPInputContext);
   const { char, hasFakeCaret } = slots[index];
 
   return (
@@ -50,7 +44,7 @@ export function Slot({
   );
 }
 
-export function Separator() {
+function Separator() {
   return (
     <div role="separator">
       <Minus className="text-border" />
@@ -58,12 +52,10 @@ export function Separator() {
   );
 }
 
-export function Group({
-  className,
-  children,
-}: React.PropsWithChildren<{
+export type OtpInputGroupProps = React.PropsWithChildren<{
   className?: string;
-}>) {
+}>;
+function Group({ className, children }: OtpInputGroupProps) {
   return (
     <div className={twMerge("flex items-center", className)}>{children}</div>
   );

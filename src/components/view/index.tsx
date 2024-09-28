@@ -10,17 +10,21 @@ import { UserHeadline } from "@/components/user-headline";
 import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { DiscordIcon } from "@/components/icons/discord";
 import { WhatsAppIcon } from "@/components/icons/whatsapp";
-import * as Drawer from "@/components/drawer";
-import * as Popover from "@/components/popover";
-import * as Menu from "@/components/menu";
+import { Drawer } from "@/components/drawer";
+import { Popover } from "@/components/popover";
+import { Menu } from "@/components/menu";
 
 import { useProfile } from "@/contexts/profile";
 
-export function Root({ children }: React.PropsWithChildren) {
+export function View({ children }: React.PropsWithChildren) {
   return <div>{children}</div>;
 }
 
-export function Header() {
+View.Header = Header;
+View.Body = Body;
+View.Footer = Footer;
+
+function Header() {
   const { profile } = useProfile();
   return (
     <header className="sticky top-0 z-10 border-b border-border bg-background">
@@ -28,8 +32,10 @@ export function Header() {
         <div>
           <Link href="/">
             <h1 className="flex items-center space-x-2">
-              <Logo className="h-10 w-10 text-primary" />
-              <span className="text-nowrap font-semibold">React Ceará</span>
+              <Logo className="h-10 w-10 text-primary-foreground" />
+              <span className="text-nowrap font-semibold">
+                Javascript Ceará
+              </span>
             </h1>
           </Link>
         </div>
@@ -62,7 +68,7 @@ export function Header() {
             </ul>
           </nav>
           <ThemeToggleButton />
-          <Popover.Root>
+          <Popover>
             <Popover.Trigger className="hidden md:block">
               <UserAvatar />
             </Popover.Trigger>
@@ -72,35 +78,35 @@ export function Header() {
                   <>
                     <UserHeadline />
                     <Menu.Separator />
-                    <Menu.Root>
+                    <Menu>
                       <Menu.Item asChild>
                         <Link href="/profile">Meu perfil</Link>
                       </Menu.Item>
-                    </Menu.Root>
+                    </Menu>
 
                     <Menu.Separator />
 
-                    <Menu.Root>
+                    <Menu>
                       <Menu.Item asChild>
                         <Link href="/signout">Sair</Link>
                       </Menu.Item>
-                    </Menu.Root>
+                    </Menu>
                   </>
                 ) : (
-                  <Menu.Root>
+                  <Menu>
                     <Menu.Item asChild>
                       <Link href="/signin">Entrar</Link>
                     </Menu.Item>
                     <Menu.Item asChild>
                       <Link href="/signup">Cadastrar</Link>
                     </Menu.Item>
-                  </Menu.Root>
+                  </Menu>
                 )}
               </Popover.Content>
             </Popover.Portal>
-          </Popover.Root>
+          </Popover>
 
-          <Drawer.Root direction="right">
+          <Drawer direction="right">
             <Drawer.Trigger type="button" className="md:hidden">
               <MenuIcon className="h-6 w-6" />
               <span className="sr-only">menu mobile</span>
@@ -114,82 +120,82 @@ export function Header() {
 
                 {profile?.id ? (
                   <>
-                    <Menu.Root>
+                    <Menu>
                       <Menu.Item asChild>
                         <Link href="/profile">Meu perfil</Link>
                       </Menu.Item>
-                    </Menu.Root>
+                    </Menu>
 
                     <Menu.Separator />
 
-                    <Menu.Root>
+                    <Menu>
                       <Menu.Item asChild>
                         <Link href="/events">Eventos</Link>
                       </Menu.Item>
                       <Menu.Item asChild>
                         <Link href="/about">A comunidade</Link>
                       </Menu.Item>
-                    </Menu.Root>
+                    </Menu>
 
                     <Menu.Separator />
 
-                    <Menu.Root>
+                    <Menu>
                       <Menu.Item asChild>
                         <Link href="/signout">Sair</Link>
                       </Menu.Item>
-                    </Menu.Root>
+                    </Menu>
                   </>
                 ) : (
                   <>
-                    <Menu.Root>
+                    <Menu>
                       <Menu.Item asChild>
                         <Link href="/events">Eventos</Link>
                       </Menu.Item>
                       <Menu.Item asChild>
                         <Link href="/about">A comunidade</Link>
                       </Menu.Item>
-                    </Menu.Root>
+                    </Menu>
 
                     <Menu.Separator />
 
                     <Menu.Separator />
-                    <Menu.Root>
+                    <Menu>
                       <Menu.Item asChild>
                         <Link href="/signin">Entrar</Link>
                       </Menu.Item>
                       <Menu.Item asChild>
                         <Link href="/signup">Cadastrar</Link>
                       </Menu.Item>
-                    </Menu.Root>
+                    </Menu>
                   </>
                 )}
               </Drawer.Content>
             </Drawer.Portal>
-          </Drawer.Root>
+          </Drawer>
         </div>
       </div>
     </header>
   );
 }
 
-export function Body({
-  children,
-  className,
-}: React.PropsWithChildren<{
+export type ViewBodyProps = React.PropsWithChildren<{
   className?: string;
-}>) {
+}>;
+
+function Body({ children, className }: ViewBodyProps) {
   return (
     <main className={twMerge("-z-0 min-h-screen", className)}>{children}</main>
   );
 }
-export function Footer() {
+
+function Footer() {
   return (
     <footer className="boder mt-8 border-t border-border bg-foreground text-background dark:bg-background dark:text-foreground">
       <div className="space-y-4 px-8 py-12 lg:container lg:mx-auto">
         <div className="flex justify-between">
           <h6 className="flex items-center space-x-1 font-bold">
-            <Logo className="h-8 w-8" />
-            <span>React Ceará</span>
+            <Logo className="mr-2 h-8 w-8 text-primary-foreground" />
+            <span>JavaScript Ceará</span>
           </h6>
           <div className="flex space-x-4">
             <InstagramIcon className="flex h-6 w-6" />
@@ -208,7 +214,7 @@ export function Footer() {
           </ul>
 
           <div>
-            <p className="text-center text-sm">© 2023 React Ceará</p>
+            <p className="text-center text-sm">© 2024 JavaScript Ceará</p>
           </div>
         </div>
       </div>

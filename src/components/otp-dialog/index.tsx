@@ -1,32 +1,39 @@
 import { Loader } from "lucide-react";
-import * as Dialog from "@/components/dialog";
-import * as Otp from "@/components/otp-input";
+import { Dialog, DialogProps } from "@/components/dialog";
+import { OtpInput, OtpInputProps } from "@/components/otp-input";
 
-export const Header = Dialog.Header;
-export const Body = Dialog.Body;
-
-export function Root({ children, ...rest }: Dialog.RootProps) {
+export const OTP_INPUT_MAX_LENGTH = 6;
+export function OtpDialog({ children, ...rest }: DialogProps) {
   return (
-    <Dialog.Root {...rest}>
+    <Dialog {...rest}>
       <Dialog.Portal>
         <Dialog.Content onPointerDownOutside={(e) => e.preventDefault()}>
           <Dialog.Close />
           {children}
         </Dialog.Content>
       </Dialog.Portal>
-    </Dialog.Root>
+    </Dialog>
   );
 }
 
-export function Footer(props: React.PropsWithChildren) {
+OtpDialog.Header = Dialog.Header;
+OtpDialog.Input = Input;
+OtpDialog.Title = Title;
+OtpDialog.Validate = Validate;
+OtpDialog.Footer = Footer;
+OtpDialog.Description = Description;
+OtpDialog.Body = Dialog.Body;
+
+type OtpDialogFooterProps = React.PropsWithChildren;
+function Footer(props: OtpDialogFooterProps) {
   return <Dialog.Footer className="mx-auto" {...props} />;
 }
 
-export function Title() {
+function Title() {
   return <Dialog.Title className="text-center">Validar código</Dialog.Title>;
 }
 
-export function Description() {
+function Description() {
   return (
     <Dialog.Description className="text-center">
       Enviamos um código para o e-mail e/ou telefone cadastrados na sua conta
@@ -34,12 +41,10 @@ export function Description() {
   );
 }
 
-export function ValidateBtn({
-  loading,
-  ...rest
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type OtpDialogValidateProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean;
-}) {
+};
+function Validate({ loading, ...rest }: OtpDialogValidateProps) {
   return (
     <button
       className="flex items-center rounded-md bg-primary px-4 py-2 text-white disabled:opacity-50"
@@ -51,31 +56,27 @@ export function ValidateBtn({
   );
 }
 
-export const OTP_INPUT_MAX_LENGTH = 6;
+type OtpDialogProps = Omit<OtpInputProps, "maxLength">;
 
-export function Input({
-  onComplete,
-  onChange,
-  value,
-}: Omit<Otp.OTPInputRootProps, "maxLength">) {
+function Input({ onComplete, onChange, value }: OtpDialogProps) {
   return (
-    <Otp.Root
+    <OtpInput
       value={value}
       onComplete={onComplete}
       onChange={onChange}
       maxLength={OTP_INPUT_MAX_LENGTH}
     >
-      <Otp.Group>
-        <Otp.Slot index={0} />
-        <Otp.Slot index={1} />
-        <Otp.Slot index={2} />
-      </Otp.Group>
-      <Otp.Separator />
-      <Otp.Group>
-        <Otp.Slot index={3} />
-        <Otp.Slot index={4} />
-        <Otp.Slot index={5} />
-      </Otp.Group>
-    </Otp.Root>
+      <OtpInput.Group>
+        <OtpInput.Slot index={0} />
+        <OtpInput.Slot index={1} />
+        <OtpInput.Slot index={2} />
+      </OtpInput.Group>
+      <OtpInput.Separator />
+      <OtpInput.Group>
+        <OtpInput.Slot index={3} />
+        <OtpInput.Slot index={4} />
+        <OtpInput.Slot index={5} />
+      </OtpInput.Group>
+    </OtpInput>
   );
 }

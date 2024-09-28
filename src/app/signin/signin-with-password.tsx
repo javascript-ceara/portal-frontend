@@ -1,16 +1,20 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import * as Form from "@/components/signin-form";
+import {
+  SignInForm,
+  useSignInForm,
+  SignInFormValues,
+} from "@/components/signin-form";
 import { useToast } from "@/components/toaster/use-toast";
 import { createClient } from "@/services/supabase/client";
 
 export function SignInWithPassword() {
   const { toast } = useToast();
   const router = useRouter();
-  const form = Form.useSignInForm();
+  const form = useSignInForm();
 
-  const onSubmit = async (values: Form.FormValues) => {
+  const onSubmit = async (values: SignInFormValues) => {
     const sbClient = createClient({});
     const { error } = await sbClient.auth.signInWithPassword({
       email: values.email,
@@ -32,10 +36,10 @@ export function SignInWithPassword() {
   };
 
   return (
-    <Form.Root {...form} onSubmit={onSubmit}>
-      <Form.Email />
-      <Form.Password />
-      <Form.Submit />
-    </Form.Root>
+    <SignInForm {...form} onSubmit={onSubmit}>
+      <SignInForm.Email />
+      <SignInForm.Password />
+      <SignInForm.Submit />
+    </SignInForm>
   );
 }

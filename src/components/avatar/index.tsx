@@ -1,27 +1,24 @@
 import { twMerge } from "tailwind-merge";
-import {
-  Root as AvatarRoot,
-  AvatarProps,
-  Fallback as AvatarFallback,
-  AvatarFallbackProps,
-  Image as AvataImage,
-  AvatarImageProps,
-} from "@radix-ui/react-avatar";
+import * as Primitive from "@radix-ui/react-avatar";
 
-type AvatarRootProps = AvatarProps;
+export type AvatarProps = Primitive.AvatarProps;
 
-export function Root({ className, ...rest }: AvatarRootProps) {
+export function Avatar({ className, ...rest }: AvatarProps) {
   return (
-    <AvatarRoot
+    <Primitive.Avatar
       {...rest}
       className={twMerge("inline-flex rounded-full", className)}
     />
   );
 }
 
-export function Fallback({ className, ...rest }: AvatarFallbackProps) {
+Avatar.Fallback = AvatarFallback;
+Avatar.Image = AvatarImage;
+
+export type AvatarFallbackProps = Primitive.AvatarFallbackProps;
+function AvatarFallback({ className, ...rest }: AvatarFallbackProps) {
   return (
-    <AvatarFallback
+    <Primitive.AvatarFallback
       {...rest}
       className={twMerge(
         "flex h-full w-full items-center justify-center text-sm font-medium",
@@ -31,9 +28,10 @@ export function Fallback({ className, ...rest }: AvatarFallbackProps) {
   );
 }
 
-export function Image({ className, ...rest }: AvatarImageProps) {
+export type AvatarImageProps = Primitive.AvatarImageProps;
+function AvatarImage({ className, ...rest }: AvatarImageProps) {
   return (
-    <AvataImage
+    <Primitive.AvatarImage
       {...rest}
       className={twMerge("h-full w-full rounded-full object-cover", className)}
     />
