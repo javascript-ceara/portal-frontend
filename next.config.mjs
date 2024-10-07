@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "snzhzfjipuxeiacxldnd.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "www.javascript-ceara.org",
+      },
     ],
   },
 };
