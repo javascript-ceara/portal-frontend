@@ -1,8 +1,9 @@
+"use client";
+
 import { twMerge } from "tailwind-merge";
 import * as Primitive from "@radix-ui/react-avatar";
 
 export type AvatarProps = Primitive.AvatarProps;
-
 export function Avatar({ className, ...rest }: AvatarProps) {
   return (
     <Primitive.Avatar
@@ -12,11 +13,11 @@ export function Avatar({ className, ...rest }: AvatarProps) {
   );
 }
 
-Avatar.Fallback = AvatarFallback;
-Avatar.Image = AvatarImage;
+Avatar.Fallback = Fallback;
+Avatar.Image = Image;
 
 export type AvatarFallbackProps = Primitive.AvatarFallbackProps;
-function AvatarFallback({ className, ...rest }: AvatarFallbackProps) {
+function Fallback({ className, ...rest }: AvatarFallbackProps) {
   return (
     <Primitive.AvatarFallback
       {...rest}
@@ -29,7 +30,7 @@ function AvatarFallback({ className, ...rest }: AvatarFallbackProps) {
 }
 
 export type AvatarImageProps = Primitive.AvatarImageProps;
-function AvatarImage({ className, ...rest }: AvatarImageProps) {
+function Image({ className, ...rest }: AvatarImageProps) {
   return (
     <Primitive.AvatarImage
       {...rest}

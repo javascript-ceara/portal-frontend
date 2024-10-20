@@ -1,12 +1,9 @@
-import {
-  TypographyH3,
-  TypographyH4,
-  TypographySmall,
-} from "@/components/typography";
-import { User2Icon, LinkedinIcon } from "lucide-react";
+import Link from "next/link";
+import { TypographyH3 } from "@/components/typography";
+import { User2Icon } from "lucide-react";
 import { Popover } from "@/components/popover";
+import { ProfileCard } from "@/components/profile-card";
 import { Avatar } from "@/components/avatar";
-import { GithubIcon } from "@/components/icons/github";
 
 type PresentationsProps = React.PropsWithChildren;
 
@@ -55,29 +52,24 @@ function Author({
         </Popover.Trigger>
         {fullName}
       </p>
-      <Popover.Content
-        align="start"
-        className="mt-1 flex flex-col items-center"
-      >
-        <Avatar className="flex h-20 w-20">
-          <Avatar.Image src={avatarUrl} />
-          <Avatar.Fallback className="h-20 w-20 rounded-full border border-border">
-            <User2Icon className="h-10 w-10 text-foreground dark:text-foreground" />
-          </Avatar.Fallback>
-        </Avatar>
-        <TypographyH4>{fullName}</TypographyH4>
-        <TypographySmall className="mb-4 text-center font-normal">
-          {bio}
-        </TypographySmall>
-
-        <div className="flex items-center gap-2">
-          <a href={githubUrl} title={`Perfil do GitHub de ${fullName}`}>
-            <GithubIcon className="h-6 w-6" />
-          </a>
-          <a href={linkedinUrl} title={`Perfil do LinkedIn de ${fullName}`}>
-            <LinkedinIcon className="h-6 w-6" />
-          </a>
-        </div>
+      <Popover.Content align="start" className="mt-1 border-0 p-0 shadow-none">
+        <ProfileCard>
+          <ProfileCard.Header>
+            <ProfileCard.Avatar src={avatarUrl} />
+          </ProfileCard.Header>
+          <ProfileCard.Name>{fullName}</ProfileCard.Name>
+          <ProfileCard.Bio>{bio}</ProfileCard.Bio>
+          <ProfileCard.Footer>
+            <ProfileCard.GithubLink
+              href={githubUrl}
+              title={`Perfil do Github de ${fullName}`}
+            />
+            <ProfileCard.LinkedinLink
+              href={linkedinUrl}
+              title={`Perfil do Linkedin de ${fullName}`}
+            />
+          </ProfileCard.Footer>
+        </ProfileCard>
       </Popover.Content>
     </Popover>
   );

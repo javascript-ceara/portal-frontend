@@ -1,3 +1,5 @@
+"use client";
+
 import { twMerge } from "tailwind-merge";
 import * as Primitive from "@radix-ui/react-popover";
 
@@ -9,10 +11,10 @@ export function Popover(props: PopoverProps) {
 
 Popover.Portal = Primitive.Portal;
 Popover.Trigger = Primitive.Trigger;
-Popover.Content = PopoverContent;
+Popover.Content = Content;
 
 export type PopoverContentProps = Primitive.PopoverContentProps;
-function PopoverContent({ className, ...rest }: PopoverContentProps) {
+function Content({ className, ...rest }: PopoverContentProps) {
   return (
     <Primitive.PopoverContent
       {...rest}

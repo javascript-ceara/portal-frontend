@@ -1,32 +1,30 @@
+"use client";
+
 import { HighlightedEvent as Highlighted } from "@/components/highlighted-event";
-import { createClient } from "@/services/supabase/server";
+import { Tables, Database } from "@/types/supabase.database";
 
-async function HighlightedEvent() {
-  const client = createClient();
-
-  const { data: event } = await client
-    .from("events")
-    .select("*")
-    .filter("is_highlighted", "eq", true)
-    .order("start_date", { ascending: true })
-    .limit(1)
-    .single();
-
-  const { data: presentations } = await client.rpc("get_event_presentations", {
-    input_event_id: event?.id || 0,
-  });
-
+async function HighlightedEvent({
+  highlightedEvent,
+  presentations,
+}: {
+  highlightedEvent: Tables<"events"> | null;
+  presentations:
+    | Database["public"]["Functions"]["get_event_presentations"]["Returns"]
+    | null;
+}) {
   return (
     <Highlighted>
       <Highlighted.Header>
         <Highlighted.Label />
         <Highlighted.PlaceAndDate
-          place={event?.place || ""}
-          address={event?.address || ""}
-          startDate={event?.start_date || ""}
+          place={highlightedEvent?.place || ""}
+          address={highlightedEvent?.address || ""}
+          startDate={highlightedEvent?.start_date || ""}
         />
-        <Highlighted.Title>{event?.title}</Highlighted.Title>
-        <Highlighted.Description>{event?.description}</Highlighted.Description>
+        <Highlighted.Title>{highlightedEvent?.title}</Highlighted.Title>
+        <Highlighted.Description>
+          {highlightedEvent?.description}
+        </Highlighted.Description>
       </Highlighted.Header>
       <Highlighted.Body>
         <Highlighted.Agenda>
@@ -64,7 +62,7 @@ async function HighlightedEvent() {
         </Highlighted.Agenda>
       </Highlighted.Body>
       <Highlighted.Footer>
-        <Highlighted.Subscribe href={event?.subscribe_url} />
+        <Highlighted.Subscribe href={highlightedEvent?.subscribe_url} />
         <Highlighted.Submit />
       </Highlighted.Footer>
     </Highlighted>

@@ -1,16 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { Section } from "@/components/section";
 import { EventCard } from "@/components/event-card";
-import { createClient } from "@/services/supabase/server";
+import { Tables } from "@/types/supabase.database";
 
-async function OurEvents() {
-  const client = createClient();
-
-  const { data: events } = await client
-    .from("events")
-    .select("*")
-    .order("start_date", { ascending: true });
-
+async function OurEvents({
+  ourEvents,
+}: {
+  ourEvents: Tables<"events">[] | null;
+}) {
   return (
     <Section>
       <Section.Container>
@@ -18,7 +17,7 @@ async function OurEvents() {
           <Section.Title>Nossos eventos</Section.Title>
         </Section.Header>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {events?.map(({ id, title, start_date, place, description }) => {
+          {ourEvents?.map(({ id, title, start_date, place, description }) => {
             return (
               <EventCard key={id}>
                 <EventCard.Title>

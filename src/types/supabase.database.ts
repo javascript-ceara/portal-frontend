@@ -49,6 +49,7 @@ export type Database = {
           description: string
           end_date: string
           id: number
+          is_highlighted: boolean | null
           is_online: boolean
           place: string
           start_date: string
@@ -61,6 +62,7 @@ export type Database = {
           description: string
           end_date: string
           id?: number
+          is_highlighted?: boolean | null
           is_online?: boolean
           place: string
           start_date: string
@@ -73,6 +75,7 @@ export type Database = {
           description?: string
           end_date?: string
           id?: number
+          is_highlighted?: boolean | null
           is_online?: boolean
           place?: string
           start_date?: string
@@ -87,6 +90,7 @@ export type Database = {
           description: string
           id: number
           profile_id: string | null
+          published: boolean | null
           title: string
         }
         Insert: {
@@ -94,6 +98,7 @@ export type Database = {
           description: string
           id?: number
           profile_id?: string | null
+          published?: boolean | null
           title: string
         }
         Update: {
@@ -101,6 +106,7 @@ export type Database = {
           description?: string
           id?: number
           profile_id?: string | null
+          published?: boolean | null
           title?: string
         }
         Relationships: [
@@ -122,6 +128,7 @@ export type Database = {
           full_name: string | null
           github_url: string | null
           id: string
+          is_an_organizer: boolean | null
           linkedin_url: string | null
           location: string | null
           phone: string | null
@@ -137,6 +144,7 @@ export type Database = {
           full_name?: string | null
           github_url?: string | null
           id: string
+          is_an_organizer?: boolean | null
           linkedin_url?: string | null
           location?: string | null
           phone?: string | null
@@ -152,6 +160,7 @@ export type Database = {
           full_name?: string | null
           github_url?: string | null
           id?: string
+          is_an_organizer?: boolean | null
           linkedin_url?: string | null
           location?: string | null
           phone?: string | null
@@ -159,15 +168,7 @@ export type Database = {
           updated_at?: string | null
           username?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
     }
     Views: {
@@ -190,6 +191,21 @@ export type Database = {
           profile_bio: string
           profile_company: string
           profile_email: string
+        }[]
+      }
+      get_last_events: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          event_id: number
+          title: string
+          created_at: string
+          description: string
+          place: string
+          start_date: string
+          end_date: string
+          is_online: boolean
+          address: string
+          subscribe_url: string
         }[]
       }
     }
@@ -282,4 +298,19 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never

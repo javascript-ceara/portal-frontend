@@ -1,3 +1,8 @@
+"use  client";
+
+import { useState, useEffect } from "react";
+import { format, parseISO, isSameYear } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { MapPinIcon } from "lucide-react";
 import { Section } from "@/components/section";
 import {
@@ -8,9 +13,8 @@ import {
 } from "@/components/typography";
 import { Popover } from "@/components/popover";
 import { Button } from "@/components/button";
-import { Presentations, Presentation } from "./presentations";
-import { Agenda } from "./agenda";
-import { StartDate } from "./start-date";
+import { Presentations, Presentation } from "./components/presentations";
+import { Agenda } from "./components/agenda";
 
 export type HighlightedEventProps = React.PropsWithChildren;
 
@@ -41,9 +45,11 @@ function Label() {
   return <TypographyH4 className="mb-4 text-lg">Próximo evento</TypographyH4>;
 }
 
-export type HighlightedEventPlaceProps = {
+export type PlaceAndDateProps = {
   place: string;
   address: string;
+  startDate: string;
+  showTime?: boolean;
 };
 
 function PlaceAndDate({
@@ -51,12 +57,7 @@ function PlaceAndDate({
   address,
   startDate,
   showTime,
-}: {
-  place: string;
-  address: string;
-  startDate: string;
-  showTime?: boolean;
-}) {
+}: PlaceAndDateProps) {
   return (
     <div className="flex items-center space-x-2">
       <Place place={place} address={address} />
@@ -65,7 +66,12 @@ function PlaceAndDate({
   );
 }
 
-function Place({ place, address }: HighlightedEventPlaceProps) {
+export type PlaceProps = {
+  place: string;
+  address: string;
+};
+
+function Place({ place, address }: PlaceProps) {
   return (
     <Popover>
       <div className="flex items-center">
@@ -91,8 +97,44 @@ function Place({ place, address }: HighlightedEventPlaceProps) {
   );
 }
 
-export type HighlightedEventTitleProps = React.PropsWithChildren;
-function Title({ children }: HighlightedEventTitleProps) {
+export type StartDateProps = {
+  startDate: string;
+  showTime: boolean;
+};
+
+function StartDate({
+  startDate = "2024-08-17T03:00:00+00:00",
+  showTime = true,
+}: {
+  startDate: string;
+  showTime?: boolean;
+}) {
+  const [date, setDate] = useState("");
+
+  useEffect(() => {
+    try {
+      const parsed = parseISO(startDate as string);
+      const isNotSame = !isSameYear(parsed, new Date());
+
+      setDate(
+        format(
+          parsed,
+          `dd LLLL ${isNotSame ? "yyyy" : ""} 
+          ${showTime ? "' - ' k:mm'h'" : ""}`,
+          {
+            locale: ptBR,
+          },
+        ),
+      );
+    } catch (_) {
+      console.log(_);
+    }
+  }, [startDate, showTime]);
+  return <p className="flex items-center text-sm">{date}</p>;
+}
+
+export type TitleProps = React.PropsWithChildren;
+function Title({ children }: TitleProps) {
   return (
     <TypographyH1 className="mb-4 font-extrabold sm:text-5xl xl:text-7xl">
       {children}
@@ -105,22 +147,22 @@ function Description({ children }: DescriptionProps) {
   return <TypographyLead className="max-w-3xl">{children}</TypographyLead>;
 }
 
-export type HighlightedEventBodyProps = React.PropsWithChildren;
-function Body({ children }: HighlightedEventBodyProps) {
+export type BodyProps = React.PropsWithChildren;
+function Body({ children }: BodyProps) {
   return <div className="space-y-8">{children}</div>;
 }
 
-export type HighlightedEventFooterProps = React.PropsWithChildren;
-function Footer({ children }: HighlightedEventFooterProps) {
+export type FooterProps = React.PropsWithChildren;
+function Footer({ children }: FooterProps) {
   return (
     <div className="mt-12 flex flex-col gap-4 sm:flex-row">{children}</div>
   );
 }
 
-export type HighlightedEventSubscribeProps = {
+export type SubscribeProps = {
   href?: string;
 };
-function Subscribe({ href }: HighlightedEventSubscribeProps) {
+function Subscribe({ href }: SubscribeProps) {
   return (
     <Button size="lg" asChild>
       <a href={href} target="_blank">
@@ -130,10 +172,10 @@ function Subscribe({ href }: HighlightedEventSubscribeProps) {
   );
 }
 
-export type HighlightedEventSubmitProps = {
+export type SubmitProps = {
   href?: string;
 };
-function Submit({ href }: HighlightedEventSubmitProps) {
+function Submit({ href }: SubmitProps) {
   return (
     <Button variant="outlined" size="lg" asChild>
       <a href={href}>Envie sua palestra</a>
