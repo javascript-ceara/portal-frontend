@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Section } from "@/components/section";
 import { EventCard } from "@/components/event-card";
 import { Tables } from "@/types/supabase.database";
+import { Button } from "@/components/button";
 
 async function OurEvents({
   ourEvents,
@@ -30,6 +31,7 @@ async function OurEvents({
             );
           })}
         </div>
+        <Button className="mt-4 xl:w-auto w-full" variant={'outlined'}>Ver mais eventos</Button>
       </Section.Container>
     </Section>
   );
