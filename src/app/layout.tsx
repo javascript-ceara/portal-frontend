@@ -17,9 +17,13 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  dialog,
 }: Readonly<{
   children: React.ReactNode;
+  dialog: React.ReactNode;
 }>) {
+  console.log("ddddd", dialog);
+
   const client = createClient();
   const { data } = await client.auth.getUser();
 
@@ -40,6 +44,7 @@ export default async function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ProfileProvider profile={profiles}>
             {children}
+            {dialog}
             <Toaster />
           </ProfileProvider>
         </ThemeProvider>

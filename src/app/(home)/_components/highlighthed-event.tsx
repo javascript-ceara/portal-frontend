@@ -63,7 +63,7 @@ async function HighlightedEvent({
       </Highlighted.Body>
       <Highlighted.Footer>
         <Highlighted.Subscribe href={highlightedEvent?.subscribe_url} />
-        <Highlighted.Submit />
+        <Highlighted.Submit href="/presentations/new" />
       </Highlighted.Footer>
     </Highlighted>
   );

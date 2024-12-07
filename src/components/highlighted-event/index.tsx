@@ -1,6 +1,7 @@
 "use  client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { format, parseISO, isSameYear } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { MapPinIcon } from "lucide-react";
@@ -173,12 +174,12 @@ function Subscribe({ href }: SubscribeProps) {
 }
 
 export type SubmitProps = {
-  href?: string;
+  href: string;
 };
 function Submit({ href }: SubmitProps) {
   return (
     <Button variant="outlined" size="lg" asChild>
-      <a href={href}>Envie sua palestra</a>
+      <Link href={href}>Envie sua palestra</Link>
     </Button>
   );
 }
