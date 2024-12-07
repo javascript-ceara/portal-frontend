@@ -26,7 +26,7 @@ export function EventCard({ children, className }: EventCardProps) {
 
 EventCard.Title = TypographyH3;
 EventCard.StartDate = StartDate;
-EventCard.Place = Place;
+EventCard.PlaceAndAddress = PlaceAndAddress;
 EventCard.Description = Description;
 
 export type EventCardStartDateProps = { date: string };
@@ -45,24 +45,33 @@ function StartDate({ date }: EventCardStartDateProps) {
   );
 }
 
-export type EventCardPlaceProps = React.PropsWithChildren;
-function Place({ children }: EventCardPlaceProps) {
+export type EventCardPlaceProps = {
+  place: string;
+  address: string;
+};
+
+function PlaceAndAddress({ place, address }: EventCardPlaceProps) {
   return (
     <Popover>
       <div className="flex items-center space-x-4">
         <Popover.Trigger className="rounded-md bg-background-darker p-3 dark:bg-background-lighter">
           <MapPinIcon className="h-6 w-6" />
         </Popover.Trigger>
-        <p className="text-base">{children}</p>
+        <p className="text-base">{place}</p>
       </div>
 
       <Popover.Content>
-        <TypographyH4 className="mb-2">Digital College </TypographyH4>
-        <TypographySmall className="mb-4">
-          Av. Santos Dumont, 1510 - 1 andar - Aldeota, Fortaleza - CE
-        </TypographySmall>
+        <TypographyH4 className="mb-2">{place}</TypographyH4>
+        <TypographySmall className="mb-4">{address}</TypographySmall>
         <TypographySmall>
-          <a href="#">Ver no Google Maps</a>
+          <TypographySmall>
+            <a
+              href={`https://www.google.com/maps/place/${address}`}
+              target="_blank"
+            >
+              Ver no Google Maps
+            </a>
+          </TypographySmall>
         </TypographySmall>
       </Popover.Content>
     </Popover>
