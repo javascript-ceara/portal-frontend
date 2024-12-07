@@ -54,7 +54,7 @@ function PlaceAndAddress({ place, address }: EventCardPlaceProps) {
   return (
     <Popover>
       <div className="flex items-center space-x-4">
-        <Popover.Trigger className="rounded-md bg-background-darker p-3 dark:bg-background-lighter">
+        <Popover.Trigger className="rounded-md bg-background-darker p-3 hover:bg-primary dark:bg-background-lighter">
           <MapPinIcon className="h-6 w-6" />
         </Popover.Trigger>
         <p className="text-base">{place}</p>
