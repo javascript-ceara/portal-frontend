@@ -1,17 +1,19 @@
 "use client";
 
 import { twMerge } from "tailwind-merge";
-import { LinkedinIcon } from "lucide-react";
+import { LinkedinIcon, UserIcon } from "lucide-react";
 import { Card, CardProps } from "@/components/card";
-import { TypographyH4, TypographySmall } from "@/components/typography";
+import { TypographyH4 } from "@/components/typography";
 import {
-  Avatar as PrimitiveAvatar,
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
   AvatarImageProps,
 } from "@/components/avatar";
 import { GithubIcon } from "@/components/icons/github";
 
-export type ProfileCardProps = CardProps;
-export function ProfileCard({ children, className }: ProfileCardProps) {
+type ProfileCardProps = CardProps;
+function ProfileCard({ children, className }: ProfileCardProps) {
   return (
     <Card
       className={twMerge(
@@ -24,27 +26,22 @@ export function ProfileCard({ children, className }: ProfileCardProps) {
   );
 }
 
-ProfileCard.Avatar = Avatar;
-ProfileCard.Name = TypographyH4;
-ProfileCard.Bio = Bio;
-ProfileCard.GithubLink = GithubLink;
-ProfileCard.LinkedinLink = LinkedinLink;
-ProfileCard.Header = Header;
-ProfileCard.Footer = Footer;
+const ProfileCardName = TypographyH4;
 
-export type ProfileCardAvatarProps = AvatarImageProps;
-function Avatar({ className, src }: ProfileCardAvatarProps) {
+type ProfileCardAvatarProps = AvatarImageProps;
+function ProfileCardAvatar({ className, src }: ProfileCardAvatarProps) {
   return (
-    <PrimitiveAvatar className={twMerge("h-28 w-28", className)}>
-      <PrimitiveAvatar.Fallback />
-      <PrimitiveAvatar.Image src={src} />
-    </PrimitiveAvatar>
+    <Avatar className={twMerge("border-border h-28 w-28 border", className)}>
+      <AvatarFallback>
+        <UserIcon className="h-5 w-5" />
+      </AvatarFallback>
+      <AvatarImage src={src} />
+    </Avatar>
   );
 }
 
-export type GithubLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
-
-function GithubLink(props: GithubLinkProps) {
+type ProfileCardGithubLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
+function ProfileCardGithubLink(props: ProfileCardGithubLinkProps) {
   return (
     <a {...props} target="_blank">
       <GithubIcon className="h-6 w-6" />
@@ -52,8 +49,9 @@ function GithubLink(props: GithubLinkProps) {
   );
 }
 
-export type LinkedinLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>;
-function LinkedinLink(props: LinkedinLinkProps) {
+type ProfileCardLinkedinLinkProps =
+  React.AnchorHTMLAttributes<HTMLAnchorElement>;
+function ProfileCardLinkedinLink(props: ProfileCardLinkedinLinkProps) {
   return (
     <a {...props} target="_blank">
       <LinkedinIcon className="h-6 w-6" />
@@ -61,17 +59,35 @@ function LinkedinLink(props: LinkedinLinkProps) {
   );
 }
 
-export type HeaderProps = React.HTMLAttributes<HTMLAnchorElement>;
-function Header({ children }: HeaderProps) {
+type ProfileCardHeaderProps = React.HTMLAttributes<HTMLAnchorElement>;
+function ProfileCardHeader({ children }: ProfileCardHeaderProps) {
   return <div className="flex justify-center gap-2">{children}</div>;
 }
 
-export type FooterProps = React.HTMLAttributes<HTMLAnchorElement>;
-function Footer({ children }: FooterProps) {
+type ProfileCardFooterProps = React.HTMLAttributes<HTMLAnchorElement>;
+function ProfileCardFooter({ children }: ProfileCardFooterProps) {
   return <div className="mt-4 flex justify-center gap-2">{children}</div>;
 }
 
-export type BioProps = React.HTMLAttributes<HTMLParagraphElement>;
-function Bio({ className, ...rest }: BioProps) {
-  return <TypographySmall {...rest} className="text-center" />;
+type ProfileCardBioProps = React.HTMLAttributes<HTMLParagraphElement>;
+function ProfileCardBio({ className, ...rest }: ProfileCardBioProps) {
+  return <p {...rest} className="text-center text-sm leading-none" />;
 }
+
+export {
+  ProfileCard,
+  ProfileCardName,
+  ProfileCardAvatar,
+  ProfileCardGithubLink,
+  ProfileCardLinkedinLink,
+  ProfileCardHeader,
+  ProfileCardFooter,
+  ProfileCardBio,
+  type ProfileCardProps,
+  type ProfileCardAvatarProps,
+  type ProfileCardGithubLinkProps,
+  type ProfileCardLinkedinLinkProps,
+  type ProfileCardHeaderProps,
+  type ProfileCardFooterProps,
+  type ProfileCardBioProps,
+};

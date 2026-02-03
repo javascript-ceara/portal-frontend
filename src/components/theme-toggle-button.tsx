@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { MoonIcon, SunIcon, Monitor } from "lucide-react";
-import { Popover } from "@/components/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/popover";
 import { useTheme } from "next-themes";
 
-export function ThemeToggleButton() {
+function ThemeToggleButton() {
   const [isClient, setIsClient] = useState(false);
   const { theme, resolvedTheme, setTheme } = useTheme();
 
@@ -19,18 +19,18 @@ export function ThemeToggleButton() {
   }
   return (
     <Popover>
-      <Popover.Trigger className="text-primary">
+      <PopoverTrigger className="text-primary">
         {resolvedTheme === "light" && <SunIcon className="h-6 w-6" />}
         {resolvedTheme === "dark" && <MoonIcon className="h-6 w-6" />}
         {resolvedTheme === "system" && <Monitor className="h-6 w-6" />}
-      </Popover.Trigger>
-      <Popover.Content className="max-w-40 p-0 py-1">
+      </PopoverTrigger>
+      <PopoverContent className="max-w-40 p-0 py-1">
         <ul>
           <li className="flex">
             <button
               onClick={() => setTheme("light")}
               className={twMerge(
-                "flex flex-1 items-center px-4 py-1 font-medium text-foreground hover:bg-background-hover",
+                "text-foreground hover:bg-background-hover flex flex-1 items-center px-4 py-1 font-medium",
                 theme === "light" && "text-primary",
               )}
             >
@@ -42,7 +42,7 @@ export function ThemeToggleButton() {
             <button
               onClick={() => setTheme("dark")}
               className={twMerge(
-                "flex flex-1 items-center px-4 py-1 font-medium text-foreground hover:bg-background-hover",
+                "text-foreground hover:bg-background-hover flex flex-1 items-center px-4 py-1 font-medium",
                 theme === "dark" && "text-primary",
               )}
             >
@@ -54,7 +54,7 @@ export function ThemeToggleButton() {
             <button
               onClick={() => setTheme("system")}
               className={twMerge(
-                "flex flex-1 items-center px-4 py-1 font-medium text-foreground hover:bg-background-hover ",
+                "text-foreground hover:bg-background-hover flex flex-1 items-center px-4 py-1 font-medium ",
                 theme === "system" && "text-primary",
               )}
             >
@@ -63,7 +63,7 @@ export function ThemeToggleButton() {
             </button>
           </li>
         </ul>
-      </Popover.Content>
+      </PopoverContent>
     </Popover>
   );
 
@@ -90,3 +90,5 @@ export function ThemeToggleButton() {
   //   </button>
   // );
 }
+
+export { ThemeToggleButton };

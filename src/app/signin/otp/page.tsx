@@ -1,12 +1,17 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
-import { Section } from "@/components/section";
+import {
+  Section,
+  SectionContainer,
+  SectionHeader,
+  SectionTitle,
+} from "@/components/section";
 import { createClient } from "@/services/supabase/server";
-import { SignInWithOtp } from "./signin-with-otp";
+import { OtpFormContainer } from "./_components/otp-form";
 
 export default async function Page() {
-  const client = createClient();
+  const client = await createClient();
   const { data } = await client.auth.getUser();
 
   if (data.user?.id) {
@@ -15,18 +20,18 @@ export default async function Page() {
 
   return (
     <Section>
-      <Section.Container className="sm:mx-auto sm:max-w-xl">
-        <Section.Header>
+      <SectionContainer className="sm:mx-auto sm:max-w-xl">
+        <SectionHeader>
           <div className="flex items-center justify-center">
             <Link href="/signin" className=" flex items-center text-xs">
               <ArrowLeft className="h-4 w-4" />
               <span>Voltar</span>
             </Link>
           </div>
-          <Section.Title className="text-center">Login sem senha</Section.Title>
-        </Section.Header>
-        <SignInWithOtp />
-      </Section.Container>
+          <SectionTitle className="text-center">Login sem senha</SectionTitle>
+        </SectionHeader>
+        <OtpFormContainer />
+      </SectionContainer>
     </Section>
   );
 }

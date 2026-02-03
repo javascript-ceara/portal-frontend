@@ -1,6 +1,6 @@
 import { Event } from "@/types";
 
-export function convertEventToText(event: Event): string {
+function convertEventToText(event: Event): string {
   const startDate = new Date(event.start_date);
   const endDate = new Date(event.end_date);
 
@@ -27,3 +27,5 @@ export function convertEventToText(event: Event): string {
             O evento está programado para terminar às ${endTimeText}. 
             Descrição do evento: ${event.description}`;
 }
+
+export { convertEventToText };

@@ -1,39 +1,43 @@
-import { twMerge } from "tailwind-merge";
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CalendarIcon, MapPinIcon } from "lucide-react";
+import { TypographyH4, TypographySmall } from "@/components/typography";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/popover";
 import {
-  TypographyH3,
-  TypographyH4,
-  TypographySmall,
-} from "@/components/typography";
-import { Popover } from "@/components/popover";
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  type CardProps,
+  type CardTitleProps,
+  type CardDescriptionProps,
+  type CardHeaderProps,
+} from "@/components/card";
 
-export type EventCardProps = React.PropsWithChildren<{ className?: string }>;
+type EventCardProps = CardProps;
+const EventCard = Card;
 
-export function EventCard({ children, className }: EventCardProps) {
-  return (
-    <div
-      className={twMerge(
-        "space-y-4 rounded-3xl border border-border p-8 text-lg",
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
+type EventCardHeaderProps = CardHeaderProps;
+const EventCardHeader = CardHeader;
+
+type EventCardTitleProps = CardTitleProps;
+const EventCardTitle = CardTitle;
+
+type EventCardDescriptionProps = CardDescriptionProps;
+const EventCardDescription = CardDescription;
+
+type EventCardBodyProps = React.HTMLAttributes<HTMLDivElement>;
+function EventCardBody({ children }: EventCardBodyProps) {
+  return <div className="space-y-2">{children}</div>;
 }
 
-EventCard.Title = TypographyH3;
-EventCard.StartDate = StartDate;
-EventCard.PlaceAndAddress = PlaceAndAddress;
-EventCard.Description = Description;
-
-export type EventCardStartDateProps = { date: string };
-function StartDate({ date }: EventCardStartDateProps) {
+type EventCardStartDateProps = React.HTMLAttributes<HTMLDivElement> & {
+  date: string;
+};
+function EventCardStartDate({ date }: EventCardStartDateProps) {
   return (
     <div className="flex items-center space-x-4">
-      <div className="rounded-md bg-background-darker p-3 dark:bg-background-lighter">
+      <div className="bg-background-darker dark:bg-background-lighter rounded-md p-3">
         <CalendarIcon className="h-6 w-6 " />
       </div>
       <p className="text-base">
@@ -45,22 +49,25 @@ function StartDate({ date }: EventCardStartDateProps) {
   );
 }
 
-export type EventCardPlaceProps = {
+type EventCardPlaceAndAddressProps = {
   place: string;
   address: string;
 };
 
-function PlaceAndAddress({ place, address }: EventCardPlaceProps) {
+function EventCardPlaceAndAddress({
+  place,
+  address,
+}: EventCardPlaceAndAddressProps) {
   return (
     <Popover>
       <div className="flex items-center space-x-4">
-        <Popover.Trigger className="rounded-md bg-background-darker p-3 hover:bg-primary dark:bg-background-lighter">
+        <PopoverTrigger className="bg-background-darker hover:bg-primary-hover dark:bg-background-lighter dark:hover:bg-primary dark:hover:text-background cursor-pointer  rounded-md p-3">
           <MapPinIcon className="h-6 w-6" />
-        </Popover.Trigger>
+        </PopoverTrigger>
         <p className="text-base">{place}</p>
       </div>
 
-      <Popover.Content>
+      <PopoverContent>
         <TypographyH4 className="mb-2">{place}</TypographyH4>
         <TypographySmall className="mb-4">{address}</TypographySmall>
         <TypographySmall>
@@ -73,12 +80,22 @@ function PlaceAndAddress({ place, address }: EventCardPlaceProps) {
             </a>
           </TypographySmall>
         </TypographySmall>
-      </Popover.Content>
+      </PopoverContent>
     </Popover>
   );
 }
 
-export type EventCardDescriptionProps = React.PropsWithChildren;
-function Description({ children }: EventCardDescriptionProps) {
-  return <p className=" text-base">{children}</p>;
-}
+export {
+  EventCard,
+  EventCardHeader,
+  EventCardBody,
+  EventCardTitle,
+  EventCardDescription,
+  EventCardStartDate,
+  EventCardPlaceAndAddress,
+  type EventCardProps,
+  type EventCardHeaderProps,
+  type EventCardBodyProps,
+  type EventCardTitleProps,
+  type EventCardDescriptionProps,
+};

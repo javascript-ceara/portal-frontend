@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import LayoutClient from "./layout-client";
+import { View, ViewHeader, ViewBody, ViewFooter } from "@/components/view";
 
 export const metadata: Metadata = {
   title: "React Ceará - Cadastro",
@@ -11,5 +11,11 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <LayoutClient>{children}</LayoutClient>;
+  return (
+    <View>
+      <ViewHeader />
+      <ViewBody>{children}</ViewBody>
+      <ViewFooter />
+    </View>
+  );
 }

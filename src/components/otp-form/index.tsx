@@ -17,14 +17,14 @@ const OtpFormSchema = z.object({
   email: z.string().min(1, "Campo obrigatório").email("Email inválido"),
 });
 
-export type OtpFormValues = z.infer<typeof OtpFormSchema>;
+type OtpFormValues = z.infer<typeof OtpFormSchema>;
 
 type OtpFormProps = UseFormReturn<OtpFormValues> & {
   children?: React.ReactNode;
   onSubmit: SubmitHandler<OtpFormValues>;
   className?: string;
 };
-export function OtpForm({
+function OtpForm({
   children,
   handleSubmit,
   onSubmit,
@@ -77,7 +77,7 @@ function OtpFormSubmit() {
   );
 }
 
-export function useOtpForm() {
+function useOtpForm() {
   return useForm<OtpFormValues>({
     resolver: zodResolver(OtpFormSchema),
     defaultValues: {
@@ -88,3 +88,12 @@ export function useOtpForm() {
     shouldFocusError: false,
   });
 }
+
+export {
+  OtpForm,
+  OtpFormEmail,
+  OtpFormSubmit,
+  useOtpForm,
+  type OtpFormValues,
+  type OtpFormProps,
+};

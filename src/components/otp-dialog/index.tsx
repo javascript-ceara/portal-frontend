@@ -1,53 +1,67 @@
-import { Loader } from "lucide-react";
-import { Dialog, DialogProps } from "@/components/dialog";
-import { OtpInput, OtpInputProps } from "@/components/otp-input";
+"use client";
 
-export const OTP_INPUT_MAX_LENGTH = 6;
-export function OtpDialog({ children, ...rest }: DialogProps) {
+import { Loader } from "lucide-react";
+import {
+  Dialog,
+  DialogPortal,
+  DialogHeader,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+  DialogBody,
+  DialogProps,
+} from "@/components/dialog";
+import {
+  OtpInput,
+  OtpInputGroup,
+  OtpInputProps,
+  OtpInputSlot,
+  OtpInputSeparator,
+} from "@/components/otp-input";
+
+const OTP_INPUT_MAX_LENGTH = 6;
+function OtpDialog({ children, ...rest }: DialogProps) {
   return (
     <Dialog {...rest}>
-      <Dialog.Portal>
-        <Dialog.Content onPointerDownOutside={(e) => e.preventDefault()}>
-          <Dialog.Close />
+      <DialogPortal>
+        <DialogContent onPointerDownOutside={(e) => e.preventDefault()}>
+          <DialogClose />
           {children}
-        </Dialog.Content>
-      </Dialog.Portal>
+        </DialogContent>
+      </DialogPortal>
     </Dialog>
   );
 }
 
-OtpDialog.Header = Dialog.Header;
-OtpDialog.Input = Input;
-OtpDialog.Title = Title;
-OtpDialog.Validate = Validate;
-OtpDialog.Footer = Footer;
-OtpDialog.Description = Description;
-OtpDialog.Body = Dialog.Body;
+const OtpDialogHeader = DialogHeader;
+const OtpDialogBody = DialogBody;
 
 type OtpDialogFooterProps = React.PropsWithChildren;
-function Footer(props: OtpDialogFooterProps) {
-  return <Dialog.Footer className="mx-auto" {...props} />;
+function OtpDialogFooter(props: OtpDialogFooterProps) {
+  return <DialogFooter className="mx-auto" {...props} />;
 }
 
-function Title() {
-  return <Dialog.Title className="text-center">Validar código</Dialog.Title>;
+function OtpDialogTitle() {
+  return <DialogTitle className="text-center">Validar código</DialogTitle>;
 }
 
-function Description() {
+function OtpDialogDescription() {
   return (
-    <Dialog.Description className="text-center">
+    <DialogDescription className="text-center">
       Enviamos um código para o e-mail e/ou telefone cadastrados na sua conta
-    </Dialog.Description>
+    </DialogDescription>
   );
 }
 
 type OtpDialogValidateProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean;
 };
-function Validate({ loading, ...rest }: OtpDialogValidateProps) {
+function OtpDialogValidate({ loading, ...rest }: OtpDialogValidateProps) {
   return (
     <button
-      className="flex items-center rounded-md bg-primary px-4 py-2 text-white disabled:opacity-50"
+      className="bg-primary flex items-center rounded-md px-4 py-2 text-white disabled:opacity-50"
       {...rest}
     >
       <span>Validar</span>
@@ -56,9 +70,9 @@ function Validate({ loading, ...rest }: OtpDialogValidateProps) {
   );
 }
 
-type OtpDialogProps = Omit<OtpInputProps, "maxLength">;
+type OtpDialogInputProps = Omit<OtpInputProps, "maxLength">;
 
-function Input({ onComplete, onChange, value }: OtpDialogProps) {
+function OtpDialogInput({ onComplete, onChange, value }: OtpDialogInputProps) {
   return (
     <OtpInput
       value={value}
@@ -66,17 +80,29 @@ function Input({ onComplete, onChange, value }: OtpDialogProps) {
       onChange={onChange}
       maxLength={OTP_INPUT_MAX_LENGTH}
     >
-      <OtpInput.Group>
-        <OtpInput.Slot index={0} />
-        <OtpInput.Slot index={1} />
-        <OtpInput.Slot index={2} />
-      </OtpInput.Group>
-      <OtpInput.Separator />
-      <OtpInput.Group>
-        <OtpInput.Slot index={3} />
-        <OtpInput.Slot index={4} />
-        <OtpInput.Slot index={5} />
-      </OtpInput.Group>
+      <OtpInputGroup>
+        <OtpInputSlot index={0} />
+        <OtpInputSlot index={1} />
+        <OtpInputSlot index={2} />
+      </OtpInputGroup>
+      <OtpInputSeparator />
+      <OtpInputGroup>
+        <OtpInputSlot index={3} />
+        <OtpInputSlot index={4} />
+        <OtpInputSlot index={5} />
+      </OtpInputGroup>
     </OtpInput>
   );
 }
+
+export {
+  OTP_INPUT_MAX_LENGTH,
+  OtpDialog,
+  OtpDialogHeader,
+  OtpDialogBody,
+  OtpDialogFooter,
+  OtpDialogTitle,
+  OtpDialogDescription,
+  OtpDialogValidate,
+  OtpDialogInput,
+};

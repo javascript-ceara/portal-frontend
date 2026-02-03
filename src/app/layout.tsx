@@ -3,9 +3,9 @@ import { Inter } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import { createClient } from "@/services/supabase/server";
 import { ThemeProvider } from "next-themes";
-
 import { ProfileProvider } from "@/contexts/profile";
-import { Toaster } from "@/components/toaster";
+import { Toaster } from "@/components/sooner";
+
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,17 +17,14 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  dialog,
 }: Readonly<{
   children: React.ReactNode;
-  dialog: React.ReactNode;
 }>) {
-  console.log("ddddd", dialog);
-
-  const client = createClient();
+  const client = await createClient();
   const { data } = await client.auth.getUser();
 
-  const { data: profiles } = await client
+  const { data: profile } = await client
+    .schema("public")
     .from("profiles")
     .select("*")
     .eq("id", data.user?.id || "")
@@ -42,9 +39,8 @@ export default async function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <ProfileProvider profile={profiles}>
+          <ProfileProvider profile={profile}>
             {children}
-            {dialog}
             <Toaster />
           </ProfileProvider>
         </ThemeProvider>

@@ -1,12 +1,19 @@
 import { TypographyH4 } from "@/components/typography";
 
-type AgendaProps = React.PropsWithChildren;
-export function Agenda({ children }: AgendaProps) {
+type HighlightedEventAgendaProps = React.HTMLAttributes<HTMLDivElement>;
+function HighlightedEventAgenda({ children }: HighlightedEventAgendaProps) {
   return <div>{children}</div>;
 }
 
-Agenda.Title = Title;
-
-function Title() {
-  return <TypographyH4 className="mb-4">Agenda</TypographyH4>;
+type HighlightedEventAgendaTitleProps = React.HTMLAttributes<HTMLDivElement>;
+function HighlightedEventAgendaTitle({
+  children,
+}: HighlightedEventAgendaTitleProps) {
+  return <TypographyH4 className="mb-4">{children}</TypographyH4>;
 }
+
+export {
+  HighlightedEventAgenda,
+  HighlightedEventAgendaTitle,
+  type HighlightedEventAgendaProps,
+};

@@ -3,24 +3,22 @@ import { LinkProps } from "next/link";
 import { TypographyH3 } from "@/components/typography";
 import { TypographyLead } from "@/components/typography";
 
-export type SectionProps = React.PropsWithChildren<{
+type SectionProps = React.PropsWithChildren<{
   className?: string;
 }>;
-export function Section({ children, className }: SectionProps) {
+
+function Section({ children, className }: SectionProps) {
   return <section className={className}>{children}</section>;
 }
 
-Section.Title = TypographyH3;
-Section.Subtitle = TypographyLead;
-Section.Container = Container;
-Section.Header = Header;
-Section.Footer = Footer;
-Section.Button = Button;
+const SectionTitle = TypographyH3;
+const SectionSubtitle = TypographyLead;
 
-export type SectionContainerProps = React.PropsWithChildren<{
+type SectionContainerProps = React.PropsWithChildren<{
   className?: string;
 }>;
-function Container({ children, className }: SectionContainerProps) {
+
+function SectionContainer({ children, className }: SectionContainerProps) {
   return (
     <div className={twMerge("px-8 lg:container lg:mx-auto", className)}>
       {children}
@@ -28,23 +26,24 @@ function Container({ children, className }: SectionContainerProps) {
   );
 }
 
-export type SectionHeaderProps = React.PropsWithChildren;
-function Header({ children }: SectionHeaderProps) {
+type SectionHeaderProps = React.PropsWithChildren;
+function SectionHeader({ children }: SectionHeaderProps) {
   return <div className="space-y-1 py-12">{children}</div>;
 }
 
-export type SectionFooterProps = React.PropsWithChildren;
-function Footer({ children }: SectionFooterProps) {
+type SectionFooterProps = React.PropsWithChildren;
+function SectionFooter({ children }: SectionFooterProps) {
   return <div className="mt-12">{children}</div>;
 }
 
-export type SectionButtonProps = React.PropsWithChildren<
+type SectionButtonProps = React.PropsWithChildren<
   Partial<LinkProps> & {
     children: React.ReactNode;
     component?: React.ElementType | React.FC<LinkProps>;
   }
 >;
-function Button({
+
+function SectionButton({
   component: Component = "button",
   children,
   ...rest
@@ -58,3 +57,18 @@ function Button({
     </Component>
   );
 }
+
+export {
+  Section,
+  SectionContainer,
+  SectionHeader,
+  SectionTitle,
+  SectionSubtitle,
+  SectionFooter,
+  SectionButton,
+  type SectionProps,
+  type SectionContainerProps,
+  type SectionHeaderProps,
+  type SectionFooterProps,
+  type SectionButtonProps,
+};

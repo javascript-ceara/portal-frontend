@@ -1,14 +1,14 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/services/supabase/server";
-import PageClient from "./page-client";
+import { ConfirmAlertDialog } from "./_components/confirm-alert-dialog";
 
 export default async function Page() {
-  const client = createClient();
+  const client = await createClient();
   const { data } = await client.auth.getUser();
 
   if (!data.user?.id) {
     redirect("/");
   }
 
-  return <PageClient />;
+  return <ConfirmAlertDialog />;
 }

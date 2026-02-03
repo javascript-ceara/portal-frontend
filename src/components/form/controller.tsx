@@ -8,9 +8,10 @@ import {
   FieldValues,
 } from "react-hook-form";
 
-type Props<Values extends FieldValues> = {
+export type ControllerProps<Values extends FieldValues> = {
   name: FieldPath<Values>;
   label?: string;
+  disabled?: boolean;
   render: (props: {
     field: ControllerRenderProps<FieldValues, FieldPath<Values>>;
     fieldState: ControllerFieldState;
@@ -21,11 +22,13 @@ type Props<Values extends FieldValues> = {
 export function Controller<Values extends Record<string, any>>({
   name,
   label,
+  disabled,
   render,
-}: Props<Values>) {
+}: ControllerProps<Values>) {
   return (
     <Ctrl
       name={name}
+      disabled={disabled}
       render={({ field, fieldState, formState }) => {
         return (
           <div className="flex flex-1 flex-col space-y-2">
@@ -35,7 +38,8 @@ export function Controller<Values extends Record<string, any>>({
                   htmlFor={field.name}
                   className={twMerge(
                     "text-sm font-medium",
-                    fieldState.error?.message && "text-red-600",
+                    fieldState.error?.message &&
+                      "text-red-500 dark:text-red-300",
                   )}
                 >
                   {label}
@@ -43,7 +47,9 @@ export function Controller<Values extends Record<string, any>>({
               )}
             </div>
             {render({ field, formState, fieldState })}
-            <p className="text-sm text-red-500">{fieldState.error?.message}</p>
+            <p className="text-sm text-red-500 dark:text-red-300">
+              {fieldState.error?.message}
+            </p>
           </div>
         );
       }}

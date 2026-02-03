@@ -10,29 +10,43 @@ import { UserHeadline } from "@/components/user-headline";
 import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { DiscordIcon } from "@/components/icons/discord";
 import { WhatsAppIcon } from "@/components/icons/whatsapp";
-import { Drawer } from "@/components/drawer";
-import { Popover } from "@/components/popover";
-import { Menu } from "@/components/menu";
+import {
+  Drawer,
+  DrawerTrigger,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerContent,
+} from "@/components/drawer";
+import {
+  Popover,
+  PopoverContent,
+  PopoverPortal,
+  PopoverTrigger,
+} from "@/components/popover";
+import {
+  Menu,
+  MenuItem,
+  MenuSeparator,
+  MenuSeparatorLabel,
+} from "@/components/menu";
 
 import { useProfile } from "@/contexts/profile";
+import React from "react";
 
-export function View({ children }: React.PropsWithChildren) {
+type ViewProps = React.HTMLAttributes<HTMLDivElement>;
+function View({ children }: ViewProps) {
   return <div>{children}</div>;
 }
 
-View.Header = Header;
-View.Body = Body;
-View.Footer = Footer;
-
-function Header() {
+function ViewHeader() {
   const { profile } = useProfile();
   return (
-    <header className="sticky top-0 z-10 border-b border-border bg-background">
+    <header className="border-border bg-background sticky top-0 z-10 border-b">
       <div className="flex h-20 w-full items-center justify-between px-8 lg:container lg:mx-auto">
         <div>
           <Link href="/">
             <h1 className="flex items-center space-x-2">
-              <Logo className="h-10 w-10 text-primary-foreground" />
+              <Logo className="text-primary-foreground h-10 w-10" />
               <span className="text-nowrap font-semibold">
                 Javascript Ceará
               </span>
@@ -46,7 +60,7 @@ function Header() {
               <li>
                 <Link
                   href="/events"
-                  className="font-semibold hover:text-primary"
+                  className="hover:text-primary font-semibold"
                 >
                   Eventos
                 </Link>
@@ -54,14 +68,14 @@ function Header() {
               <li>
                 <Link
                   href="/about"
-                  className="font-semibold hover:text-primary"
+                  className="hover:text-primary font-semibold"
                 >
                   A comunidade
                 </Link>
               </li>
 
               <li>
-                <Link href="/" className="font-semibold hover:text-primary">
+                <Link href="/" className="hover:text-primary font-semibold">
                   <InstagramIcon className="h-6 w-6" />
                 </Link>
               </li>
@@ -69,51 +83,54 @@ function Header() {
           </nav>
           <ThemeToggleButton />
           <Popover>
-            <Popover.Trigger className="hidden md:block">
+            <PopoverTrigger className="hidden md:block">
               <UserAvatar />
-            </Popover.Trigger>
-            <Popover.Portal>
-              <Popover.Content sideOffset={10} side="bottom" className="p-0">
+            </PopoverTrigger>
+            <PopoverPortal>
+              <PopoverContent sideOffset={10} side="bottom" className="p-0">
                 {profile?.id ? (
                   <>
                     <UserHeadline />
-                    <Menu.Separator />
+                    <MenuSeparator />
                     <Menu>
-                      <Menu.Item asChild>
+                      <MenuItem asChild>
                         <Link href="/profile">Meu perfil</Link>
-                      </Menu.Item>
+                      </MenuItem>
+                      <MenuItem asChild>
+                        <Link href="/my-presentations">Minhas palestras</Link>
+                      </MenuItem>
                     </Menu>
 
-                    <Menu.Separator />
+                    <MenuSeparator />
 
                     <Menu>
-                      <Menu.Item asChild>
+                      <MenuItem asChild>
                         <Link href="/signout">Sair</Link>
-                      </Menu.Item>
+                      </MenuItem>
                     </Menu>
                   </>
                 ) : (
                   <Menu>
-                    <Menu.Item asChild>
+                    <MenuItem asChild>
                       <Link href="/signin">Entrar</Link>
-                    </Menu.Item>
-                    <Menu.Item asChild>
+                    </MenuItem>
+                    <MenuItem asChild>
                       <Link href="/signup">Cadastrar</Link>
-                    </Menu.Item>
+                    </MenuItem>
                   </Menu>
                 )}
-              </Popover.Content>
-            </Popover.Portal>
+              </PopoverContent>
+            </PopoverPortal>
           </Popover>
 
           <Drawer direction="right">
-            <Drawer.Trigger type="button" className="md:hidden">
+            <DrawerTrigger type="button" className="md:hidden">
               <MenuIcon className="h-6 w-6" />
               <span className="sr-only">menu mobile</span>
-            </Drawer.Trigger>
-            <Drawer.Overlay />
-            <Drawer.Portal>
-              <Drawer.Content className="w-72">
+            </DrawerTrigger>
+            <DrawerOverlay />
+            <DrawerPortal>
+              <DrawerContent className="w-72">
                 <div className="flex h-20 border-b">
                   {profile?.id && <UserHeadline />}
                 </div>
@@ -121,56 +138,56 @@ function Header() {
                 {profile?.id ? (
                   <>
                     <Menu>
-                      <Menu.Item asChild>
+                      <MenuItem asChild>
                         <Link href="/profile">Meu perfil</Link>
-                      </Menu.Item>
+                      </MenuItem>
                     </Menu>
 
-                    <Menu.Separator />
+                    <MenuSeparator />
 
                     <Menu>
-                      <Menu.Item asChild>
+                      <MenuItem asChild>
                         <Link href="/events">Eventos</Link>
-                      </Menu.Item>
-                      <Menu.Item asChild>
+                      </MenuItem>
+                      <MenuItem asChild>
                         <Link href="/about">A comunidade</Link>
-                      </Menu.Item>
+                      </MenuItem>
                     </Menu>
 
-                    <Menu.Separator />
+                    <MenuSeparator />
 
                     <Menu>
-                      <Menu.Item asChild>
+                      <MenuItem asChild>
                         <Link href="/signout">Sair</Link>
-                      </Menu.Item>
+                      </MenuItem>
                     </Menu>
                   </>
                 ) : (
                   <>
                     <Menu>
-                      <Menu.Item asChild>
+                      <MenuItem asChild>
                         <Link href="/events">Eventos</Link>
-                      </Menu.Item>
-                      <Menu.Item asChild>
+                      </MenuItem>
+                      <MenuItem asChild>
                         <Link href="/about">A comunidade</Link>
-                      </Menu.Item>
+                      </MenuItem>
                     </Menu>
 
-                    <Menu.Separator />
+                    <MenuSeparator />
 
-                    <Menu.Separator />
+                    <MenuSeparator />
                     <Menu>
-                      <Menu.Item asChild>
+                      <MenuItem asChild>
                         <Link href="/signin">Entrar</Link>
-                      </Menu.Item>
-                      <Menu.Item asChild>
+                      </MenuItem>
+                      <MenuItem asChild>
                         <Link href="/signup">Cadastrar</Link>
-                      </Menu.Item>
+                      </MenuItem>
                     </Menu>
                   </>
                 )}
-              </Drawer.Content>
-            </Drawer.Portal>
+              </DrawerContent>
+            </DrawerPortal>
           </Drawer>
         </div>
       </div>
@@ -178,23 +195,22 @@ function Header() {
   );
 }
 
-export type ViewBodyProps = React.PropsWithChildren<{
+type ViewBodyProps = React.PropsWithChildren<{
   className?: string;
 }>;
-
-function Body({ children, className }: ViewBodyProps) {
+function ViewBody({ children, className }: ViewBodyProps) {
   return (
     <main className={twMerge("-z-0 min-h-screen", className)}>{children}</main>
   );
 }
 
-function Footer() {
+function ViewFooter() {
   return (
-    <footer className="boder mt-8 border-t border-border bg-foreground text-background dark:bg-background dark:text-foreground">
+    <footer className="border-border bg-foreground text-background dark:bg-background dark:text-foreground mt-8 border-t">
       <div className="space-y-4 px-8 py-12 lg:container lg:mx-auto">
         <div className="flex justify-between">
           <h6 className="flex items-center space-x-1 font-bold">
-            <Logo className="mr-2 h-8 w-8 text-primary-foreground" />
+            <Logo className="text-primary-foreground mr-2 h-8 w-8" />
             <span>JavaScript Ceará</span>
           </h6>
           <div className="flex space-x-4">
@@ -221,3 +237,12 @@ function Footer() {
     </footer>
   );
 }
+
+export {
+  View,
+  ViewHeader,
+  ViewBody,
+  ViewFooter,
+  type ViewProps,
+  type ViewBodyProps,
+};

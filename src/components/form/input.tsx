@@ -14,7 +14,7 @@ export const Input = forwardRef(function Input(
       ref={ref}
       {...props}
       className={twMerge(
-        "h-14 w-full rounded-md border border-border bg-transparent px-4",
+        "border-border h-14 w-full rounded-md border bg-transparent px-4 outline-none disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
     />

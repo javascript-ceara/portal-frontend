@@ -4,9 +4,9 @@ import { Minus } from "lucide-react";
 
 import * as Primitive from "input-otp";
 
-export type OtpInputProps = Primitive.OTPInputProps;
+type OtpInputProps = Primitive.OTPInputProps;
 
-export function OtpInput(props: OtpInputProps) {
+function OtpInput(props: OtpInputProps) {
   return (
     <Primitive.OTPInput
       containerClassName={twMerge(
@@ -18,18 +18,20 @@ export function OtpInput(props: OtpInputProps) {
   );
 }
 
-OtpInput.Slot = Slot;
-OtpInput.Separator = Separator;
-OtpInput.Group = Group;
-
-function Slot({ index, className }: { className?: string; index: number }) {
+function OtpInputSlot({
+  index,
+  className,
+}: {
+  className?: string;
+  index: number;
+}) {
   const { slots } = useContext(Primitive.OTPInputContext);
   const { char, hasFakeCaret } = slots[index];
 
   return (
     <div
       className={twMerge(
-        "relative flex h-12 w-12 items-center justify-center border border-border text-sm shadow-sm transition-all first:rounded-l-md first:border-r-0 first:border-l-border last:rounded-r-md last:border-l-0",
+        "border-border first:border-l-border relative flex h-12 w-12 items-center justify-center border text-sm shadow-sm transition-all first:rounded-l-md first:border-r-0 last:rounded-r-md last:border-l-0",
         slots[index].isActive && "ring-ring z-10 ring-1",
         className,
       )}
@@ -37,14 +39,14 @@ function Slot({ index, className }: { className?: string; index: number }) {
       {char}
       {hasFakeCaret && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="animate-caret-blink h-4 w-px bg-foreground duration-1000" />
+          <div className="animate-caret-blink bg-foreground h-4 w-px duration-1000" />
         </div>
       )}
     </div>
   );
 }
 
-function Separator() {
+function OtpInputSeparator() {
   return (
     <div role="separator">
       <Minus className="text-border" />
@@ -52,11 +54,21 @@ function Separator() {
   );
 }
 
-export type OtpInputGroupProps = React.PropsWithChildren<{
+type OtpInputGroupProps = React.PropsWithChildren<{
   className?: string;
 }>;
-function Group({ className, children }: OtpInputGroupProps) {
+
+function OtpInputGroup({ className, children }: OtpInputGroupProps) {
   return (
     <div className={twMerge("flex items-center", className)}>{children}</div>
   );
 }
+
+export {
+  OtpInput,
+  OtpInputSlot,
+  OtpInputSeparator,
+  OtpInputGroup,
+  type OtpInputProps,
+  type OtpInputGroupProps,
+};

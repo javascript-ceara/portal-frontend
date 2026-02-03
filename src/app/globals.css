@@ -1,30 +1,50 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "tw-animate-css";
 
-@layer base {
-  :root {
-    --background: 195 0% 98%;
-    --background-darker: 195 0% 95%;
-    --background-hover: 195 0% 95%;
+@custom-variant dark (&:is(.dark *));
 
-    --foreground: 195 0% 10%;
+:root {
+  --background: hsl(195 0% 98%);
+  --background-darker: hsl(195 0% 95%);
+  --background-hover: hsl(195 0% 95%);
 
-    --border: 195 0% 85%;
+  --foreground: hsl(195 0% 10%);
 
-    --primary: 48 100% 50%;
-    --primary-foreground: 0 0% 0%;
-    --primary-hover: 48 100% 63%;
-  }
+  --border: hsl(195 0% 85%);
 
-  .dark {
-    --background: 195 82% 4%;
-    --background-lighter: 195 82% 15%;
-    --background-darker: 195 82% 0%;
-    --background-hover: 195 82% 10%;
+  --primary: hsl(48 100% 50%);
+  --primary-foreground: hsl(0 0% 0%);
+  --primary-hover: hsl(48 100% 63%);
 
-    --foreground: 195 0% 98%;
+  --destructive: hsl(352 100% 41%);
+}
 
-    --border: 195 82% 15%;
-  }
+.dark {
+  --background: hsl(0.145 0 0);
+  --background-darker: hsl(195 82% 0%);
+  --background-lighter: hsl(195 82% 15%);
+  --background-hover: hsl(195 82% 10%);
+
+  --foreground: hsl(195 0% 98%);
+
+  --border: hsl(195 80% 15%);
+
+  --destructive: hsla(358, 65%, 70%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-lighter: var(--background-lighter);
+  --color-background-darker: var(--background-darker);
+  --color-background-hover: var(--background-hover);
+
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+
+  --color-border: var(--border);
+
+  --color-destructive: var(--destructive);
 }

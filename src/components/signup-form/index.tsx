@@ -31,17 +31,19 @@ const SignUpFormSchema = z.object({
     ),
 });
 
-export type SignUpFormValues = z.infer<typeof SignUpFormSchema>;
+type SignUpFormValues = z.infer<typeof SignUpFormSchema>;
 
-export function SignUpForm({
+type SignUpFormProps = UseFormReturn<SignUpFormValues> & {
+  children?: React.ReactNode;
+  onSubmit: SubmitHandler<SignUpFormValues>;
+};
+
+function SignUpForm({
   handleSubmit,
   onSubmit,
   children,
   ...rest
-}: UseFormReturn<SignUpFormValues> & {
-  children?: React.ReactNode;
-  onSubmit: SubmitHandler<SignUpFormValues>;
-}) {
+}: SignUpFormProps) {
   return (
     <FormProvider {...rest} handleSubmit={handleSubmit}>
       <form
@@ -54,13 +56,7 @@ export function SignUpForm({
   );
 }
 
-SignUpForm.Name = Name;
-SignUpForm.Email = Email;
-SignUpForm.Phone = Phone;
-SignUpForm.Password = Password;
-SignUpForm.Submit = Submit;
-
-function Name() {
+function SignUpFormName() {
   return (
     <Controller
       name="name"
@@ -72,7 +68,7 @@ function Name() {
   );
 }
 
-function Email() {
+function SignUpFormEmail() {
   return (
     <Controller
       name="email"
@@ -84,7 +80,7 @@ function Email() {
   );
 }
 
-function Phone() {
+function SignUpFormPhone() {
   const { setValue } = useFormContext();
 
   const { ref, maskRef } = useIMask(
@@ -128,7 +124,7 @@ function Phone() {
   );
 }
 
-function Password() {
+function SignUpFormPassword() {
   const [show, setShow] = useState(false);
   return (
     <Controller
@@ -147,7 +143,7 @@ function Password() {
   );
 }
 
-function Submit() {
+function SignUpFormSubmit() {
   const formState = useFormState();
   return (
     <Button asChild>
@@ -161,7 +157,7 @@ function Submit() {
   );
 }
 
-export function useSignUpForm() {
+function useSignUpForm() {
   return useForm<SignUpFormValues>({
     resolver: zodResolver(SignUpFormSchema),
     defaultValues: {
@@ -175,3 +171,15 @@ export function useSignUpForm() {
     shouldFocusError: false,
   });
 }
+
+export {
+  SignUpForm,
+  SignUpFormName,
+  SignUpFormEmail,
+  SignUpFormPhone,
+  SignUpFormPassword,
+  SignUpFormSubmit,
+  useSignUpForm,
+  type SignUpFormValues,
+  type SignUpFormProps,
+};

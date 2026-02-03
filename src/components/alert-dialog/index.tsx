@@ -1,33 +1,26 @@
 import * as Primitive from "@radix-ui/react-alert-dialog";
 import { Button } from "@/components/button";
 
-export type AlertDialogProps = Primitive.AlertDialogProps;
-export function AlertDialog(props: AlertDialogProps) {
-  return <Primitive.AlertDialog />;
+type AlertDialogProps = Primitive.AlertDialogProps;
+function AlertDialog(props: AlertDialogProps) {
+  return <Primitive.AlertDialog {...props} />;
 }
 
-AlertDialog.Header = Header;
-AlertDialog.Footer = Footer;
-AlertDialog.Title = Title;
-AlertDialog.Cancel = Cancel;
-AlertDialog.Action = Action;
-AlertDialog.Overlay = Overlay;
-AlertDialog.Content = Content;
-AlertDialog.Portal = Primitive.Portal;
-AlertDialog.Description = Primitive.Description;
+const AlertDialogPortal = Primitive.Portal;
+const AlertDialogDescription = Primitive.Description;
 
-export type HeaderProps = React.PropsWithChildren;
-function Header({ children }: HeaderProps) {
+type AlertDialogHeaderProps = React.PropsWithChildren;
+function AlertDialogHeader({ children }: AlertDialogHeaderProps) {
   return <div className="space-y-1.5">{children}</div>;
 }
 
-export type FooterProps = React.PropsWithChildren;
-function Footer({ children }: FooterProps) {
+type AlertDialogFooterProps = React.PropsWithChildren;
+function AlertDialogFooter({ children }: AlertDialogFooterProps) {
   return <div className="flex justify-end space-x-2">{children}</div>;
 }
 
-export type TitleProps = Primitive.AlertDialogTitleProps;
-function Title(props: TitleProps) {
+type AlertDialogTitleProps = Primitive.AlertDialogTitleProps;
+function AlertDialogTitle(props: AlertDialogTitleProps) {
   return (
     <Primitive.AlertDialogTitle
       className="text-xl font-semibold leading-none tracking-tight"
@@ -36,8 +29,8 @@ function Title(props: TitleProps) {
   );
 }
 
-export type CancelProps = Primitive.AlertDialogCancelProps;
-function Cancel({ children, ...rest }: CancelProps) {
+type AlertDialogCancelProps = Primitive.AlertDialogCancelProps;
+function AlertDialogCancel({ children, ...rest }: AlertDialogCancelProps) {
   return (
     <Primitive.AlertDialogCancel asChild {...rest}>
       <Button variant="outlined">{children}</Button>
@@ -45,8 +38,8 @@ function Cancel({ children, ...rest }: CancelProps) {
   );
 }
 
-export type ActionProps = Primitive.AlertDialogActionProps;
-function Action({ children, ...rest }: ActionProps) {
+type AlertDialogActionProps = Primitive.AlertDialogActionProps;
+function AlertDialogAction({ children, ...rest }: AlertDialogActionProps) {
   return (
     <Primitive.AlertDialogAction {...rest}>
       <Button>{children}</Button>
@@ -54,8 +47,8 @@ function Action({ children, ...rest }: ActionProps) {
   );
 }
 
-export type OverlayProps = Primitive.AlertDialogOverlayProps;
-function Overlay(props: OverlayProps) {
+type AlertDialogOverlayProps = Primitive.AlertDialogOverlayProps;
+function AlertDialogOverlay(props: AlertDialogOverlayProps) {
   return (
     <Primitive.AlertDialogOverlay
       {...props}
@@ -64,12 +57,25 @@ function Overlay(props: OverlayProps) {
   );
 }
 
-export type ContentProps = Primitive.AlertDialogContentProps;
-function Content(props: ContentProps) {
+type AlertDialogContentProps = Primitive.AlertDialogContentProps;
+function AlertDialogContent(props: AlertDialogContentProps) {
   return (
     <Primitive.AlertDialogContent
-      className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 rounded-md border border-border bg-background p-6 shadow-lg duration-200"
+      className="border-border bg-background fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 rounded-md border p-6 shadow-lg duration-200"
       {...props}
     />
   );
 }
+
+export {
+  AlertDialog,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogCancel,
+  AlertDialogAction,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogPortal,
+  AlertDialogDescription,
+};

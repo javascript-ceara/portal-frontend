@@ -1,13 +1,15 @@
 import { UserIcon } from "lucide-react";
-import { Avatar } from "@/components/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/avatar";
 
-export function UserAvatar() {
+function UserAvatar() {
   return (
-    <Avatar className="h-10 w-10 border border-border">
-      <Avatar.Image />
-      <Avatar.Fallback>
+    <Avatar className="border-border h-10 w-10 border">
+      <AvatarImage />
+      <AvatarFallback>
         <UserIcon className="h-5 w-5" />
-      </Avatar.Fallback>
+      </AvatarFallback>
     </Avatar>
   );
 }
+
+export { UserAvatar };

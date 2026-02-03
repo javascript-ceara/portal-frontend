@@ -20,14 +20,14 @@ const SignInFormSchema = z.object({
   password: z.string().min(1, "Campo precisa"),
 });
 
-export type SignInFormValues = z.infer<typeof SignInFormSchema>;
+type SignInFormValues = z.infer<typeof SignInFormSchema>;
 
-export type SignInFormProps = UseFormReturn<SignInFormValues> & {
+type SignInFormProps = UseFormReturn<SignInFormValues> & {
   children?: React.ReactNode;
   onSubmit: SubmitHandler<SignInFormValues>;
 };
 
-export function SignInForm({
+function SignInForm({
   children,
   handleSubmit,
   onSubmit,
@@ -45,11 +45,7 @@ export function SignInForm({
   );
 }
 
-SignInForm.Email = Email;
-SignInForm.Password = Password;
-SignInForm.Submit = Submit;
-
-function Email() {
+function SignInFormEmail() {
   return (
     <Controller
       name="email"
@@ -61,7 +57,7 @@ function Email() {
   );
 }
 
-function Password() {
+function SignInFormPassword() {
   const [show, setShow] = useState(false);
   return (
     <Controller
@@ -80,7 +76,7 @@ function Password() {
   );
 }
 
-function Submit() {
+function SignInFormSubmit() {
   const formState = useFormState();
   return (
     <Button asChild>
@@ -94,7 +90,7 @@ function Submit() {
   );
 }
 
-export function useSignInForm() {
+function useSignInForm() {
   return useForm<SignInFormValues>({
     resolver: zodResolver(SignInFormSchema),
     defaultValues: {
@@ -106,3 +102,13 @@ export function useSignInForm() {
     shouldFocusError: false,
   });
 }
+
+export {
+  SignInForm,
+  SignInFormEmail,
+  SignInFormPassword,
+  SignInFormSubmit,
+  useSignInForm,
+  type SignInFormValues,
+  type SignInFormProps,
+};

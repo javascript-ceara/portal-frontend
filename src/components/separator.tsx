@@ -1,11 +1,9 @@
 import { twMerge } from "tailwind-merge";
 
-export function Separator({
-  children,
-  className,
-}: React.PropsWithChildren<{
+type SeparatorProps = React.PropsWithChildren<{
   className?: string;
-}>) {
+}>;
+function Separator({ children, className }: SeparatorProps) {
   return (
     <div
       role="separator"
@@ -13,18 +11,25 @@ export function Separator({
     >
       {children ? (
         <>
-          <div className=" h-[1px] flex-1 bg-border" />
+          <div className=" bg-border h-[1px] flex-1" />
           {children}
-          <div className="h-[1px] flex-1 bg-border" />
+          <div className="bg-border h-[1px] flex-1" />
         </>
       ) : (
-        <div className="h-[1px] flex-1 bg-border" />
+        <div className="bg-border h-[1px] flex-1" />
       )}
     </div>
   );
 }
 
-export type SeparatorLabelProps = React.PropsWithChildren;
-Separator.Label = ({ children }: SeparatorLabelProps) => {
+type SeparatorLabelProps = React.PropsWithChildren;
+function SeparatorLabel({ children }: SeparatorLabelProps) {
   return <div className="p-2">{children}</div>;
+}
+
+export {
+  Separator,
+  SeparatorLabel,
+  type SeparatorLabelProps,
+  type SeparatorProps,
 };

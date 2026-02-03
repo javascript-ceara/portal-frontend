@@ -3,8 +3,8 @@
 import { twMerge } from "tailwind-merge";
 import * as Primitive from "@radix-ui/react-avatar";
 
-export type AvatarProps = Primitive.AvatarProps;
-export function Avatar({ className, ...rest }: AvatarProps) {
+type AvatarProps = Primitive.AvatarProps;
+function Avatar({ className, ...rest }: AvatarProps) {
   return (
     <Primitive.Avatar
       {...rest}
@@ -13,11 +13,8 @@ export function Avatar({ className, ...rest }: AvatarProps) {
   );
 }
 
-Avatar.Fallback = Fallback;
-Avatar.Image = Image;
-
-export type AvatarFallbackProps = Primitive.AvatarFallbackProps;
-function Fallback({ className, ...rest }: AvatarFallbackProps) {
+type AvatarFallbackProps = Primitive.AvatarFallbackProps;
+function AvatarFallback({ className, ...rest }: AvatarFallbackProps) {
   return (
     <Primitive.AvatarFallback
       {...rest}
@@ -29,8 +26,8 @@ function Fallback({ className, ...rest }: AvatarFallbackProps) {
   );
 }
 
-export type AvatarImageProps = Primitive.AvatarImageProps;
-function Image({ className, ...rest }: AvatarImageProps) {
+type AvatarImageProps = Primitive.AvatarImageProps;
+function AvatarImage({ className, ...rest }: AvatarImageProps) {
   return (
     <Primitive.AvatarImage
       {...rest}
@@ -38,3 +35,12 @@ function Image({ className, ...rest }: AvatarImageProps) {
     />
   );
 }
+
+export {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  type AvatarProps,
+  type AvatarFallbackProps,
+  type AvatarImageProps,
+};

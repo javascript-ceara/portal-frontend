@@ -1,10 +1,15 @@
-import { Section } from "@/components/section";
+import {
+  Section,
+  SectionContainer,
+  SectionHeader,
+  SectionTitle,
+} from "@/components/section";
 import { createClient } from "@/services/supabase/server";
 import { redirect } from "next/navigation";
-import { ProfileForm } from "./profile-form";
+import { ProfileFormContainer } from "./_components/profile-form-container";
 
 export default async function Page() {
-  const client = createClient();
+  const client = await createClient();
   const { data } = await client.auth.getUser();
 
   if (!data.user?.id) {
@@ -13,12 +18,12 @@ export default async function Page() {
 
   return (
     <Section>
-      <Section.Container>
-        <Section.Header>
-          <Section.Title className="text-start">Perfil</Section.Title>
-        </Section.Header>
-        <ProfileForm />
-      </Section.Container>
+      <SectionContainer>
+        <SectionHeader>
+          <SectionTitle className="text-start">Perfil</SectionTitle>
+        </SectionHeader>
+        <ProfileFormContainer />
+      </SectionContainer>
     </Section>
   );
 }

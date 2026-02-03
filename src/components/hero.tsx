@@ -3,16 +3,11 @@ import { InstagramIcon } from "@/components/icons/instagram";
 import { DiscordIcon } from "@/components/icons/discord";
 import { WhatsAppIcon } from "@/components/icons/whatsapp";
 
-export function Hero() {
+function Hero() {
   return (
     <section className="group relative -z-10 h-[250px] sm:h-[350px] md:h-[450px] lg:h-[450px] xl:h-[550px]">
       <div className="relative h-full w-full overflow-hidden">
-        <Image
-          fill
-          alt=""
-          className="object-cover"
-          src="https://snzhzfjipuxeiacxldnd.supabase.co/storage/v1/object/public/banner/banner.jpg"
-        />
+        <Image fill alt="" className="object-cover" src="/banner.jpg" />
       </div>
       <div className="absolute inset-0 flex h-full  w-full flex-col items-center justify-center space-y-4 bg-gradient-to-b from-black/90 to-black/20 p-8">
         <h1 className="max-w-sm text-center text-2xl font-bold tracking-tight text-white sm:max-w-md md:max-w-xl md:text-4xl xl:max-w-3xl xl:text-5xl">
@@ -33,3 +28,5 @@ export function Hero() {
     </section>
   );
 }
+
+export { Hero };

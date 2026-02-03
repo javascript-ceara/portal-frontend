@@ -1,6 +1,4 @@
-"use client";
-
-import { View } from "@/components/view";
+import { View, ViewHeader, ViewBody, ViewFooter } from "@/components/view";
 
 export default function Layout({
   children,
@@ -9,9 +7,9 @@ export default function Layout({
 }>) {
   return (
     <View>
-      <View.Header />
-      <View.Body>{children}</View.Body>
-      <View.Footer />
+      <ViewHeader />
+      <ViewBody>{children}</ViewBody>
+      <ViewFooter />
     </View>
   );
 }

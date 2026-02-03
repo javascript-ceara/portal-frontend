@@ -6,7 +6,7 @@ type UserHeadlineProps = {
   className?: string;
 };
 
-export function UserHeadline({ className }: UserHeadlineProps) {
+function UserHeadline({ className }: UserHeadlineProps) {
   const { profile } = useProfile();
   return (
     <div
@@ -20,3 +20,5 @@ export function UserHeadline({ className }: UserHeadlineProps) {
     </div>
   );
 }
+
+export { UserHeadline };

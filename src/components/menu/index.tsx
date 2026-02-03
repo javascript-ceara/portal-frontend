@@ -1,25 +1,32 @@
 import { Slot } from "@radix-ui/react-slot";
-import { Separator } from "@/components/separator";
+import { Separator, SeparatorLabel } from "@/components/separator";
 
-export function Menu({ children }: React.PropsWithChildren) {
+function Menu({ children }: React.PropsWithChildren) {
   return <ul>{children}</ul>;
 }
 
-Menu.Item = Item;
-Menu.Separator = Separator;
-Menu.SeparatorLabel = Separator.Label;
+const MenuSeparator = Separator;
+const MenuSeparatorLabel = SeparatorLabel;
 
-export type MenuItemProps = React.PropsWithChildren<{
+type MenuItemProps = React.PropsWithChildren<{
   asChild?: boolean;
 }>;
 
-function Item({ asChild, children }: MenuItemProps) {
+function MenuItem({ asChild, children }: MenuItemProps) {
   const Comp = asChild ? Slot : "div";
   return (
     <li>
-      <Comp className="block px-4 py-3 hover:bg-background-hover">
+      <Comp className="hover:bg-background-hover block px-4 py-3">
         {children}
       </Comp>
     </li>
   );
 }
+
+export {
+  Menu,
+  MenuItem,
+  MenuSeparator,
+  MenuSeparatorLabel,
+  type MenuItemProps,
+};

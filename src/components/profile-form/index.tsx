@@ -41,19 +41,19 @@ const ProfileFormSchema = z.object({
     }),
 });
 
-export type ProfileFormValues = z.infer<typeof ProfileFormSchema>;
+type ProfileFormValues = z.infer<typeof ProfileFormSchema>;
 
-export type ProfileFomProps = UseFormReturn<ProfileFormValues> & {
+type ProfileFormProps = UseFormReturn<ProfileFormValues> & {
   children?: React.ReactNode;
   onSubmit: SubmitHandler<ProfileFormValues>;
 };
 
-export function ProfileFom({
+function ProfileForm({
   children,
   handleSubmit,
   onSubmit,
   ...rest
-}: ProfileFomProps) {
+}: ProfileFormProps) {
   return (
     <FormProvider {...rest} handleSubmit={handleSubmit}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -63,22 +63,11 @@ export function ProfileFom({
   );
 }
 
-ProfileFom.Section = Section;
-ProfileFom.Name = Name;
-ProfileFom.Email = Email;
-ProfileFom.Phone = Phone;
-ProfileFom.Bio = Bio;
-ProfileFom.Company = Company;
-ProfileFom.Location = Location;
-ProfileFom.Site = Site;
-ProfileFom.Github = Github;
-ProfileFom.Linkedin = Linkedin;
-ProfileFom.Submit = Submit;
-
-export type ProfileFormSectionProps = React.PropsWithChildren<{
+type ProfileFormSectionProps = React.PropsWithChildren<{
   title: string;
 }>;
-function Section({ title, children }: ProfileFormSectionProps) {
+
+function ProfileFormSection({ title, children }: ProfileFormSectionProps) {
   return (
     <div className="space-y-4">
       <TypographyH4>{title}</TypographyH4>
@@ -87,7 +76,7 @@ function Section({ title, children }: ProfileFormSectionProps) {
   );
 }
 
-function Name() {
+function ProfileFormName() {
   return (
     <Controller
       name="name"
@@ -99,7 +88,7 @@ function Name() {
   );
 }
 
-function Email() {
+function ProfileFormEmail() {
   return (
     <Controller
       name="email"
@@ -117,7 +106,7 @@ function Email() {
   );
 }
 
-function Phone() {
+function ProfileFormPhone() {
   return (
     <Controller
       name="phone"
@@ -129,7 +118,7 @@ function Phone() {
   );
 }
 
-function Bio() {
+function ProfileFormBio() {
   return (
     <Controller
       name="bio"
@@ -141,7 +130,7 @@ function Bio() {
   );
 }
 
-function Company() {
+function ProfileFormCompany() {
   return (
     <Controller
       name="company"
@@ -153,7 +142,7 @@ function Company() {
   );
 }
 
-function Location() {
+function ProfileFormLocation() {
   return (
     <Controller
       name="location"
@@ -165,7 +154,7 @@ function Location() {
   );
 }
 
-function Site() {
+function ProfileFormSite() {
   return (
     <Controller
       name="site_url"
@@ -177,7 +166,7 @@ function Site() {
   );
 }
 
-function Github() {
+function ProfileFormGithub() {
   return (
     <Controller
       name="github_url"
@@ -189,7 +178,7 @@ function Github() {
   );
 }
 
-function Linkedin() {
+function ProfileFormLinkedin() {
   return (
     <Controller
       name="linkedin_url"
@@ -201,7 +190,7 @@ function Linkedin() {
   );
 }
 
-function Submit() {
+function ProfileFormSubmit() {
   const formState = useFormState();
   return (
     <Button asChild>
@@ -215,7 +204,7 @@ function Submit() {
   );
 }
 
-export function useProfileForm() {
+function useProfileForm() {
   return useForm<ProfileFormValues>({
     resolver: zodResolver(ProfileFormSchema),
     defaultValues: {
@@ -234,3 +223,21 @@ export function useProfileForm() {
     shouldFocusError: false,
   });
 }
+
+export {
+  ProfileForm,
+  ProfileFormSection,
+  ProfileFormName,
+  ProfileFormEmail,
+  ProfileFormPhone,
+  ProfileFormBio,
+  ProfileFormCompany,
+  ProfileFormLocation,
+  ProfileFormSite,
+  ProfileFormGithub,
+  ProfileFormLinkedin,
+  ProfileFormSubmit,
+  useProfileForm,
+  type ProfileFormValues,
+  type ProfileFormProps,
+};
