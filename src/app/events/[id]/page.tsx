@@ -35,14 +35,19 @@ import {
 
 import { createClient } from "@/services/supabase/server";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const client = await createClient();
+  const { id } = await params;
 
   const { data: event } = await client
     .schema("public")
     .from("events")
     .select("*")
-    .filter("id", "eq", params.id)
+    .filter("id", "eq", id)
     .limit(1)
     .single();
 
@@ -53,63 +58,61 @@ export default async function Page({ params }: { params: { id: string } }) {
     .eq("event_id", event?.id || 0);
 
   return (
-    <Section>
-      <SectionContainer>
-        <div>
-          <HighlightedEvent>
-            <HighlightedEventHeader>
-              <HighlightedEventPlaceAndDate
-                place={event?.place || ""}
-                address={event?.address || ""}
-                startDate={event?.start_date || ""}
-              />
-              <HighlightedEventTitle>{event?.title}</HighlightedEventTitle>
-              <HighlightedEventDescription>
-                {event?.description}
-              </HighlightedEventDescription>
-            </HighlightedEventHeader>
-            <HighlightedEventBody>
-              <HighlightedEventAgenda>
-                <HighlightedEventAgendaTitle />
-                <HighlightedEventPresentations>
-                  {presentations?.map(
-                    ({
-                      id,
-                      profile_avatar_url,
-                      profile_full_name,
-                      profile_github_url,
-                      profile_linkedin_url,
-                      profile_bio,
-                      title,
-                      description,
-                    }) => (
-                      <HighlightedEventPresentation key={id}>
-                        <HighlightedEventPresentationAuthor
-                          avatarUrl={profile_avatar_url}
-                          fullName={profile_full_name}
-                          githubUrl={profile_github_url}
-                          linkedinUrl={profile_linkedin_url}
-                          bio={profile_bio}
-                        />
-                        <HighlightedEventPresentationTitle>
-                          {title}
-                        </HighlightedEventPresentationTitle>
-                        <HighlightedEventPresentationDescription>
-                          {description}
-                        </HighlightedEventPresentationDescription>
-                      </HighlightedEventPresentation>
-                    ),
-                  )}
-                </HighlightedEventPresentations>
-              </HighlightedEventAgenda>
-            </HighlightedEventBody>
-            <HighlightedEventFooter>
-              <HighlightedEventSubscribe href={event?.subscribe_url} />
-              <HighlightedEventSubmit href={"/presentations/new"} />
-            </HighlightedEventFooter>
-          </HighlightedEvent>
-        </div>
-      </SectionContainer>
-    </Section>
+    <HighlightedEvent>
+      <HighlightedEventHeader>
+        <HighlightedEventLabel />
+        <HighlightedEventPlaceAndDate
+          place={event?.place || ""}
+          address={event?.address || ""}
+          startDate={event?.start_date || ""}
+        />
+        <HighlightedEventTitle>{event?.title}</HighlightedEventTitle>
+        <HighlightedEventDescription>
+          {event?.description}
+        </HighlightedEventDescription>
+      </HighlightedEventHeader>
+      <HighlightedEventBody>
+        <HighlightedEventAgenda>
+          <HighlightedEventAgendaTitle>Agenda</HighlightedEventAgendaTitle>
+          <HighlightedEventPresentations>
+            {presentations?.map(
+              ({
+                id,
+                profile_avatar_url,
+                profile_full_name,
+                profile_github_url,
+                profile_linkedin_url,
+                profile_bio,
+                title,
+                description,
+              }) => (
+                <HighlightedEventPresentation key={id}>
+                  <HighlightedEventPresentationAuthor
+                    avatarUrl={profile_avatar_url}
+                    fullName={profile_full_name}
+                    githubUrl={profile_github_url}
+                    linkedinUrl={profile_linkedin_url}
+                    bio={profile_bio}
+                  />
+                  <HighlightedEventPresentationTitle>
+                    {title}
+                  </HighlightedEventPresentationTitle>
+                  <HighlightedEventPresentationDescription>
+                    {description}
+                  </HighlightedEventPresentationDescription>
+                </HighlightedEventPresentation>
+              ),
+            )}
+          </HighlightedEventPresentations>
+        </HighlightedEventAgenda>
+      </HighlightedEventBody>
+      <HighlightedEventFooter>
+        <HighlightedEventSubscribe href={event?.subscribe_url} />
+        <HighlightedEventSubmit
+          href={"/presentations/new"}
+          disabled={!event?.is_accepting_submissions}
+        />
+      </HighlightedEventFooter>
+    </HighlightedEvent>
   );
 }
