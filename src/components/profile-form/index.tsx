@@ -1,3 +1,4 @@
+import { useIMask } from "react-imask";
 import { Controller, Input } from "@/components/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader } from "lucide-react";
@@ -5,6 +6,7 @@ import {
   FormProvider,
   SubmitHandler,
   useForm,
+  useFormContext,
   UseFormReturn,
   useFormState,
 } from "react-hook-form";
@@ -107,12 +109,49 @@ function ProfileFormEmail() {
 }
 
 function ProfileFormPhone() {
+  const { setValue } = useFormContext();
+
+  const { ref, maskRef } = useIMask(
+    { mask: "(00) 00000-0000" },
+    {
+      onAccept: (value) => {
+        setValue("phone", value, {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
+      },
+    }
+  );
+
   return (
     <Controller
       name="phone"
       label="Telefone"
       render={({ field }) => {
-        return <Input {...field} disabled />;
+        return (
+          <Input
+            ref={(el) => {
+              ref.current = el;
+              if (el && field.value && !el.value) {
+                 el.value = field.value;
+                 maskRef.current?.updateValue();
+              }
+            }}
+            name={field.name}
+            disabled={field.disabled}
+            value={field.value}
+            onChange={() => {}}
+            onBlur={() => {
+              if (!maskRef.current?.masked.isComplete) {
+                setValue(field.name, "", {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+              }
+            }}
+            placeholder="(00) 00000-0000"
+          />
+        );
       }}
     />
   );

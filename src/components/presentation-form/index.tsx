@@ -138,12 +138,20 @@ function PresentationFormPhone() {
           <Input
             ref={(el) => {
               ref.current = el;
+              if (el && field.value && !el.value) {
+                 el.value = field.value;
+                 maskRef.current?.updateValue();
+              }
             }}
             name={field.name}
             disabled={field.disabled}
             value={field.value}
+            onChange={() => {}}
             onBlur={() => {
-              if (!maskRef.current?.masked.isComplete) {
+              if (
+                 maskRef.current?.masked && 
+                 !maskRef.current.masked.isComplete
+              ) {
                 setValue(field.name, "", {
                   shouldValidate: true,
                   shouldDirty: true,
