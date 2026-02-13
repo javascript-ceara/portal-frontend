@@ -52,6 +52,7 @@ export function ProfileFormContainer() {
       bio: profile?.bio || "",
       company: profile?.company || "",
       location: profile?.location || "",
+      phone: profile?.phone || "",
       github_url: profile?.github_url || "",
       site_url: profile?.site_url || "",
       linkedin_url: profile?.linkedin_url || "",
