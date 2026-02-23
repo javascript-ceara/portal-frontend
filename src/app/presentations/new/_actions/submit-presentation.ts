@@ -15,8 +15,6 @@ export async function submitPresentation(values: PresentationFormValues) {
       description: values.description,
       profile_id: user.user?.id || "",
       event_id: Number(values.event),
-      phone: values.phone,
-      email: values.email,
     });
 
   if (error) {

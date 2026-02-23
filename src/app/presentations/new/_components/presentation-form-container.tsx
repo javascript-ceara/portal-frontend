@@ -39,6 +39,7 @@ export function PresentationFormContainer({
       form.reset();
       router.push("/my-presentations");
     } catch (err) {
+      console.log(err);
       toast("Algo deu errado.", {
         description: "Tente novamente",
       });

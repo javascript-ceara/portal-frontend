@@ -17,8 +17,6 @@ export async function updatePresentation(
       title: values.title,
       description: values.description,
       profile_id: user.user?.id || "",
-      phone: values.phone,
-      email: values.email,
     })
     .eq("id", id)
     .select()

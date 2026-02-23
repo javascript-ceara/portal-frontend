@@ -9,7 +9,12 @@ import {
 
 import { PresentationFormContainer } from "./_components/presentation-form-container";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
   const client = await createClient();
 
   const { data } = await client.auth.getUser();
@@ -18,8 +23,10 @@ export default async function Page({ params }: { params: { id: string } }) {
     .schema("public")
     .rpc("get_presentations")
     .eq("profile_id", data.user?.id || "")
-    .eq("id", Number(params.id))
+    .eq("id", Number(id))
     .single();
+
+  console.log(presentation);
 
   if (!presentation?.id) {
     return redirect(`/my-presentations/`);

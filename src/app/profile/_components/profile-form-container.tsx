@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { toast } from "sonner";
 import {
   ProfileForm,
   ProfileFormSection,
@@ -17,13 +18,11 @@ import {
   ProfileFormValues,
   useProfileForm,
 } from "@/components/profile-form";
-import { useToast } from "@/components/toaster/use-toast";
 import { useRouter } from "next/navigation";
 import { useProfile } from "@/contexts/profile";
 import { updateProfile } from "../_actions/update-profile";
 
 export function ProfileFormContainer() {
-  const { toast } = useToast();
   const { profile } = useProfile();
   const router = useRouter();
   const form = useProfileForm();
@@ -31,16 +30,12 @@ export function ProfileFormContainer() {
   const onSubmit = async (values: ProfileFormValues) => {
     try {
       await updateProfile(values);
-      toast({
-        title: "Dados atualizados.",
-      });
+      toast("Dados atualizados.");
 
       router.refresh();
     } catch {
-      toast({
-        title: "Erro efetuar login",
+      toast("Erro ao atualizar dados", {
         description: "Revise seus dados e tente novamente",
-        variant: "destructive",
       });
     }
   };
