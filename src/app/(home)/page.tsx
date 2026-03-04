@@ -143,7 +143,7 @@ export default async function Home() {
           <HighlightedEventFooter>
             <HighlightedEventSubscribe href={highlightedEvent?.subscribe_url} />
             <HighlightedEventSubmit
-              href={"/presentations/new"}
+              href={`/presentations/new?event_id=${highlightedEvent?.id}`}
               disabled={!highlightedEvent?.is_accepting_submissions}
             />
           </HighlightedEventFooter>
