@@ -23,10 +23,12 @@ import { useEffect } from "react";
 
 type PresentationFormContainerProps = {
   events: PresentationFormEventProps["options"];
+  initialEventId?: string;
 };
 
 export function PresentationFormContainer({
   events,
+  initialEventId,
 }: PresentationFormContainerProps) {
   const form = usePresentationForm();
   const router = useRouter();
@@ -48,7 +50,10 @@ export function PresentationFormContainer({
   useEffect(() => {
     form.setValue("email", profile?.email || "");
     form.setValue("phone", profile?.phone || "");
-  }, [profile]);
+    if (initialEventId) {
+      form.setValue("event", initialEventId);
+    }
+  }, [profile, initialEventId, form]);
 
   return (
     <PresentationForm {...form} onSubmit={onSubmit}>
