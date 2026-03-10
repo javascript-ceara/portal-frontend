@@ -9,7 +9,10 @@ import {
 import type { PresentationFormEventProps } from "@/components/presentation-form";
 import { PresentationFormContainer } from "./_components/presentation-form-container";
 
-export default async function Page() {
+export default async function Page(props: {
+  searchParams: Promise<{ event_id?: string }>;
+}) {
+  const searchParams = await props.searchParams;
   const client = await createClient();
 
   const { data: events } = await client
@@ -30,7 +33,10 @@ export default async function Page() {
         <SectionHeader>
           <SectionTitle>Enviar palestra</SectionTitle>
         </SectionHeader>
-        <PresentationFormContainer events={options} />
+        <PresentationFormContainer
+          events={options}
+          initialEventId={searchParams.event_id}
+        />
       </SectionContainer>
     </Section>
   );

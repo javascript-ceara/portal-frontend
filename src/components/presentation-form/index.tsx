@@ -108,7 +108,7 @@ function PresentationFormDescription({}) {
           <Textarea
             {...field}
             className="min-h-52"
-            placeholder="Dedscreva sua palestra aqui."
+            placeholder="Descreva sua palestra aqui."
           />
         );
       }}
